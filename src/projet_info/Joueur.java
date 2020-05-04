@@ -19,7 +19,7 @@ public class Personnage extends Unite {
 
 
 //DEFINITION DES CHAMPS
-public class Joueur extends Unité{
+public class Joueur extends Unite{
 	String nom;
 	int points_conquetes;
 	double experience; //en pourcentage
