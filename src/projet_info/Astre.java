@@ -1,7 +1,7 @@
 package projet_info;
 
 
-public class Astre extends Unité {
+public class Astre extends Unite {
 // DEFINITION DES CHAMPS
 	String nom; 
 	int taille;
