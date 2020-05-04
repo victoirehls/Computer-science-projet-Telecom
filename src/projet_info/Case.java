@@ -12,5 +12,9 @@ public class Case  {
 		this.unites = new ArrayList<Unite>();
     }
 	
+	void ajouterUnite(Unite unite) {
+		this.unites.add(unite);
+	}
+	
 }
 
