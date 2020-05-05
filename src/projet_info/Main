@@ -1,1 +1,16 @@
-wdxgfchgvjhbkunli
+package projet_info;
+
+public class Main {
+
+	public static void main(String[] args) {
+	
+		Joueur joueurtresmoche = new Joueur("Maïween", 2 , 3);
+		Joueur joueurtresbo = new Joueur("Otman", 2, 3);
+		Astre Owoh = new Astre("Sevran", 100, 10, 20, 30, 0.2);
+		Astre Guetto = new Astre("Evry", 150, 20, 10, 30, 0.2);
+		
+		
+		
+		System.out.println(joueurtresmoche.display (joueurtresmoche));
+		
+		
