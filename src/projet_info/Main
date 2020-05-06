@@ -1,16 +1,61 @@
 package projet_info;
 
+import javax.swing.JFrame;
 public class Main {
 
+//A voir: jeu mario: https://www.youtube.com/watch?v=yDNkC3PeIY0&list=PLDKRpuLSe0f_4YgSROSWf_3wsdXwqefw9&index=4
+//A FAIRE: METTRE DES GETTERS ET SETTERS DANS unite
+// et aussi télécharger 2 photos pour joueur et astre
+	public static Scene scene;
+
 	public static void main(String[] args) {
+		
+		//Creation fenetre de l'appli
+		JFrame fenetre = new JFrame("Space Game");
+		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		fenetre.setSize(1280, 830);
+		fenetre.setLocationRelativeTo(null);
+		fenetre.setResizable(false);
+		fenetre.setAlwaysOnTop(true);
+		
+		//création de la scene et association du conteneur à la fenêtre de départ
+		scene = new Scene();
+		fenetre.setContentPane(scene);
+		fenetre.setVisible(true); //à mettre à la fin
+	}
+
+	/*public void start(Stage primaryStage) { 
+		// création d'une division d'écran: https://java.developpez.com/faq/javafx?page=Mise-en-page
+		// ne fonctionne pas à cause du setScene...
+		final Label topLabel = new Label("Haut"); 
+		topLabel.setStyle("-fx-alignment: center; -fx-background-color: yellow;"); 
+		topLabel.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE); 
+		topLabel.setMinHeight(50); 
+		final Label rightLabel = new Label("Droite"); 
+		rightLabel.setStyle("-fx-alignment: center; -fx-background-color: pink;"); 
+		rightLabel.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE); 
+		rightLabel.setMinWidth(50); 
+		final Label bottomLabel = new Label("Bas"); 
+		bottomLabel.setStyle("-fx-alignment: center; -fx-background-color: limegreen;"); 
+		bottomLabel.setMinHeight(50); 
+		bottomLabel.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE); 
+		final Label leftLabel = new Label("Gauche"); 
+		leftLabel.setStyle("-fx-alignment: center; -fx-background-color: cyan;"); 
+		leftLabel.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE); 
+		leftLabel.setMinWidth(50); 
+		final Label centerLabel = new Label("Centre"); 
+		centerLabel.setStyle("-fx-alignment: center; -fx-background-color: white;"); 
+		centerLabel.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE); 
+		final BorderPane root = new BorderPane(); 
+		root.setTop(topLabel); 
+		root.setRight(rightLabel); 
+		root.setBottom(bottomLabel); 
+		root.setLeft(leftLabel); 
+		root.setCenter(centerLabel); 
+		primaryStage.setScene(scene);
+		primaryStage.show(); 
+	}   */
 	
-		Joueur joueurtresmoche = new Joueur("Maïween", 2 , 3);
-		Joueur joueurtresbo = new Joueur("Otman", 2, 3);
-		Astre Owoh = new Astre("Sevran", 100, 10, 20, 30, 0.2);
-		Astre Guetto = new Astre("Evry", 150, 20, 10, 30, 0.2);
-		
-		
-		
-		System.out.println(joueurtresmoche.display (joueurtresmoche));
-		
-		
+}
+
+
