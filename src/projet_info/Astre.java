@@ -1,5 +1,8 @@
 package projet_info;
 
+import javax.swing.ImageIcon;
+
+import java.awt.Image;
 
 public class Astre extends Unite {
 // DEFINITION DES CHAMPS
@@ -14,6 +17,8 @@ public class Astre extends Unite {
 	double taux_croissance; //taux de croissance de population
 	double population;
 	int population_max;
+	private Image imgAstre;
+	private ImageIcon icoAstre;
 
 //CONSTRUCTEUR
 	public Astre(String nom, int taille, int x, int y, int proportion, double taux) {
@@ -26,7 +31,15 @@ public class Astre extends Unite {
 		this.conquis = false;
 		this.taux_croissance = taux;
 		this.population_max = 1000*this.taille; //1000 arbitraire
+		this.icoAstre = new ImageIcon("uss-enterprise-400x300.jpg");
+		this.imgAstre = this.icoAstre.getImage();
 	}
+
+	
+//GETTER
+	@SuppressWarnings("exports")
+	public Image getImgAstre() {return imgAstre;}
+		
 	
 //METHODES
 	
@@ -50,5 +63,5 @@ public class Astre extends Unite {
 		tab[5] = "coordY : " + String.valueOf(a.coordY);
 		tab[6] = "point conquetes : " + String.valueOf(a.points_conquetes);
 		return tab;
-}
+	}	
 }
