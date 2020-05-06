@@ -1,1 +1,87 @@
+package projet_info;
+import javax.swing.ImageIcon;
+import projet_info.Astre;
+//import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Graphics2D;
+
+@SuppressWarnings("serial")
+public class Scene extends JPanel {
+	
+	//*** CREATION DES VARIABLES ***// mettre toutes les images ici, mettre aussi variables de déplacement des joueurs (xpos1 et 2)
+	private ImageIcon IcoFond;
+	private Image ImFond;
+	
+	private int xFond; // l'absc de l'image de fond
+	private int yFond;
+	private int dx;
+	private int dy; //deplacement vertical de l écran
+	private int xastre;
+	private int yastre;
+	
+	public Astre astre;
+	
+	public Personnage perso1;
+	public Personnage perso2;
+	
+	
+	//*** LE CONSTRUCTEUR ***//
+	
+	public Scene() {
+		
+		super(); // faire appel au constructeur de la super classe
+		this.xFond = 0; // commence par initialiser les variables position
+		this.yFond = 0;
+		this.xastre = 500;
+		this.yastre = 500;
+		this.dx = 0;
+		this.dy = 0;
+		IcoFond = new ImageIcon(getClass().getResource("/projet_info/IMAGES/Fond_espace2.jpg"));
+		this.ImFond = this.IcoFond.getImage();
+        
+		astre = new Astre("ASTRE1",1000,300,200,1,1.0); //il faut faire une boucle pour créer toutes les étoiles
+		
+		this.setFocusable(true);
+		this.requestFocusInWindow();
+		this.addKeyListener(new Clavier()); //pour écouter le clavier 
+		//creation d une instance du chrono
+		Thread chronoEcran = new Thread(new Chrono());
+		chronoEcran.start();
+		
+	}
+	
+	//*** GETTERS SETTERS ****// Pour les générer: clic droit, source, generate getters
+	
+	public int getDx() {return dx;} // pour accéder à la valeur de dx
+	public void setDx(int dx) {this.dx = dx;} // pour la modifier
+	public int getDy() {return dy;}
+	public void setDy(int dy) {this.dy = dy;}
+	public int getxFond() {return xFond;}
+	public void setxFond(int xFond) {this.xFond = xFond;}
+	public int getyFond() {return yFond;}
+	public void setyFond(int yFond) {this.yFond = yFond;}
+
+	
+	//*** LES METHODES ***//
+	
+	public void Deplacmtfond() {
+		this.xFond += this.dx;
+		this.yFond += this.dy;
+		//on bouge l ecran avec des touches d ordi
+	}
+
+	@SuppressWarnings("exports")
+	public void paintComponent(Graphics g) {  //méthode qui gère la peinture de l'écran
+		super.paintComponent(g);
+		Graphics gc = (Graphics2D)g;
+		this.Deplacmtfond();
+		gc.drawImage(this.ImFond, this.xFond, this.yFond, null);
+		gc.drawImage(this.astre.getImgAstre(),this.xastre,this.yastre,null); 
+	}
+	
+
+}
 
