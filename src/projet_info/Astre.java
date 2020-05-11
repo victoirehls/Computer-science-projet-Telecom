@@ -2,14 +2,12 @@ package projet_info;
 
 import javax.swing.ImageIcon;
 
-import java.awt.Image;
-
 public class Astre extends Unite {
 // DEFINITION DES CHAMPS
 	String nom; 
 	int taille;
-	int coordX;
-	int coordY;
+	int x;
+	int y;
 	int points_conquetes;
 	boolean conquis; //statut de l'astre dÃ©terminant si le territoire est conquis
 	int proportion_conquete; //facteur proportionnel qui donne le nombre de points_conquÃªtes en fonction de sa taille
@@ -17,28 +15,25 @@ public class Astre extends Unite {
 	double taux_croissance; //taux de croissance de population
 	double population;
 	int population_max;
-	private Image imgAstre;
-	private ImageIcon icoAstre;
+	//private Image imgAstre;
+	//private ImageIcon icoAstre;
 
 //CONSTRUCTEUR
 	public Astre(String nom, int taille, int x, int y, int proportion, double taux) {
+		super(x,y,30,30); //faut mettre une fonction pour mettre la taille à jour
 		this.nom = nom;
-		this.taille = taille;
-		this.coordX = x;
-		this.coordY = y;
 		this.proportion_conquete = proportion;
 		this.points_conquetes = taille *proportion;
 		this.conquis = false;
 		this.taux_croissance = taux;
 		this.population_max = 1000*this.taille; //1000 arbitraire
-		this.icoAstre = new ImageIcon("uss-enterprise-400x300.jpg");
-		this.imgAstre = this.icoAstre.getImage();
+		super.icoObj = new ImageIcon(getClass().getResource("/images/étoile.jpg")); //
+		super.imgObj = this.icoObj.getImage(); //
 	}
 
 	
 //GETTER
-	@SuppressWarnings("exports")
-	public Image getImgAstre() {return imgAstre;}
+	//public Image getImgAstre() {return imgAstre;}
 		
 	
 //METHODES
@@ -53,7 +48,7 @@ public class Astre extends Unite {
 			a.population = a.population_max;}
 		}
 	
-	public String[] displayastre(Astre a ){
+	/*public String[] displayastre(Astre a ){
 		String tab[] = new String[7];
 		tab[0] = "nom : " + a.nom;
 		tab[1] = " taille : " + String.valueOf(a.taille);
@@ -63,5 +58,5 @@ public class Astre extends Unite {
 		tab[5] = "coordY : " + String.valueOf(a.coordY);
 		tab[6] = "point conquetes : " + String.valueOf(a.points_conquetes);
 		return tab;
-	}	
+	}	*/
 }
