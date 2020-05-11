@@ -1,6 +1,5 @@
 package projet_info;
 
-import java.awt.Image;
 import javax.swing.ImageIcon;
 
 
@@ -12,27 +11,28 @@ import javax.swing.ImageIcon;
 		int niveau; // entier compris entre 1 et 3
 		String[] territoires;// on mettra un tableau extensible par la suite
 		int tour; //compte le nombre de tours de la partie
-		double[] coordonnees;
-		private Image imgJoueur;
-		private ImageIcon icoJoueur;
+		//double[] coordonnees;
+		//private Image imgJoueur;
+		//private ImageIcon icoJoueur;
 
 		
 	//CONSTRUCTEUR
-		public Joueur(String nom, double x, double y) {
+		public Joueur(String nom, int x, int y) {
+			super(x,y,30,30);
 			this.nom = nom;
 			this.points_conquetes = 0; //on initialise tout à 0 pour l'instant
 			this.niveau = 1;
 			this.experience = 0;
-			this.coordonnees[0] = x; //initialisation des coordonnées de chaque joueur
-			this.coordonnees[1] = y;
+			//this.coordonnees[0] = x; //initialisation des coordonnées de chaque joueur
+			//this.coordonnees[1] = y;
 			this.territoires = new String[100]; // on prend un "grand " tableau pour l'instant pour éviter d'utiliser les tableaux exte
-			this.icoJoueur = new ImageIcon("chemin.png");
-			this.imgJoueur = this.icoJoueur.getImage();
+			super.icoObj = new ImageIcon(getClass().getResource("/images/vaisseau.png")); //
+			super.imgObj = this.icoObj.getImage(); //
 		}
 	
 	//GETTER
-		@SuppressWarnings("exports")
-		public Image getImgJoueur() {return imgJoueur;}
+		//public Image getImgJoueur() {return imgJoueur;}
+		
 		
 		
 	//METHODES
@@ -44,7 +44,7 @@ import javax.swing.ImageIcon;
 			j.points_conquetes = j.points_conquetes - a.points_conquetes;
 		}
 		
-		public void deplacer(Joueur j, int x) { //on considère le pavé de déplacement 5123
+		/*public void deplacer(Joueur j, int x) { //on considère le pavé de déplacement 5123
 			if(x==1) {
 				j.coordonnees[0] += -1;
 			}
@@ -57,7 +57,7 @@ import javax.swing.ImageIcon;
 			if(x==5) {
 				j.coordonnees[1] += 1;
 			}
-		}
+		}*/
 		
 		public int compter_territoires (Joueur j) {
 			int m = 0;
@@ -81,7 +81,7 @@ import javax.swing.ImageIcon;
 			// rajouter l'experience au joueur	
 		}
 		
-		public void attaquer(Joueur j1, Joueur j2, Astre a) {
+		/*public void attaquer(Joueur j1, Joueur j2, Astre a) {
 			System.out.println("Le joueur" + j1.nom + " attaque l'astre " + a.nom + "de" + j2.nom);
 			if ((j1.points_conquetes >= a.points_conquetes) || (a.coordX == j1.coordonnees[0]) || (a.coordY == j1.coordonnees[1])) {
 				conquerir (j1, a); 
@@ -99,7 +99,7 @@ import javax.swing.ImageIcon;
 				
 			}	
 			}
-		
+		*/
 		
 		
 		public void evoluer(Joueur j) { //correspond au changement de niveau
@@ -116,7 +116,7 @@ import javax.swing.ImageIcon;
 			//String tab[] = { "nom : " + j.nom, " niveau : " + String.valueOf(j.niveau), "experience : " + String.valueOf(j.experience), "coordonnees : " + String.valueOf(j.coordonnees), "tour : " +String.valueOf(j.tour), "point conquetes : " + String.valueOf(j.points_conquetes) };
 			// return tab;
 		}
-		public String[] display(Joueur j){
+		/*public String[] display(Joueur j){
 		String tab[] = new String[6];
 		tab[0] = "nom : " + j.nom;
 		tab[1] = " niveau : " + String.valueOf(j.niveau);
@@ -127,7 +127,7 @@ import javax.swing.ImageIcon;
 		return tab;
 		//for(int i=0 ; i <= tab.length ; i++){
 			//return(tab[i]);
-		}
+		}  */
 
 	}
 
