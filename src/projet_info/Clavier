@@ -11,22 +11,31 @@ public class Clavier implements KeyListener{
 	@SuppressWarnings("exports")
 	public void keyPressed(KeyEvent e) {    //penser qu'il faudra déplacer tous les éléments graphiques!!
 		if(e.getKeyCode() == KeyEvent.VK_RIGHT) { //si le code de la touche = touche fleche vers la droite
-			if(Main.scene.getxFond() > -2590+1280) { Main.scene.setDx(-20);}
+			if(Main.scene.getxFond() > -2590+1280) { 
+				Main.scene.setDx(-20);
+				Main.scene.setDxrect1(-20);}    //
 		}else if(e.getKeyCode() == KeyEvent.VK_LEFT) {
-			if(Main.scene.getxFond() < 0) { Main.scene.setDx(20);}
+			if(Main.scene.getxFond() < 0) { 
+				Main.scene.setDx(20);
+				Main.scene.setDxrect1(20);}     //
 		}else if(e.getKeyCode() == KeyEvent.VK_UP) {
-			if(Main.scene.getyFond() < 0) {Main.scene.setDy(20);}
+			if(Main.scene.getyFond() < 0) {
+				Main.scene.setDy(20);
+				Main.scene.setDyrect1(20);}     //
 		}else if(e.getKeyCode() == KeyEvent.VK_DOWN) {
-			if(Main.scene.getyFond() > -1920+830) {Main.scene.setDy(-20);}	
+			if(Main.scene.getyFond() > -1920+830) {
+				Main.scene.setDy(-20);
+				Main.scene.setDyrect1(-20);}	//
 		}
 	}
 	@SuppressWarnings("exports")
 	public void keyReleased(KeyEvent e) {
 		Main.scene.setDx(0); // quand on lache la touche, on veut que dx revienne à 0
 		Main.scene.setDy(0);
+		Main.scene.setDxrect1(0);  //
+		Main.scene.setDyrect1(0);  //
 	}
 	@SuppressWarnings("exports")
 	public void keyTyped(KeyEvent e) {}
 
 }
-
