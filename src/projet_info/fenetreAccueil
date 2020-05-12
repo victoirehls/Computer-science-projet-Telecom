@@ -1,0 +1,74 @@
+package projet_info;
+
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+public class fenetreAccueil extends JFrame implements ActionListener {
+	
+	private JPanel container = new JPanel();
+	private int compteur = 0;
+	private JLabel label = new JLabel("Vous avez cliqué");
+	private JButton jouer = new JButton("Jouer");
+	private JButton param = new JButton("Paramètres");
+	private JButton aide = new JButton("Aide");
+	
+	public fenetreAccueil() {
+		this.setTitle("Menu principal");
+		this.setSize(600, 600);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setLocationRelativeTo(null);
+		
+		this.container = new Accueil();
+		this.setFocusable(true);
+		this.requestFocusInWindow();
+		
+		
+		container.setLayout(new FlowLayout());
+		
+		
+		container.add(jouer);
+		jouer.addActionListener(this);
+		
+		container.add(param);
+		param.addActionListener(this);
+		
+		container.add(aide);
+		aide.addActionListener(this);
+		
+		label.setForeground(Color.WHITE);
+		container.add(label);
+		
+		this.setContentPane(container);
+		this.setVisible(true);
+		
+	}
+
+	
+	public void actionPerformed(ActionEvent arg0) { 
+		 if(arg0.getSource() == jouer) {
+			 this.setVisible(false);
+		 	 JFrame jouer = new FenNomsJoueurs();
+		 	 jouer.setVisible(true);
+		 }
+		 
+		 
+
+		 if(arg0.getSource() == param)
+			    label.setText("Vous avez cliqué sur le bouton paramètres");
+		 
+		 if(arg0.getSource() == aide)
+			    label.setText("Vous avez cliqué sur le bouton aide");
+		 
+		
+		 
+
+	  } 
+}
+
