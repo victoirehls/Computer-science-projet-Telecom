@@ -1,6 +1,15 @@
 package projet_info;
 
+import java.awt.BorderLayout;
+import java.awt.LayoutManager;
+import java.io.File;
+
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 public class Main {
 
 //A voir: jeu mario: https://www.youtube.com/watch?v=yDNkC3PeIY0&list=PLDKRpuLSe0f_4YgSROSWf_3wsdXwqefw9&index=4
@@ -9,6 +18,7 @@ public class Main {
 	public static Scene scene;
 
 	public static void main(String[] args) {
+		
 		
 		//Creation fenetre de l'appli
 		JFrame fenetre = new JFrame("Space Game");
@@ -19,43 +29,67 @@ public class Main {
 		fenetre.setAlwaysOnTop(true);
 		
 		//création de la scene et association du conteneur à la fenêtre de départ
+		//fenetre.setContentPane(scene);
+		
+		
 		scene = new Scene();
-		fenetre.setContentPane(scene);
-		fenetre.setVisible(true); //à mettre à la fin
-	}
+		fenetre.setLayout(new BorderLayout());
+		
+		JPanel J1 = new JPanel();
+		J1.setLayout(new BoxLayout(J1, BoxLayout.PAGE_AXIS));
+		J1.add(new JLabel("joueur 1"));
+	    J1.add(new JLabel("Points conquêtes : " ));
+	    J1.add(new JLabel("Niveau : " ));
+	    J1.add(new JLabel("Expérience : " ));
+		J1.add(new JButton("avancer"));
+	    J1.add(new JButton("attaquer"));
 
-	/*public void start(Stage primaryStage) { 
-		// création d'une division d'écran: https://java.developpez.com/faq/javafx?page=Mise-en-page
-		// ne fonctionne pas à cause du setScene...
-		final Label topLabel = new Label("Haut"); 
-		topLabel.setStyle("-fx-alignment: center; -fx-background-color: yellow;"); 
-		topLabel.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE); 
-		topLabel.setMinHeight(50); 
-		final Label rightLabel = new Label("Droite"); 
-		rightLabel.setStyle("-fx-alignment: center; -fx-background-color: pink;"); 
-		rightLabel.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE); 
-		rightLabel.setMinWidth(50); 
-		final Label bottomLabel = new Label("Bas"); 
-		bottomLabel.setStyle("-fx-alignment: center; -fx-background-color: limegreen;"); 
-		bottomLabel.setMinHeight(50); 
-		bottomLabel.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE); 
-		final Label leftLabel = new Label("Gauche"); 
-		leftLabel.setStyle("-fx-alignment: center; -fx-background-color: cyan;"); 
-		leftLabel.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE); 
-		leftLabel.setMinWidth(50); 
-		final Label centerLabel = new Label("Centre"); 
-		centerLabel.setStyle("-fx-alignment: center; -fx-background-color: white;"); 
-		centerLabel.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE); 
-		final BorderPane root = new BorderPane(); 
-		root.setTop(topLabel); 
-		root.setRight(rightLabel); 
-		root.setBottom(bottomLabel); 
-		root.setLeft(leftLabel); 
-		root.setCenter(centerLabel); 
-		primaryStage.setScene(scene);
-		primaryStage.show(); 
-	}   */
+	    JPanel J2 = new JPanel();
+		J2.setLayout(new BoxLayout(J2, BoxLayout.PAGE_AXIS));
+		J2.add(new JLabel("joueur 2"));
+	    J2.add(new JLabel("Points conquêtes : " ));
+	    J2.add(new JLabel("Niveau : "));
+	    J2.add(new JLabel("Expérience : " ));
+	    J2.add(new JButton("avancer"));
+	    J2.add(new JButton("attaquer"));
+	    
+	    fenetre.add(new JLabel("tour"),BorderLayout.NORTH);
+        fenetre.add(J2, BorderLayout.EAST);
+        fenetre.add(new JButton(""), BorderLayout.SOUTH);
+        fenetre.add(J1, BorderLayout.WEST);
+        fenetre.add(scene, BorderLayout.CENTER);
+        
+		
+	    
+	    fenetre.setVisible(true); //à mettre à la fin 
+		
+		//Creation fenetre de l'appli
+		//JFrame fenetre = new Fenetre();
+	
+		
+		//JFrame acc = new fenetreAccueil();
+		
+		//JFrame NomsJoueur = new FenNomsJoueurs();
+		
+	
+	
+		
+		/*//test accueil
+		JPanel acc = new Accueil();
+		fenetre.setContentPane(acc);
+		fenetre.setVisible(true); //à mettre à la fin */
+		
+		/* //test nomsjoueurs
+		JPanel entrerjoueur = new NomsJoueurs();
+		fenetre.setContentPane(entrerjoueur);
+		fenetre.setVisible(true); */
+		
+		
+	}
+	
+	
+
+
 	
 }
-
 
