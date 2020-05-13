@@ -1,0 +1,56 @@
+package projet_info;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel; 
+
+public class Fenetre extends JFrame{
+	
+	private String joueur1;
+	private String joueur2;
+	private JLabel lab1;
+	private JLabel lab2;
+	private int tour;
+	private JLabel lab3;
+
+	
+	  public Fenetre(){
+		  this.setTitle("Space Game");
+			this.setSize(1200, 750);
+			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			this.setLocationRelativeTo(null);
+			
+			this.setFocusable(true);
+			this.requestFocusInWindow();
+			
+			this.joueur1 = FenNomsJoueurs.getJTextField1();
+			this.lab1 = new JLabel(joueur1);
+			
+			this.joueur2 = FenNomsJoueurs.getJTextField2();
+			this.lab2 = new JLabel(joueur2);
+			
+			this.tour = Joueur.getTour();
+			this.lab3 = new JLabel("Tour n°" + Integer.toString(tour));
+	
+			
+			this.setLayout(new BorderLayout());
+			
+
+	        this.add(lab3,BorderLayout.NORTH);
+	        this.add(lab2, BorderLayout.EAST);
+	        this.add(new JButton(""), BorderLayout.SOUTH);
+	        this.add(lab1, BorderLayout.WEST);
+	        //this.add(new Scene(), BorderLayout.CENTER);
+	        
+	       
+	        this.setVisible(true);
+
+		    
+		  }      
+		}
