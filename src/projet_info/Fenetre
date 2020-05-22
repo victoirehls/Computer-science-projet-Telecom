@@ -3,6 +3,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -33,7 +34,12 @@ public class Fenetre extends JFrame implements ActionListener{
 	private JButton gauche2 = new JButton("Gauche");
 	private JButton droite2 = new JButton("Droite");
 	private JButton attaquer2 = new JButton("ATTAQUER");
+	
+	
 	//private JPanel scene = new Scene();
+	
+	private JLabel boutonhaut = new JLabel("");
+	
 	
 
 	
@@ -56,12 +62,24 @@ public class Fenetre extends JFrame implements ActionListener{
 			
 			this.joueur1 = FenNomsJoueurs.getJTextField1();
 			this.lab1 = new JLabel(joueur1);
+			lab1.setForeground(Color.blue);  
+			lab1.setHorizontalAlignment(JLabel.CENTER);
+			
+			
 			
 			this.joueur2 = FenNomsJoueurs.getJTextField2();
 			this.lab2 = new JLabel(joueur2);
+			lab2.setForeground(Color.blue);  
+			lab2.setHorizontalAlignment(JLabel.CENTER);
+			
 			
 			this.tour = Joueur.getTour();
 			this.lab3 = new JLabel("Tour n°" + Integer.toString(tour));
+			
+			Font police = new Font("Tahoma", Font.BOLD, 16);  
+			lab3.setFont(police);  
+			lab3.setForeground(Color.blue);  
+			lab3.setHorizontalAlignment(JLabel.CENTER);
 			
 			
 			//Mettre en écoute les boutons
@@ -94,6 +112,7 @@ public class Fenetre extends JFrame implements ActionListener{
 			J1.add(gauche1);
 			J1.add(droite1);
 		    J1.add(attaquer1);
+		    J1.add(boutonhaut);
 	
 		    JPanel J2 = new JPanel();
 			J2.setLayout(new BoxLayout(J2, BoxLayout.PAGE_AXIS));
@@ -107,30 +126,7 @@ public class Fenetre extends JFrame implements ActionListener{
 			J2.add(droite2);
 		    J2.add(attaquer2);
 			
-			//On définit le layout en lui indiquant qu'il travaillera en ligne
-		    
-			
-		 
-
-		    /*JPanel J3 = new JPanel();
-		    //On positionne maintenant ces trois lignes en colonne
-		    J3.setLayout(new BoxLayout(J3, BoxLayout.PAGE_AXIS));
-		    J3.add(J1);
-		    J3.add(J2);*/
-		   
-		    /*Box b3 = Box.createHorizontalBox();
-		    conq = new JLabel(Integer.toString(Joueur.getPoints_conquetes()));
-		    niveau = new JLabel(Integer.toString(Joueur.getNiveau()));
-		    exp = new JLabel(Double.toString(Joueur.getExperience()));
-		    b3.add(conq);
-		    b3.add(exp);
-		    b3.add(niveau);
-		   
-		    //On crée un conteneur avec gestion verticale
-		    Box b4 = Box.createVerticalBox();
-		    b4.add(b1);
-		    b4.add(b2);
-		    //b4.add(b3); */
+		
 
 
 	        this.add(lab3,BorderLayout.NORTH);
@@ -144,7 +140,11 @@ public class Fenetre extends JFrame implements ActionListener{
 		  } 
 	  
 		public void actionPerformed(ActionEvent arg0) { 
-			 if(arg0.getSource() == haut1) { }
+			 if(arg0.getSource() == haut1) {
+				 boutonhaut.setText("joueur1 va vers le haut");
+				 
+				 
+			 }
 			 if(arg0.getSource() == haut2) { }
 			 if(arg0.getSource() == bas1) { }
 			 if(arg0.getSource() == bas2) { }
