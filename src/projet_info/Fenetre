@@ -23,45 +23,46 @@ public class Fenetre extends JFrame implements ActionListener{
 	private int tour;
 	private JLabel lab3;
 	
+	private Joueur j1;
+	private Joueur j2;
+	
 	private JButton haut1 = new JButton("Haut");
 	private JButton bas1 = new JButton("Bas");
 	private JButton gauche1 = new JButton("Gauche");
 	private JButton droite1 = new JButton("Droite");
 	private JButton attaquer1 = new JButton("ATTAQUER");
+	private JButton finirtour1 = new JButton("Finir son tour");
 	
 	private JButton haut2 = new JButton("Haut");
 	private JButton bas2 = new JButton("Bas");
 	private JButton gauche2 = new JButton("Gauche");
 	private JButton droite2 = new JButton("Droite");
 	private JButton attaquer2 = new JButton("ATTAQUER");
+	private JButton finirtour2 = new JButton("Finir son tour");
 	
 	
-	//private JPanel scene = new Scene();
-	
-	private JLabel boutonhaut = new JLabel("");
 	
 	
+	public static Scene scene = new Scene();
 
 	
 	  public Fenetre(){
 		 
-		  	super("Space Game");
-			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			super();
+			this.setTitle("Scene principale");
 			this.setSize(1280, 830);
+			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			this.setLocationRelativeTo(null);
 			this.setResizable(false);
 			this.setAlwaysOnTop(true);
+			this.setContentPane(scene);
 			
-			//création de la scene et association du conteneur à la fenêtre de départ
-			//JPanel scene = new Scene();
-			//this.setContentPane(scene);
-			this.setVisible(true); //à mettre à la fin 
-		  	
-			this.setFocusable(true);
-			this.requestFocusInWindow();
-			
+		
 			this.joueur1 = FenNomsJoueurs.getJTextField1();
+			Joueur.setNom(joueur1);
 			this.lab1 = new JLabel(joueur1);
+			Font police = new Font("Tahoma", Font.BOLD, 16); 
+			lab1.setFont(police);
 			lab1.setForeground(Color.blue);  
 			lab1.setHorizontalAlignment(JLabel.CENTER);
 			
@@ -69,18 +70,21 @@ public class Fenetre extends JFrame implements ActionListener{
 			
 			this.joueur2 = FenNomsJoueurs.getJTextField2();
 			this.lab2 = new JLabel(joueur2);
+			lab2.setFont(police);
 			lab2.setForeground(Color.blue);  
 			lab2.setHorizontalAlignment(JLabel.CENTER);
 			
 			
 			this.tour = Joueur.getTour();
-			this.lab3 = new JLabel("Tour n°" + Integer.toString(tour));
+			this.lab3 = new JLabel("Tour n°" + Integer.toString(tour) + " - A " + joueur1 + " de jouer");
 			
-			Font police = new Font("Tahoma", Font.BOLD, 16);  
-			lab3.setFont(police);  
-			lab3.setForeground(Color.blue);  
+			//Font police = new Font("Tahoma", Font.BOLD, 16);  
+			Font police1 = new Font("Tahoma", Font.BOLD, 20); 
+			lab3.setFont(police1);  
+			lab3.setForeground(Color.RED);  
 			lab3.setHorizontalAlignment(JLabel.CENTER);
-			
+			lab3.setOpaque(true);
+			lab3.setBackground(Color.BLACK);
 			
 			//Mettre en écoute les boutons
 			
@@ -94,12 +98,9 @@ public class Fenetre extends JFrame implements ActionListener{
 			droite2.addActionListener(this);
 			attaquer1.addActionListener(this);
 			attaquer2.addActionListener(this);
-			
+			finirtour1.addActionListener(this);
+			finirtour2.addActionListener(this);
 	
-			
-			this.setLayout(new BorderLayout());
-			
-		
 			
 			JPanel J1 = new JPanel();
 			J1.setLayout(new BoxLayout(J1, BoxLayout.PAGE_AXIS));
@@ -112,7 +113,7 @@ public class Fenetre extends JFrame implements ActionListener{
 			J1.add(gauche1);
 			J1.add(droite1);
 		    J1.add(attaquer1);
-		    J1.add(boutonhaut);
+		    J1.add(finirtour1);
 	
 		    JPanel J2 = new JPanel();
 			J2.setLayout(new BoxLayout(J2, BoxLayout.PAGE_AXIS));
@@ -125,23 +126,24 @@ public class Fenetre extends JFrame implements ActionListener{
 			J2.add(gauche2);
 			J2.add(droite2);
 		    J2.add(attaquer2);
+		    J2.add(finirtour2);
 			
-		
 
-
+			
+			this.setLayout(new BorderLayout());
+	
 	        this.add(lab3,BorderLayout.NORTH);
 	        this.add(J2, BorderLayout.EAST);
-	        this.add(new JButton("aide"), BorderLayout.SOUTH);
 	        this.add(J1, BorderLayout.WEST);
-	        this.add(new Accueil(), BorderLayout.CENTER);
-	        
+
+	    	
+			this.setVisible(true); //à mettre à la fin 
 	  
 		    
 		  } 
 	  
 		public void actionPerformed(ActionEvent arg0) { 
 			 if(arg0.getSource() == haut1) {
-				 boutonhaut.setText("joueur1 va vers le haut");
 				 
 				 
 			 }
@@ -153,7 +155,19 @@ public class Fenetre extends JFrame implements ActionListener{
 			 if(arg0.getSource() == droite1) { }
 			 if(arg0.getSource() == droite2) { }
 			 if(arg0.getSource() == attaquer1) { }
-			 if(arg0.getSource() == attaquer2) { } }
+			 if(arg0.getSource() == attaquer2) { }
+			 if(arg0.getSource() == finirtour1) { 
+				 
+			 }
+			 if(arg0.getSource() == finirtour1) {
+				 lab3.setText("Tour n°" + Integer.toString(Joueur.getTour()) + " - A " + joueur2 + " de jouer"); 
+			 }
+			 
+			 if(arg0.getSource() == finirtour2) {
+				 Joueur.passer_tour();
+				 lab3.setText("Tour n°" + Integer.toString(Joueur.getTour()) + " - A " + joueur1 +" de jouer"); 
+			 }
+			 }
 }
 
 			
