@@ -1,6 +1,5 @@
 package projet_info;
 
-import java.awt.BorderLayout;
 import java.awt.LayoutManager;
 import java.io.File;
 
@@ -15,81 +14,19 @@ public class Main {
 //A voir: jeu mario: https://www.youtube.com/watch?v=yDNkC3PeIY0&list=PLDKRpuLSe0f_4YgSROSWf_3wsdXwqefw9&index=4
 //A FAIRE: METTRE DES GETTERS ET SETTERS DANS unite
 // et aussi télécharger 2 photos pour joueur et astre
-	public static Scene scene;
+	
 
 	public static void main(String[] args) {
-		
-		
-		//Creation fenetre de l'appli
-		/*JFrame fenetre = new JFrame("Space Game");
-		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		fenetre.setSize(1280, 830);
-		fenetre.setLocationRelativeTo(null);
-		fenetre.setResizable(false);
-		fenetre.setAlwaysOnTop(true);
-		
-		//création de la scene et association du conteneur à la fenêtre de départ
-		JPanel scene = new Scene();
-		fenetre.setContentPane(scene);
-		
-		fenetre.setVisible(true);*/
-		
-		
-		/*scene = new Scene();
-		fenetre.setLayout(new BorderLayout());
-		
-		JPanel J1 = new JPanel();
-		J1.setLayout(new BoxLayout(J1, BoxLayout.PAGE_AXIS));
-		J1.add(new JLabel("joueur 1"));
-	    J1.add(new JLabel("Points conquêtes : " ));
-	    J1.add(new JLabel("Niveau : " ));
-	    J1.add(new JLabel("Expérience : " ));
-		J1.add(new JButton("avancer"));
-	    J1.add(new JButton("attaquer"));
-
-	    JPanel J2 = new JPanel();
-		J2.setLayout(new BoxLayout(J2, BoxLayout.PAGE_AXIS));
-		J2.add(new JLabel("joueur 2"));
-	    J2.add(new JLabel("Points conquêtes : " ));
-	    J2.add(new JLabel("Niveau : "));
-	    J2.add(new JLabel("Expérience : " ));
-	    J2.add(new JButton("avancer"));
-	    J2.add(new JButton("attaquer"));
-	    
-	    fenetre.add(new JLabel("tour"),BorderLayout.NORTH);
-        fenetre.add(J2, BorderLayout.EAST);
-        fenetre.add(new JButton(""), BorderLayout.SOUTH);
-        fenetre.add(J1, BorderLayout.WEST);
-        fenetre.add(scene, BorderLayout.CENTER);*/
-        
-		
-		
-		//Creation fenetre de l'appli
+	
 		//JFrame fenetre = new Fenetre();
 	
-		
 		//JFrame acc = new fenetreAccueil();
 		
 		JFrame NomsJoueur = new FenNomsJoueurs();
 		
-	
-	
-		
-		/*//test accueil
-		JPanel acc = new Accueil();
-		fenetre.setContentPane(acc);
-		fenetre.setVisible(true); //à mettre à la fin */
-		
-		/* //test nomsjoueurs
-		JPanel entrerjoueur = new NomsJoueurs();
-		fenetre.setContentPane(entrerjoueur);
-		fenetre.setVisible(true); */
-		
+		//JFrame scene = new FenScene();
 		
 	}
-	
-	
-
 
 	
 }
