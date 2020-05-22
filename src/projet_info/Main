@@ -21,7 +21,7 @@ public class Main {
 		
 		
 		//Creation fenetre de l'appli
-		JFrame fenetre = new JFrame("Space Game");
+		/*JFrame fenetre = new JFrame("Space Game");
 		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		fenetre.setSize(1280, 830);
 		fenetre.setLocationRelativeTo(null);
@@ -29,10 +29,13 @@ public class Main {
 		fenetre.setAlwaysOnTop(true);
 		
 		//création de la scene et association du conteneur à la fenêtre de départ
-		//fenetre.setContentPane(scene);
+		JPanel scene = new Scene();
+		fenetre.setContentPane(scene);
+		
+		fenetre.setVisible(true);*/
 		
 		
-		scene = new Scene();
+		/*scene = new Scene();
 		fenetre.setLayout(new BorderLayout());
 		
 		JPanel J1 = new JPanel();
@@ -57,11 +60,9 @@ public class Main {
         fenetre.add(J2, BorderLayout.EAST);
         fenetre.add(new JButton(""), BorderLayout.SOUTH);
         fenetre.add(J1, BorderLayout.WEST);
-        fenetre.add(scene, BorderLayout.CENTER);
+        fenetre.add(scene, BorderLayout.CENTER);*/
         
 		
-	    
-	    fenetre.setVisible(true); //à mettre à la fin 
 		
 		//Creation fenetre de l'appli
 		//JFrame fenetre = new Fenetre();
@@ -69,7 +70,7 @@ public class Main {
 		
 		//JFrame acc = new fenetreAccueil();
 		
-		//JFrame NomsJoueur = new FenNomsJoueurs();
+		JFrame NomsJoueur = new FenNomsJoueurs();
 		
 	
 	
