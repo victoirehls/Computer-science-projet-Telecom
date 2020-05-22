@@ -3,14 +3,17 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel; 
 
-public class Fenetre extends JFrame{
+public class Fenetre extends JFrame implements ActionListener{
 	
 	private String joueur1;
 	private String joueur2;
@@ -18,14 +21,36 @@ public class Fenetre extends JFrame{
 	private JLabel lab2;
 	private int tour;
 	private JLabel lab3;
+	
+	private JButton haut1 = new JButton("Haut");
+	private JButton bas1 = new JButton("Bas");
+	private JButton gauche1 = new JButton("Gauche");
+	private JButton droite1 = new JButton("Droite");
+	private JButton attaquer1 = new JButton("ATTAQUER");
+	
+	private JButton haut2 = new JButton("Haut");
+	private JButton bas2 = new JButton("Bas");
+	private JButton gauche2 = new JButton("Gauche");
+	private JButton droite2 = new JButton("Droite");
+	private JButton attaquer2 = new JButton("ATTAQUER");
+	//private JPanel scene = new Scene();
+	
 
 	
 	  public Fenetre(){
-		  this.setTitle("Space Game");
-			this.setSize(1200, 750);
+		 
+		  	super("Space Game");
 			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			this.setSize(1280, 830);
 			this.setLocationRelativeTo(null);
+			this.setResizable(false);
+			this.setAlwaysOnTop(true);
 			
+			//création de la scene et association du conteneur à la fenêtre de départ
+			//JPanel scene = new Scene();
+			//this.setContentPane(scene);
+			this.setVisible(true); //à mettre à la fin 
+		  	
 			this.setFocusable(true);
 			this.requestFocusInWindow();
 			
@@ -37,20 +62,100 @@ public class Fenetre extends JFrame{
 			
 			this.tour = Joueur.getTour();
 			this.lab3 = new JLabel("Tour n°" + Integer.toString(tour));
+			
+			
+			//Mettre en écoute les boutons
+			
+			haut1.addActionListener(this);
+			haut2.addActionListener(this);
+			bas1.addActionListener(this);
+			bas2.addActionListener(this);
+			gauche1.addActionListener(this);
+			gauche2.addActionListener(this);
+			droite1.addActionListener(this);
+			droite2.addActionListener(this);
+			attaquer1.addActionListener(this);
+			attaquer2.addActionListener(this);
+			
 	
 			
 			this.setLayout(new BorderLayout());
 			
+		
+			
+			JPanel J1 = new JPanel();
+			J1.setLayout(new BoxLayout(J1, BoxLayout.PAGE_AXIS));
+			J1.add(lab1);
+		    J1.add(new JLabel("Points conquêtes : " + Integer.toString(Joueur.getPoints_conquetes())));
+		    J1.add(new JLabel("Niveau : " + Integer.toString(Joueur.getNiveau())));
+		    J1.add(new JLabel("Expérience : " + Double.toString(Joueur.getExperience())));
+			J1.add(haut1);
+			J1.add(bas1);
+			J1.add(gauche1);
+			J1.add(droite1);
+		    J1.add(attaquer1);
+	
+		    JPanel J2 = new JPanel();
+			J2.setLayout(new BoxLayout(J2, BoxLayout.PAGE_AXIS));
+			J2.add(lab2);
+		    J2.add(new JLabel("Points conquêtes : " + Integer.toString(Joueur.getPoints_conquetes())));
+		    J2.add(new JLabel("Niveau : " + Integer.toString(Joueur.getNiveau())));
+		    J2.add(new JLabel("Expérience : " + Double.toString(Joueur.getExperience())));
+		    J2.add(haut2);
+			J2.add(bas2);
+			J2.add(gauche2);
+			J2.add(droite2);
+		    J2.add(attaquer2);
+			
+			//On définit le layout en lui indiquant qu'il travaillera en ligne
+		    
+			
+		 
+
+		    /*JPanel J3 = new JPanel();
+		    //On positionne maintenant ces trois lignes en colonne
+		    J3.setLayout(new BoxLayout(J3, BoxLayout.PAGE_AXIS));
+		    J3.add(J1);
+		    J3.add(J2);*/
+		   
+		    /*Box b3 = Box.createHorizontalBox();
+		    conq = new JLabel(Integer.toString(Joueur.getPoints_conquetes()));
+		    niveau = new JLabel(Integer.toString(Joueur.getNiveau()));
+		    exp = new JLabel(Double.toString(Joueur.getExperience()));
+		    b3.add(conq);
+		    b3.add(exp);
+		    b3.add(niveau);
+		   
+		    //On crée un conteneur avec gestion verticale
+		    Box b4 = Box.createVerticalBox();
+		    b4.add(b1);
+		    b4.add(b2);
+		    //b4.add(b3); */
+
 
 	        this.add(lab3,BorderLayout.NORTH);
-	        this.add(lab2, BorderLayout.EAST);
-	        this.add(new JButton(""), BorderLayout.SOUTH);
-	        this.add(lab1, BorderLayout.WEST);
-	        //this.add(new Scene(), BorderLayout.CENTER);
+	        this.add(J2, BorderLayout.EAST);
+	        this.add(new JButton("aide"), BorderLayout.SOUTH);
+	        this.add(J1, BorderLayout.WEST);
+	        this.add(new Accueil(), BorderLayout.CENTER);
 	        
-	       
-	        this.setVisible(true);
-
+	  
 		    
-		  }      
-		}
+		  } 
+	  
+		public void actionPerformed(ActionEvent arg0) { 
+			 if(arg0.getSource() == haut1) { }
+			 if(arg0.getSource() == haut2) { }
+			 if(arg0.getSource() == bas1) { }
+			 if(arg0.getSource() == bas2) { }
+			 if(arg0.getSource() == gauche1) { }
+			 if(arg0.getSource() == gauche2) { }
+			 if(arg0.getSource() == droite1) { }
+			 if(arg0.getSource() == droite2) { }
+			 if(arg0.getSource() == attaquer1) { }
+			 if(arg0.getSource() == attaquer2) { } }
+}
+
+			
+				 
+		
