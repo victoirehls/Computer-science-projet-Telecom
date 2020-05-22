@@ -28,15 +28,11 @@ public abstract class Unite {
 	
 	//*** METHODES ***//
 	public void deplacement(){
-		if (Main.scene.getxFond() != 0 || Main.scene.getyFond() != 0 ) {
-				this.x += Main.scene.getDx();
-				this.y += Main.scene.getDy();
+		if (Fenetre.scene.getxFond() != 0 || Fenetre.scene.getyFond() != 0 ) {
+				this.x += Fenetre.scene.getDx();
+				this.y += Fenetre.scene.getDy();
 		}
 	}
 	
 }
-
-
-
-
 
