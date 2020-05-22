@@ -76,8 +76,9 @@ import javax.swing.ImageIcon;
 		}
 		
 		public void conquerir(Joueur j, Astre a) {
-			if (points_dactions >= 5) {
-				if (j.points_conquetes >= a.points_conquetes)
+			if (j.main == 1) {
+				if (points_dactions >= 5) {
+					if (j.points_conquetes >= a.points_conquetes)
 						{
 						int m = compter_territoires (j);
 						a.tour_conquete = j.tour;
@@ -89,55 +90,66 @@ import javax.swing.ImageIcon;
 						j.experience += a.taille / taille_totale;
 						j.points_dactions -= 5;
 						} 
-				else {System.out.println("Vous n'avez pas assez de points concquêtes");
-				} }
+					else {System.out.println("Vous n'avez pas assez de points concquêtes");
+					} }
 				else {System.out.println("Vous n'avez pas assez de points d'actions");
-			}
+			}}
+			else {System.out.println("Ce n'est pas encore votre tour");
+				}
 			
 			// rajouter l'experience au joueur	// c'est fait !
 		}
 		
 		public void attaquer(Joueur j1, Joueur j2, Astre a) {
-			if (points_dactions >= 5) {
-				System.out.println("Le joueur" + j1.nom + " attaque l'astre " + a.nom + "de" + j2.nom);
-				if ((j1.points_conquetes >= a.points_conquetes) || (a.x == j1.coordonnees[0]) || (a.y == j1.coordonnees[1])) {
-				conquerir (j1, a); 
-					for(int i =0; i<= j2.territoires.length; i++){ 
-						if (j2.territoires[i] == a.nom) {
-							j2.territoires[i]= j2.territoires[compter_territoires(j2)-1];
-							territoires[compter_territoires(j2)-1] = null;
+			if (j1.main == 1) {
+				if (j1.points_dactions >= 5) {
+					System.out.println("Le joueur" + j1.nom + " attaque l'astre " + a.nom + "de" + j2.nom);
+					if ((j1.points_conquetes >= a.points_conquetes) || (a.x == j1.coordonnees[0]) || (a.y == j1.coordonnees[1])) {
+						conquerir (j1, a); 
+						for(int i =0; i<= j2.territoires.length; i++){ 
+							if (j2.territoires[i] == a.nom) {
+								j2.territoires[i]= j2.territoires[compter_territoires(j2)-1];
+								territoires[compter_territoires(j2)-1] = null;
 					}
-						System.out.println("Le joueur" + j1.nom + " a conquit l'astre " + a.nom + "de" + j2.nom);
+							System.out.println("Le joueur" + j1.nom + " a conquit l'astre " + a.nom + "de" + j2.nom);
 			
 						}
-					j1.points_dactions -= 7;
+						j1.points_dactions -= 7;
 					}
 				
 			
-				else {
-					System.out.println("Le joueur" + j1.nom + " n'a pas assez de points conquêtes pour conquérir l'astre " + a.nom + "de" + j2.nom + " en plus il est moche ");
+					else {
+						System.out.println("Le joueur" + j1.nom + " n'a pas assez de points conquêtes pour conquérir l'astre " + a.nom + "de" + j2.nom + " en plus il est moche ");
 				
 			}}
-			else {System.out.println("Vous n'avez pas assez de points d'actions"); }
+				else {System.out.println("Vous n'avez pas assez de points d'actions"); }}
+			else {System.out.println("Ce n'est pas encore votre tour");
+			
+			}
 			
 			}
 		
 		
 		
 		public void evoluer(Joueur j) { //correspond au changement de niveau
-			if (j.points_conquetes < 50000) { 
-				System.out.println("Vous n'avez pas assez de points conquêtes pour réaliser cette action ");
-				}
+			if (j.main == 1) {
+			}
+				if (j.points_conquetes < 50000) { 
+					System.out.println("Vous n'avez pas assez de points conquêtes pour réaliser cette action ");
+					}
 			
-			else if(j.points_conquetes > 50000) { //50 000 arbitraire
-				j.niveau = 2;
-				j.points_dactions = 20;
+				else if(j.points_conquetes > 50000) { //50 000 arbitraire
+					j.niveau = 2;
+					j.points_dactions = 20;
+					j.points_conquetes -= 50000;
 			}
 			
-			else if(j.points_conquetes > 100000){ //100 000 arbitraire
-				j.niveau = 3;
-				j.points_dactions = 30;
+				else if(j.points_conquetes > 100000){ //100 000 arbitraire
+					j.niveau = 3;
+					j.points_dactions = 30;
+					j.points_conquetes -= 100000;
 			}
+			else {System.out.println("Ce n'est pas encore votre tour");}
 		
 		//public String[] display(Joueur j) {
 			//String tab[] = { "nom : " + j.nom, " niveau : " + String.valueOf(j.niveau), "experience : " + String.valueOf(j.experience), "coordonnees : " + String.valueOf(j.coordonnees), "tour : " +String.valueOf(j.tour), "point conquetes : " + String.valueOf(j.points_conquetes) };
@@ -157,3 +169,4 @@ import javax.swing.ImageIcon;
 		}  */
 
 	}
+
