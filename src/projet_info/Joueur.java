@@ -33,8 +33,25 @@ import javax.swing.ImageIcon;
 			super.imgObj = this.icoObj.getImage(); //
 		}
 	
-	//GETTER
-		//public Image getImgJoueur() {return imgJoueur;}
+	//GETTERS ET SETTERS
+		
+		 public static double getExp() {return experience; }
+		 	
+		public static int getPoints_conquetes() {return points_conquetes;}
+
+		public static double getExperience() {return experience;}
+
+
+		public static int getNiveau() {	return niveau;}
+
+
+		public static int getTour() {return tour;}
+
+		public static void setTour(int tour) {Joueur.tour = tour;}
+		
+		public static void setNom(String nom) {Joueur.nom = nom;}
+		
+		
 		
 		
 		
