@@ -9,7 +9,7 @@ public class Partie {
 		System.out.println("Début de la partie");
 		Astre tab[]= new Astre[50];
 		for(int i =0; i<= 50; i++){
-			tab[i] = new Astre("astre" + i, 10+ i, 10 + i, 10 + i, i, i);}
+			tab[i] = new Astre("astre" + i, 10+ i, 10 + i, (10 + i)*2, i, i);}
 			
 		Random rand = new Random();
 		int n = rand.nextInt(2) +1;
@@ -30,9 +30,5 @@ public class Partie {
 				}
 		return taille_totale;	
 	}
-	}
-	
-
-	
 	}
 	
