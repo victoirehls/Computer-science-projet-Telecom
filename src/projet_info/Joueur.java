@@ -39,10 +39,10 @@ import javax.swing.ImageIcon;
 		
 		
 	//METHODES
-		public void passer_tour(Joueur j1, Joueur j2) { // Ã  appeler Ã  chaque tour d'un seul joueur
-			tour = tour + 1;
-			j1.main = 0;
-			j2.main = 1;
+		public void passer_tour(Joueur joueurquijoue, Joueur autre) { // Ã  appeler Ã  chaque tour d'un seul joueur
+			joueurquijoue.tour += 1;
+			joueurquijoue.main = 0;
+			autre.main = 1;
 			
 		}
 		
