@@ -23,8 +23,8 @@ public class Fenetre extends JFrame implements ActionListener{
 	private int tour;
 	private JLabel lab3;
 	
-	private Joueur j1;
-	private Joueur j2;
+	static Joueur j1;
+	static Joueur j2;
 	
 	private JButton haut1 = new JButton("Haut");
 	private JButton bas1 = new JButton("Bas");
@@ -39,8 +39,6 @@ public class Fenetre extends JFrame implements ActionListener{
 	private JButton droite2 = new JButton("Droite");
 	private JButton attaquer2 = new JButton("ATTAQUER");
 	private JButton finirtour2 = new JButton("Finir son tour");
-	
-	
 	
 	
 	public static Scene scene = new Scene();
@@ -59,7 +57,7 @@ public class Fenetre extends JFrame implements ActionListener{
 			
 		
 			this.joueur1 = FenNomsJoueurs.getJTextField1();
-			Joueur.setNom(joueur1);
+			j1.setNom(joueur1);
 			this.lab1 = new JLabel(joueur1);
 			Font police = new Font("Tahoma", Font.BOLD, 16); 
 			lab1.setFont(police);
@@ -69,13 +67,14 @@ public class Fenetre extends JFrame implements ActionListener{
 			
 			
 			this.joueur2 = FenNomsJoueurs.getJTextField2();
+			j2.setNom(joueur2);
 			this.lab2 = new JLabel(joueur2);
 			lab2.setFont(police);
 			lab2.setForeground(Color.blue);  
 			lab2.setHorizontalAlignment(JLabel.CENTER);
 			
 			
-			this.tour = Joueur.getTour();
+			this.tour = j1.getTour();
 			this.lab3 = new JLabel("Tour n°" + Integer.toString(tour) + " - A " + joueur1 + " de jouer");
 			
 			//Font police = new Font("Tahoma", Font.BOLD, 16);  
@@ -105,9 +104,9 @@ public class Fenetre extends JFrame implements ActionListener{
 			JPanel J1 = new JPanel();
 			J1.setLayout(new BoxLayout(J1, BoxLayout.PAGE_AXIS));
 			J1.add(lab1);
-		    J1.add(new JLabel("Points conquêtes : " + Integer.toString(Joueur.getPoints_conquetes())));
-		    J1.add(new JLabel("Niveau : " + Integer.toString(Joueur.getNiveau())));
-		    J1.add(new JLabel("Expérience : " + Double.toString(Joueur.getExperience())));
+		    J1.add(new JLabel("Points conquêtes : " + Integer.toString(j1.getPoints_conquetes())));
+		    J1.add(new JLabel("Niveau : " + Integer.toString(j1.getNiveau())));
+		    J1.add(new JLabel("Expérience : " + Double.toString(j1.getExperience())));
 			J1.add(haut1);
 			J1.add(bas1);
 			J1.add(gauche1);
@@ -118,9 +117,9 @@ public class Fenetre extends JFrame implements ActionListener{
 		    JPanel J2 = new JPanel();
 			J2.setLayout(new BoxLayout(J2, BoxLayout.PAGE_AXIS));
 			J2.add(lab2);
-		    J2.add(new JLabel("Points conquêtes : " + Integer.toString(Joueur.getPoints_conquetes())));
-		    J2.add(new JLabel("Niveau : " + Integer.toString(Joueur.getNiveau())));
-		    J2.add(new JLabel("Expérience : " + Double.toString(Joueur.getExperience())));
+		    J2.add(new JLabel("Points conquêtes : " + Integer.toString(j2.getPoints_conquetes())));
+		    J2.add(new JLabel("Niveau : " + Integer.toString(j2.getNiveau())));
+		    J2.add(new JLabel("Expérience : " + Double.toString(j2.getExperience())));
 		    J2.add(haut2);
 			J2.add(bas2);
 			J2.add(gauche2);
@@ -144,51 +143,47 @@ public class Fenetre extends JFrame implements ActionListener{
 	  
 		public void actionPerformed(ActionEvent arg0) { 
 			 if(arg0.getSource() == haut1) {
-				//faire monter j1
-				 joueur1.y += 240; //taille_case_y;
+			//mettre des else if
 			 }
-			 if(arg0.getSource() == haut2) { 
-				 //faire monter j2
-				 joueur2.y += 240;
+			 if(arg0.getSource() == haut2) { /*
+			 1. on modifie l'affichage
+			 2.modifier les coords; 
+			 3.comptabilisation des points d'action */
 			 }
-			 if(arg0.getSource() == bas1) {
-				 //faire descendre j1
-				 joueur1.y -= 240;
+			 
+			 if(arg0.getSource() == bas1) {//joueur1.sedeplacer(bas); 
 			 }
-			 if(arg0.getSource() == bas2) {
-				 //faire descendre j2
-				 joueur2.y -= 240;
+			 
+			 if(arg0.getSource() == bas2) { //joueur2.sedeplacer(bas);
 			 }
-			 if(arg0.getSource() == gauche1) { 
-				 //j1 va à gauche
-				 joueur1.x -= 256; //taille_case_x
-			 }
-			 if(arg0.getSource() == gauche2) { 
-				 //j2 va à gauche
-				 joueur2.x -= 256;
-			 }
-			 if(arg0.getSource() == droite1) {
-				 //j1 va à droite
-				 joueur1.x += 256;
-			 }
-			 if(arg0.getSource() == droite2) {
-				 //j2 va à droite
-				 joueur2.x += 256;
-			 }
-			 if(arg0.getSource() == attaquer1) { 
-				 //choisir un astre
-				 joueur1.attaquer(joueur2, astre);
-			 }
-			 if(arg0.getSource() == attaquer2) { 
-				 joueur2.attaquer(joueur1, astre);
+			 if(arg0.getSource() == gauche1) { }
+			 if(arg0.getSource() == gauche2) { }
+			 if(arg0.getSource() == droite1) { }
+			 if(arg0.getSource() == droite2) { }
+			 if(arg0.getSource() == attaquer1) { }
+			 if(arg0.getSource() == attaquer2) { }
+			 if(arg0.getSource() == finirtour1) { 
+				 
 			 }
 			 if(arg0.getSource() == finirtour1) {
-				 lab3.setText("Tour n°" + Integer.toString(Joueur.getTour()) + " - A " + joueur2 + " de jouer"); 
+				 lab3.setText("Tour n°" + Integer.toString(j1.getTour()) + " - A " + joueur2 + " de jouer"); 
 			 }
 			 
 			 if(arg0.getSource() == finirtour2) {
-				 Joueur.passer_tour();
-				 lab3.setText("Tour n°" + Integer.toString(Joueur.getTour()) + " - A " + joueur1 +" de jouer"); 
-			 }
+				 Joueur.passer_tour(j1,j2);
+				 lab3.setText("Tour n°" + Integer.toString(j2.getTour()) + " - A " + joueur1 +" de jouer"); 
 			 }
 }
+}
+
+
+			 
+			 
+			 
+			 
+
+			 
+
+			
+				 
+		
