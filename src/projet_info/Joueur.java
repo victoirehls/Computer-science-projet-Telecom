@@ -1,189 +1,188 @@
 package projet_info;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel; 
+import javax.swing.ImageIcon;
 
-public class Fenetre extends JFrame implements ActionListener{
-	
-	private String joueur1;
-	private String joueur2;
-	private JLabel lab1;
-	private JLabel lab2;
-	private int tour;
-	private JLabel lab3;
-	
-	static Joueur j1;
-	static Joueur j2;
-	
-	private JButton haut1 = new JButton("Haut");
-	private JButton bas1 = new JButton("Bas");
-	private JButton gauche1 = new JButton("Gauche");
-	private JButton droite1 = new JButton("Droite");
-	private JButton attaquer1 = new JButton("ATTAQUER");
-	private JButton finirtour1 = new JButton("Finir son tour");
-	
-	private JButton haut2 = new JButton("Haut");
-	private JButton bas2 = new JButton("Bas");
-	private JButton gauche2 = new JButton("Gauche");
-	private JButton droite2 = new JButton("Droite");
-	private JButton attaquer2 = new JButton("ATTAQUER");
-	private JButton finirtour2 = new JButton("Finir son tour");
-	
-	
-	public static Scene scene = new Scene();
 
-	
-	  public Fenetre(){
-		 
-			super();
-			this.setTitle("Scene principale");
-			this.setSize(1280, 830);
-			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			this.setLocationRelativeTo(null);
-			this.setResizable(false);
-			this.setAlwaysOnTop(true);
-			this.setContentPane(scene);
-			
+//DEFINITION DES CHAMPS
+	public class Joueur extends Unite{
+		String nom;
+		int points_conquetes;
+		double experience; //en pourcentage
+		int niveau; // entier compris entre 1 et 3
+		String[] territoires;// on mettra un tableau extensible par la suite
+		int tour; //compte le nombre de tours de la partie
+		double[] coordonnees;
+		int points_dactions;
+		int main;
+		//private Image imgJoueur;
+		//private ImageIcon icoJoueur;
+
 		
-			this.joueur1 = FenNomsJoueurs.getJTextField1();
-			j1.setNom(joueur1);
-			this.lab1 = new JLabel(joueur1);
-			Font police = new Font("Tahoma", Font.BOLD, 16); 
-			lab1.setFont(police);
-			lab1.setForeground(Color.blue);  
-			lab1.setHorizontalAlignment(JLabel.CENTER);
-			
-			
-			
-			this.joueur2 = FenNomsJoueurs.getJTextField2();
-			j2.setNom(joueur2);
-			this.lab2 = new JLabel(joueur2);
-			lab2.setFont(police);
-			lab2.setForeground(Color.blue);  
-			lab2.setHorizontalAlignment(JLabel.CENTER);
-			
-			
-			this.tour = j1.getTour();
-			this.lab3 = new JLabel("Tour n°" + Integer.toString(tour) + " - A " + joueur1 + " de jouer");
-			
-			//Font police = new Font("Tahoma", Font.BOLD, 16);  
-			Font police1 = new Font("Tahoma", Font.BOLD, 20); 
-			lab3.setFont(police1);  
-			lab3.setForeground(Color.RED);  
-			lab3.setHorizontalAlignment(JLabel.CENTER);
-			lab3.setOpaque(true);
-			lab3.setBackground(Color.BLACK);
-			
-			//Mettre en écoute les boutons
-			
-			haut1.addActionListener(this);
-			haut2.addActionListener(this);
-			bas1.addActionListener(this);
-			bas2.addActionListener(this);
-			gauche1.addActionListener(this);
-			gauche2.addActionListener(this);
-			droite1.addActionListener(this);
-			droite2.addActionListener(this);
-			attaquer1.addActionListener(this);
-			attaquer2.addActionListener(this);
-			finirtour1.addActionListener(this);
-			finirtour2.addActionListener(this);
+	//CONSTRUCTEUR
+		public Joueur(String nom, int x, int y) {
+			super(x,y,30,30);
+			this.nom = nom;
+			this.points_conquetes = 0; //on initialise tout Ã  0 pour l'instant
+			this.niveau = 1;
+			this.experience = 0;
+			this.points_dactions = 10;
+			this.coordonnees[0] = x; //initialisation des coordonnÃ©es de chaque joueur
+			this.coordonnees[1] = y;
+			this.territoires = new String[100]; // on prend un "grand " tableau pour l'instant pour Ã©viter d'utiliser les tableaux exte
+			super.icoObj = new ImageIcon(getClass().getResource("/images/vaisseau.png")); //
+			super.imgObj = this.icoObj.getImage(); //
+		}
 	
-			
-			JPanel J1 = new JPanel();
-			J1.setLayout(new BoxLayout(J1, BoxLayout.PAGE_AXIS));
-			J1.add(lab1);
-		    J1.add(new JLabel("Points conquêtes : " + Integer.toString(j1.getPoints_conquetes())));
-		    J1.add(new JLabel("Niveau : " + Integer.toString(j1.getNiveau())));
-		    J1.add(new JLabel("Expérience : " + Double.toString(j1.getExperience())));
-			J1.add(haut1);
-			J1.add(bas1);
-			J1.add(gauche1);
-			J1.add(droite1);
-		    J1.add(attaquer1);
-		    J1.add(finirtour1);
-	
-		    JPanel J2 = new JPanel();
-			J2.setLayout(new BoxLayout(J2, BoxLayout.PAGE_AXIS));
-			J2.add(lab2);
-		    J2.add(new JLabel("Points conquêtes : " + Integer.toString(j2.getPoints_conquetes())));
-		    J2.add(new JLabel("Niveau : " + Integer.toString(j2.getNiveau())));
-		    J2.add(new JLabel("Expérience : " + Double.toString(j2.getExperience())));
-		    J2.add(haut2);
-			J2.add(bas2);
-			J2.add(gauche2);
-			J2.add(droite2);
-		    J2.add(attaquer2);
-		    J2.add(finirtour2);
-			
-
-			
-			this.setLayout(new BorderLayout());
-	
-	        this.add(lab3,BorderLayout.NORTH);
-	        this.add(J2, BorderLayout.EAST);
-	        this.add(J1, BorderLayout.WEST);
-
-	    	
-			this.setVisible(true); //à mettre à la fin 
-	  
-		    
-		  } 
-	  
-		public void actionPerformed(ActionEvent arg0) { 
-			 if(arg0.getSource() == haut1) {
-			//mettre des else if
-			 }
-			 if(arg0.getSource() == haut2) { /*
-			 1. on modifie l'affichage
-			 2.modifier les coords; 
-			 3.comptabilisation des points d'action */
-			 }
-			 
-			 if(arg0.getSource() == bas1) {//joueur1.sedeplacer(bas); 
-			 }
-			 
-			 if(arg0.getSource() == bas2) { //joueur2.sedeplacer(bas);
-			 }
-			 if(arg0.getSource() == gauche1) { }
-			 if(arg0.getSource() == gauche2) { }
-			 if(arg0.getSource() == droite1) { }
-			 if(arg0.getSource() == droite2) { }
-			 if(arg0.getSource() == attaquer1) { }
-			 if(arg0.getSource() == attaquer2) { }
-			 if(arg0.getSource() == finirtour1) { 
-				 
-			 }
-			 if(arg0.getSource() == finirtour1) {
-				 lab3.setText("Tour n°" + Integer.toString(j1.getTour()) + " - A " + joueur2 + " de jouer"); 
-			 }
-			 
-			 if(arg0.getSource() == finirtour2) {
-				 Joueur.passer_tour(j1,j2);
-				 lab3.setText("Tour n°" + Integer.toString(j2.getTour()) + " - A " + joueur1 +" de jouer"); 
-			 }
-}
-}
-
-
-			 
-			 
-			 
-			 
-
-			 
-
-			
-				 
+	//GETTERS ET SETTERS
 		
+		 public double getExp() {return experience; }
+		 	
+		public int getPoints_conquetes() {return points_conquetes;}
+
+		public double getExperience() {return experience;}
+
+
+		public int getNiveau() {	return niveau;}
+
+
+		public int getTour() {return this.tour;}
+
+		public void setTour(int tour) {this.tour = tour;}
+		
+		public void setNom(String nom) {this.nom = nom;}
+		
+		
+		
+		
+		
+	//METHODES
+		public static void passer_tour(Joueur joueurquijoue, Joueur autre) { // Ã  appeler Ã  chaque tour d'un seul joueur
+			joueurquijoue.tour += 1;
+			joueurquijoue.main = 0;
+			autre.main = 1;
+			
+		}
+		
+		public void points(Joueur j, Astre a) {
+			j.points_conquetes = j.points_conquetes - a.points_conquetes;
+		}
+		
+		/*public void deplacer(Joueur j, int x) { //on considÃ¨re le pavÃ© de dÃ©placement 5123
+			if(x==1) {
+				j.coordonnees[0] += -1;
+			}
+			if(x==2) {
+				j.coordonnees[1] += -1;
+			}
+			if(x==3) {
+				j.coordonnees[0] += 1;
+			}
+			if(x==5) {
+				j.coordonnees[1] += 1;
+			}
+			points_dactions -= 1;
+		}*/
+		
+		public int compter_territoires (Joueur j) {
+			int m = 0;
+			for(int i =0; i<= j.territoires.length; i++){
+				if (j.territoires[i] != null ) {
+					m = m+1;}
+				}
+			return m;
+		}
+		
+		public void conquerir(Joueur j, Astre a) {
+			if (j.main == 1) {
+				if (points_dactions >= 5) {
+					if (j.points_conquetes >= a.points_conquetes)
+						{
+						int m = compter_territoires (j);
+						a.tour_conquete = j.tour;
+						j.territoires[m] = (a.nom);
+						System.out.println("Bravo, vous Ãªtes moche mais vous avez conquis un nouveau territoire");
+						a.conquis = true;
+						j.points_conquetes -= a.points_conquetes;
+						int taille_totale = Partie.getTaille();
+						j.experience += a.taille / taille_totale;
+						j.points_dactions -= 5;
+						} 
+					else {System.out.println("Vous n'avez pas assez de points concquêtes");
+					} }
+				else {System.out.println("Vous n'avez pas assez de points d'actions");
+			}}
+			else {System.out.println("Ce n'est pas encore votre tour");
+				}
+			
+			// rajouter l'experience au joueur	// c'est fait !
+		}
+		
+		public void attaquer(Joueur j1, Joueur j2, Astre a) {
+			if (j1.main == 1) {
+				if (j1.points_dactions >= 5) {
+					System.out.println("Le joueur" + j1.nom + " attaque l'astre " + a.nom + "de" + j2.nom);
+					if ((j1.points_conquetes >= a.points_conquetes) || (a.x == j1.coordonnees[0]) || (a.y == j1.coordonnees[1])) {
+						conquerir (j1, a); 
+						for(int i =0; i<= j2.territoires.length; i++){ 
+							if (j2.territoires[i] == a.nom) {
+								j2.territoires[i]= j2.territoires[compter_territoires(j2)-1];
+								territoires[compter_territoires(j2)-1] = null;
+					}
+							System.out.println("Le joueur" + j1.nom + " a conquit l'astre " + a.nom + "de" + j2.nom);
+			
+						}
+						j1.points_dactions -= 7;
+					}
+				
+			
+					else {
+						System.out.println("Le joueur" + j1.nom + " n'a pas assez de points conquêtes pour conquérir l'astre " + a.nom + "de" + j2.nom + " en plus il est moche ");
+				
+			}}
+				else {System.out.println("Vous n'avez pas assez de points d'actions"); }}
+			else {System.out.println("Ce n'est pas encore votre tour");
+			
+			}
+			
+			}
+		
+		
+		
+		public void evoluer(Joueur j) { //correspond au changement de niveau
+			if (j.main == 1) {
+			}
+				if (j.points_conquetes < 50000) { 
+					System.out.println("Vous n'avez pas assez de points conquêtes pour réaliser cette action ");
+					}
+			
+				else if(j.points_conquetes > 50000) { //50 000 arbitraire
+					j.niveau = 2;
+					j.points_dactions = 20;
+					j.points_conquetes -= 50000;
+			}
+			
+				else if(j.points_conquetes > 100000){ //100 000 arbitraire
+					j.niveau = 3;
+					j.points_dactions = 30;
+					j.points_conquetes -= 100000;
+			}
+			else {System.out.println("Ce n'est pas encore votre tour");}
+		
+		//public String[] display(Joueur j) {
+			//String tab[] = { "nom : " + j.nom, " niveau : " + String.valueOf(j.niveau), "experience : " + String.valueOf(j.experience), "coordonnees : " + String.valueOf(j.coordonnees), "tour : " +String.valueOf(j.tour), "point conquetes : " + String.valueOf(j.points_conquetes) };
+			// return tab;
+		}
+		/*public String[] display(Joueur j){
+		String tab[] = new String[6];
+		tab[0] = "nom : " + j.nom;
+		tab[1] = " niveau : " + String.valueOf(j.niveau);
+		tab[2] = "experience : " + String.valueOf(j.experience);
+		tab[3] = "coordonnees : " + String.valueOf(j.coordonnees);
+		tab[4] = "point conquetes : " + String.valueOf(j.points_conquetes);
+		tab[5] = "tour : " + String.valueOf(j.tour);
+		return tab;
+		//for(int i=0 ; i <= tab.length ; i++){
+			//return(tab[i]);
+		}  */
+
+	}
