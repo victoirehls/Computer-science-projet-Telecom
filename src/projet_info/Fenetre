@@ -20,7 +20,6 @@ public class Fenetre extends JFrame implements ActionListener{
 	private String joueur2;
 	private JLabel lab1;
 	private JLabel lab2;
-	private int tour;
 	private JLabel lab3;
 	
 	static Joueur j1;
@@ -57,7 +56,7 @@ public class Fenetre extends JFrame implements ActionListener{
 			
 		
 			this.joueur1 = FenNomsJoueurs.getJTextField1();
-			j1.setNom(joueur1);
+			j1 = new Joueur(joueur1, 300, 300);
 			this.lab1 = new JLabel(joueur1);
 			Font police = new Font("Tahoma", Font.BOLD, 16); 
 			lab1.setFont(police);
@@ -67,17 +66,16 @@ public class Fenetre extends JFrame implements ActionListener{
 			
 			
 			this.joueur2 = FenNomsJoueurs.getJTextField2();
-			j2.setNom(joueur2);
+			j2 = new Joueur(joueur2, 600, 600);
 			this.lab2 = new JLabel(joueur2);
 			lab2.setFont(police);
 			lab2.setForeground(Color.blue);  
 			lab2.setHorizontalAlignment(JLabel.CENTER);
 			
 			
-			this.tour = j1.getTour();
-			this.lab3 = new JLabel("Tour n°" + Integer.toString(tour) + " - A " + joueur1 + " de jouer");
+			//this.tour = j1.getTour();
+			this.lab3 = new JLabel("Tour n°1" + " - A " + joueur1 + " de jouer");
 			
-			//Font police = new Font("Tahoma", Font.BOLD, 16);  
 			Font police1 = new Font("Tahoma", Font.BOLD, 20); 
 			lab3.setFont(police1);  
 			lab3.setForeground(Color.RED);  
@@ -145,11 +143,11 @@ public class Fenetre extends JFrame implements ActionListener{
 			 if(arg0.getSource() == haut1) {
 			//mettre des else if
 			 }
-			 if(arg0.getSource() == haut2) { /*
+			 /*if(arg0.getSource() == haut2) { 
 			 1. on modifie l'affichage
 			 2.modifier les coords; 
-			 3.comptabilisation des points d'action */
-			 }
+			 3.comptabilisation des points d'action 
+			}*/
 			 
 			 if(arg0.getSource() == bas1) {//joueur1.sedeplacer(bas); 
 			 }
@@ -166,13 +164,13 @@ public class Fenetre extends JFrame implements ActionListener{
 				 
 			 }
 			 if(arg0.getSource() == finirtour1) {
-				 lab3.setText("Tour n°" + Integer.toString(j1.getTour()) + " - A " + joueur2 + " de jouer"); 
+				 lab3.setText("Tour n°" + Integer.toString(j2.getTour()) + " - A " + joueur2 + " de jouer"); 
+				 Joueur.passer_tour(j1,j2);
 			 }
 			 
 			 if(arg0.getSource() == finirtour2) {
-				 Joueur.passer_tour(j1,j2);
-				 lab3.setText("Tour n°" + Integer.toString(j2.getTour()) + " - A " + joueur1 +" de jouer"); 
-			 }
+				 lab3.setText("Tour n°" + Integer.toString(j1.getTour()) + " - A " + joueur1 +" de jouer"); 
+				 Joueur.passer_tour(j2,j1);}
 }
 }
 
