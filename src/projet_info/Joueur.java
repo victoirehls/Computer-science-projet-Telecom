@@ -25,11 +25,12 @@ import javax.swing.ImageIcon;
 			this.points_conquetes = 0; //on initialise tout Ã  0 pour l'instant
 			this.niveau = 1;
 			this.experience = 0;
+			this.tour=1;
 			this.points_dactions = 10;
-			this.coordonnees[0] = x; //initialisation des coordonnÃ©es de chaque joueur
-			this.coordonnees[1] = y;
+			//this.coordonnees[0] = x; //initialisation des coordonnÃ©es de chaque joueur
+			//this.coordonnees[1] = y;
 			this.territoires = new String[100]; // on prend un "grand " tableau pour l'instant pour Ã©viter d'utiliser les tableaux exte
-			super.icoObj = new ImageIcon(getClass().getResource("/images/vaisseau.png")); //
+			super.icoObj = new ImageIcon(getClass().getResource("joueur1.jpg")); //
 			super.imgObj = this.icoObj.getImage(); //
 		}
 	
@@ -42,7 +43,7 @@ import javax.swing.ImageIcon;
 		public double getExperience() {return experience;}
 
 
-		public int getNiveau() {	return niveau;}
+		public int getNiveau() {return niveau;}
 
 
 		public int getTour() {return this.tour;}
