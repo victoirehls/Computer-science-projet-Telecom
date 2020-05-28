@@ -11,7 +11,7 @@ import javax.swing.ImageIcon;
 		int niveau; // entier compris entre 1 et 3
 		String[] territoires;// on mettra un tableau extensible par la suite
 		int tour; //compte le nombre de tours de la partie
-		double[] coordonnees;
+		double x,y;
 		int points_dactions;
 		int main;
 		//private Image imgJoueur;
@@ -25,10 +25,10 @@ import javax.swing.ImageIcon;
 			this.points_conquetes = 0; //on initialise tout Ã  0 pour l'instant
 			this.niveau = 1;
 			this.experience = 0;
-			this.tour=1;
+			this.tour = 1;
 			this.points_dactions = 10;
-			//this.coordonnees[0] = x; //initialisation des coordonnÃ©es de chaque joueur
-			//this.coordonnees[1] = y;
+			//this.x = x; //initialisation des coordonnÃ©es de chaque joueur
+			//this.y = y;
 			this.territoires = new String[100]; // on prend un "grand " tableau pour l'instant pour Ã©viter d'utiliser les tableaux exte
 			super.icoObj = new ImageIcon(getClass().getResource("joueur1.jpg")); //
 			super.imgObj = this.icoObj.getImage(); //
