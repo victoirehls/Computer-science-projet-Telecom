@@ -52,9 +52,6 @@ import javax.swing.ImageIcon;
 			
 		}
 		
-		public void points(Joueur j, Astre a) {
-			j.points_conquetes = j.points_conquetes - a.points_conquetes;
-		}
 		
 		/*public void deplacer(Joueur j, int x) { //on considÃ¨re le pavÃ© de dÃ©placement 5123
 			if(x==1) {
