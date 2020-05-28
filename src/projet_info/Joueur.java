@@ -105,7 +105,7 @@ import javax.swing.ImageIcon;
 		
 		public void attaquer(Joueur j1, Joueur j2, Astre a) {
 			if (j1.main == 1) {
-				if (j1.points_dactions >= 7) {
+				if (j1.points_dactions >= 15) {
 					System.out.println("Le joueur" + j1.nom + " attaque l'astre " + a.nom + "de" + j2.nom);
 					if ((j1.points_conquetes >= a.points_conquetes) || (a.x == j1.x) || (a.y == y)) {
 						conquerir (j1, a); 
@@ -117,7 +117,7 @@ import javax.swing.ImageIcon;
 							System.out.println("Le joueur" + j1.nom + " a conquit l'astre " + a.nom + "de" + j2.nom);
 			
 						}
-						j1.points_dactions -= 7;
+						j1.points_dactions -= 15;
 					}
 				
 			
