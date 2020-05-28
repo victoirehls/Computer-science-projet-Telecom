@@ -86,7 +86,7 @@ import javax.swing.ImageIcon;
 						int m = compter_territoires (j);
 						a.tour_conquete = j.tour;
 						j.territoires[m] = a;
-						System.out.println("Bravo, vous Ãªtes moche mais vous avez conquis un nouveau territoire");
+						System.out.println("Bravo, vous avez conquis un nouveau territoire");
 						a.conquis = true;
 						j.points_conquetes -= a.points_conquetes;
 						int taille_totale = Partie.getTaille();
