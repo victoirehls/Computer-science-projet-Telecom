@@ -18,7 +18,7 @@ public class Astre extends Unite {
 	//private ImageIcon icoAstre;
 
 //CONSTRUCTEUR
-	public Astre(String nom, int taille, int x, int y, int proportion, double taux) {
+	public Astre(String nom, int taille, double x, double y, int proportion, double taux) {
 		super(x,y,30,30); //faut mettre une fonction pour mettre la taille à jour
 		this.nom = nom;
 		this.proportion_conquete = proportion;
