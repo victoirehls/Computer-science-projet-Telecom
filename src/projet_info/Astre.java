@@ -6,8 +6,7 @@ public class Astre extends Unite {
 // DEFINITION DES CHAMPS
 	String nom; 
 	int taille;
-	int x;
-	int y;
+	double x,y;
 	int points_conquetes;
 	boolean conquis; //statut de l'astre dÃ©terminant si le territoire est conquis
 	int proportion_conquete; //facteur proportionnel qui donne le nombre de points_conquÃªtes en fonction de sa taille
