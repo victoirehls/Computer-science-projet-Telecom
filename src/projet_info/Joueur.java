@@ -6,12 +6,12 @@ import javax.swing.ImageIcon;
 //DEFINITION DES CHAMPS
 	public class Joueur extends Unite{
 		String nom;
-		int points_conquetes;
+		double points_conquetes;
 		double experience; //en pourcentage
 		int niveau; // entier compris entre 1 et 3
-		String[] territoires;// on mettra un tableau extensible par la suite
+		Astre[] territoires;// on mettra un tableau extensible par la suite
 		int tour; //compte le nombre de tours de la partie
-		double x,y;
+		public double x,y;
 		int points_dactions;
 		int main;
 		//private Image imgJoueur;
@@ -22,45 +22,33 @@ import javax.swing.ImageIcon;
 		public Joueur(String nom, int x, int y) {
 			super(x,y,30,30);
 			this.nom = nom;
-			this.points_conquetes = 0; //on initialise tout Ã  0 pour l'instant
+			this.points_conquetes = 0; //on initialise tout Ã  0 pour l'instant
 			this.niveau = 1;
 			this.experience = 0;
-			this.tour = 1;
 			this.points_dactions = 10;
-			//this.x = x; //initialisation des coordonnÃ©es de chaque joueur
-			//this.y = y;
-			this.territoires = new String[100]; // on prend un "grand " tableau pour l'instant pour Ã©viter d'utiliser les tableaux exte
-			super.icoObj = new ImageIcon(getClass().getResource("joueur1.jpg")); //
+			this.x = x; //initialisation des coordonnÃ©es de chaque joueur
+			this.y = y;
+			this.territoires = new Astre[100]; // on prend un "grand " tableau pour l'instant pour Ã©viter d'utiliser les tableaux exte
+			super.icoObj = new ImageIcon(getClass().getResource("/images/vaisseau.png")); //
 			super.imgObj = this.icoObj.getImage(); //
 		}
 	
-	//GETTERS ET SETTERS
-		
-		 public double getExp() {return experience; }
-		 	
-		public int getPoints_conquetes() {return points_conquetes;}
-
-		public double getExperience() {return experience;}
-
-
-		public int getNiveau() {return niveau;}
-
-
-		public int getTour() {return this.tour;}
-
-		public void setTour(int tour) {this.tour = tour;}
-		
-		public void setNom(String nom) {this.nom = nom;}
-		
-		
+	//GETTER
+		//public Image getImgJoueur() {return imgJoueur;}
 		
 		
 		
 	//METHODES
-		public static void passer_tour(Joueur joueurquijoue, Joueur autre) { // Ã  appeler Ã  chaque tour d'un seul joueur
+		public void passer_tour(Joueur joueurquijoue, Joueur autre) { // Ã  appeler Ã  chaque tour d'un seul joueur
+			double m = 0; // variable qui va comptabiliser la population totale
+			for(int i =0; i<= joueurquijoue.territoires.length; i++) {
+					m = joueurquijoue.territoires[i].population;
+				points_conquetes = m*2;
+			}
 			joueurquijoue.tour += 1;
 			joueurquijoue.main = 0;
 			autre.main = 1;
+			
 			
 		}
 		
@@ -100,7 +88,7 @@ import javax.swing.ImageIcon;
 						{
 						int m = compter_territoires (j);
 						a.tour_conquete = j.tour;
-						j.territoires[m] = (a.nom);
+						j.territoires[m] = a;
 						System.out.println("Bravo, vous Ãªtes moche mais vous avez conquis un nouveau territoire");
 						a.conquis = true;
 						j.points_conquetes -= a.points_conquetes;
@@ -122,10 +110,10 @@ import javax.swing.ImageIcon;
 			if (j1.main == 1) {
 				if (j1.points_dactions >= 5) {
 					System.out.println("Le joueur" + j1.nom + " attaque l'astre " + a.nom + "de" + j2.nom);
-					if ((j1.points_conquetes >= a.points_conquetes) || (a.x == j1.coordonnees[0]) || (a.y == j1.coordonnees[1])) {
+					if ((j1.points_conquetes >= a.points_conquetes) || (a.x == j1.x) || (a.y == y)) {
 						conquerir (j1, a); 
 						for(int i =0; i<= j2.territoires.length; i++){ 
-							if (j2.territoires[i] == a.nom) {
+							if (j2.territoires[i] == a) {
 								j2.territoires[i]= j2.territoires[compter_territoires(j2)-1];
 								territoires[compter_territoires(j2)-1] = null;
 					}
@@ -187,3 +175,4 @@ import javax.swing.ImageIcon;
 		}  */
 
 	}
+
