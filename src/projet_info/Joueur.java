@@ -43,7 +43,7 @@ import javax.swing.ImageIcon;
 			double m = 0; // variable qui va comptabiliser la population totale
 			for(int i =0; i<= joueurquijoue.territoires.length; i++) {
 					m = joueurquijoue.territoires[i].population;
-				points_conquetes = m*2;
+				points_conquetes = m*2; //chaque individu rapporte 2 points conquête (2 est choisi arbitrairement)
 			}
 			joueurquijoue.tour += 1;
 			joueurquijoue.main = 0;
