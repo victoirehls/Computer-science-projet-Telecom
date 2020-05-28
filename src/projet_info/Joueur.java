@@ -53,21 +53,21 @@ import javax.swing.ImageIcon;
 		}
 		
 		
-		/*public void deplacer(Joueur j, int x) { //on considÃ¨re le pavÃ© de dÃ©placement 5123
+		public void deplacer(Joueur j, int x) { //on considÃ¨re le pavÃ© de dÃ©placement 5123
 			if(x==1) {
 				j.coordonnees[0] += -1;
 			}
-			if(x==2) {
+			else if(x==2) {
 				j.coordonnees[1] += -1;
 			}
-			if(x==3) {
+			else if(x==3) {
 				j.coordonnees[0] += 1;
 			}
-			if(x==5) {
+			else if(x==5) {
 				j.coordonnees[1] += 1;
 			}
 			points_dactions -= 1;
-		}*/
+		}
 		
 		public int compter_territoires (Joueur j) {
 			int m = 0;
