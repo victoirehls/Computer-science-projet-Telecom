@@ -22,13 +22,13 @@ import javax.swing.ImageIcon;
 		public Joueur(String nom, int x, int y) {
 			super(x,y,30,30);
 			this.nom = nom;
-			this.points_conquetes = 0; //on initialise tout Ã  0 pour l'instant
+			this.points_conquetes = 0; //on initialise tout ÃƒÂ  0 pour l'instant
 			this.niveau = 1;
 			this.experience = 0;
 			this.points_dactions = 10;
-			this.x = x; //initialisation des coordonnÃ©es de chaque joueur
+			this.x = x; //initialisation des coordonnÃƒÂ©es de chaque joueur
 			this.y = y;
-			this.territoires = new Astre[100]; // on prend un "grand " tableau pour l'instant pour Ã©viter d'utiliser les tableaux exte
+			this.territoires = new Astre[100]; // on prend un "grand " tableau pour l'instant pour ÃƒÂ©viter d'utiliser les tableaux exte
 			super.icoObj = new ImageIcon(getClass().getResource("/images/vaisseau.png")); //
 			super.imgObj = this.icoObj.getImage(); //
 		}
@@ -39,11 +39,11 @@ import javax.swing.ImageIcon;
 		
 		
 	//METHODES
-		public void passer_tour(Joueur joueurquijoue, Joueur autre) { // Ã  appeler Ã  chaque tour d'un seul joueur
+		public void passer_tour(Joueur joueurquijoue, Joueur autre) { // ÃƒÂ  appeler ÃƒÂ  chaque tour d'un seul joueur
 			double m = 0; // variable qui va comptabiliser la population totale
 			for(int i =0; i<= joueurquijoue.territoires.length; i++) {
 					m = joueurquijoue.territoires[i].population;
-				points_conquetes = m*2; //chaque individu rapporte 2 points conquête (2 est choisi arbitrairement)
+				points_conquetes = m*2; //chaque individu rapporte 2 points conquÃªte (2 est choisi arbitrairement)
 			}
 			joueurquijoue.tour += 1;
 			joueurquijoue.main = 0;
@@ -53,7 +53,7 @@ import javax.swing.ImageIcon;
 		}
 		
 		
-		public void deplacer(Joueur j, int x) { //on considÃ¨re le pavÃ© de dÃ©placement 5123
+		/* public void deplacer(Joueur j, int x) { //on considÃƒÂ¨re le pavÃƒÂ© de dÃƒÂ©placement 5123
 			if(x==1) {
 				j.coordonnees[0] += -1;
 			}
@@ -66,8 +66,8 @@ import javax.swing.ImageIcon;
 			else if(x==5) {
 				j.coordonnees[1] += 1;
 			}
-			points_dactions -= 1;
-		}
+			points_dactions -= 1; 
+		} */
 		
 		public int compter_territoires (Joueur j) {
 			int m = 0;
@@ -93,7 +93,7 @@ import javax.swing.ImageIcon;
 						j.experience += a.taille / taille_totale;
 						j.points_dactions -= 5;
 						} 
-					else {System.out.println("Vous n'avez pas assez de points concquêtes");
+					else {System.out.println("Vous n'avez pas assez de points concquÃªtes");
 					} }
 				else {System.out.println("Vous n'avez pas assez de points d'actions");
 			}}
@@ -122,7 +122,7 @@ import javax.swing.ImageIcon;
 				
 			
 					else {
-						System.out.println("Le joueur" + j1.nom + " n'a pas assez de points conquêtes pour conquérir l'astre " + a.nom + "de" + j2.nom + " en plus il est moche ");
+						System.out.println("Le joueur" + j1.nom + " n'a pas assez de points conquÃªtes pour conquÃ©rir l'astre " + a.nom + "de" + j2.nom + " en plus il est moche ");
 				
 			}}
 				else {System.out.println("Vous n'avez pas assez de points d'actions"); }}
@@ -138,7 +138,7 @@ import javax.swing.ImageIcon;
 			if (j.main == 1) {
 			}
 				if (j.points_conquetes < 50000) { 
-					System.out.println("Vous n'avez pas assez de points conquêtes pour réaliser cette action ");
+					System.out.println("Vous n'avez pas assez de points conquÃªtes pour rÃ©aliser cette action ");
 					}
 			
 				else if(j.points_conquetes > 50000) { //50 000 arbitraire
