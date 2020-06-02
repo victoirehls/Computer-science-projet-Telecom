@@ -14,11 +14,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel; 
 
-import java.awt.GridLayout;
-import javax.swing.JFrame;
-
-
-
 public class Fenetre extends JFrame implements ActionListener{
 	
 	private String joueur1;
@@ -26,6 +21,8 @@ public class Fenetre extends JFrame implements ActionListener{
 	private JLabel lab1;
 	private JLabel lab2;
 	private JLabel lab3;
+	private JLabel ptsactions1;
+	private JLabel ptsactions2;
 	
 	static Joueur j1;
 	static Joueur j2;
@@ -47,8 +44,7 @@ public class Fenetre extends JFrame implements ActionListener{
 	
 	public static Scene scene = new Scene();
 
-	
-	  public Fenetre(){
+	public Fenetre(){
 		 
 			super();
 			this.setTitle("Scene principale");
@@ -59,9 +55,13 @@ public class Fenetre extends JFrame implements ActionListener{
 			this.setAlwaysOnTop(true);
 			this.setContentPane(scene);
 			
-		
+			
 			this.joueur1 = FenNomsJoueurs.getJTextField1();
-			j1 = new Joueur(joueur1, 300, 300);
+			j1 = scene.perso1;
+			j1.setNom(joueur1);
+			j1.main =1;
+			this.ptsactions1 = new JLabel("Points d'action : " + Double.toString(j1.getPoints_dactions()));
+			
 			this.lab1 = new JLabel(joueur1);
 			Font police = new Font("Tahoma", Font.BOLD, 16); 
 			lab1.setFont(police);
@@ -71,7 +71,11 @@ public class Fenetre extends JFrame implements ActionListener{
 			
 			
 			this.joueur2 = FenNomsJoueurs.getJTextField2();
-			j2 = new Joueur(joueur2, 600, 600);
+			j2 = scene.perso2;
+			j2.setNom(joueur2);
+			j2.main = 0;
+			this.ptsactions2=new JLabel("Points d'action : " + Double.toString(j2.getPoints_dactions()));
+					
 			this.lab2 = new JLabel(joueur2);
 			lab2.setFont(police);
 			lab2.setForeground(Color.blue);  
@@ -110,6 +114,8 @@ public class Fenetre extends JFrame implements ActionListener{
 		    J1.add(new JLabel("Points conquêtes : " + Integer.toString(j1.getPoints_conquetes())));
 		    J1.add(new JLabel("Niveau : " + Integer.toString(j1.getNiveau())));
 		    J1.add(new JLabel("Expérience : " + Double.toString(j1.getExperience())));
+		    J1.add(ptsactions1);
+		    
 			J1.add(haut1);
 			J1.add(bas1);
 			J1.add(gauche1);
@@ -123,6 +129,8 @@ public class Fenetre extends JFrame implements ActionListener{
 		    J2.add(new JLabel("Points conquêtes : " + Integer.toString(j2.getPoints_conquetes())));
 		    J2.add(new JLabel("Niveau : " + Integer.toString(j2.getNiveau())));
 		    J2.add(new JLabel("Expérience : " + Double.toString(j2.getExperience())));
+		    J2.add(ptsactions2);
+
 		    J2.add(haut2);
 			J2.add(bas2);
 			J2.add(gauche2);
@@ -130,7 +138,6 @@ public class Fenetre extends JFrame implements ActionListener{
 		    J2.add(attaquer2);
 		    J2.add(finirtour2);
 			
-
 			
 			this.setLayout(new BorderLayout());
 	
@@ -138,63 +145,83 @@ public class Fenetre extends JFrame implements ActionListener{
 	        this.add(J2, BorderLayout.EAST);
 	        this.add(J1, BorderLayout.WEST);
 
-	    	
-			this.setVisible(true); //à mettre à la fin 
-	  
-		    
-		  } 
-		  
-		  //Affichage de la grille//
-	public static void main(String[] args) {
-		JFrame frame = new JFrame("Fenetre");
-		frame.setSize(150,150);
-		frame.setResizable(false);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		Cadre lesCadres[][]=new Cadre[3][3];
-		GridLayout grille = new GridLayout(3,3);
-		frame.setLayout(grille);
-		for (short i=0;i>3;i++){
-			for (short j=0;j>3;j++){
-			frame.getContentPane().add(new Cadre(i,j));
-			}
-		}
-		frame.setVisible(true);
-	}
-
+			this.setVisible(true);  	    
+	} 
 	  
 		public void actionPerformed(ActionEvent arg0) { 
+			if(j1.getMain()==1 && j1.getPoints_dactions()>0) {
+				
 			 if(arg0.getSource() == haut1) {
-			//mettre des else if
+				 j1.setY(j1.getY()-240);
+				 j1.setPoints_dactions(j1.getPoints_dactions()-2);
+				 ptsactions1.setText("Points d'actions : " + Integer.toString(j1.getPoints_dactions()));				 
 			 }
-			 /*if(arg0.getSource() == haut2) { 
-			 1. on modifie l'affichage
-			 2.modifier les coords; 
-			 3.comptabilisation des points d'action 
-			}*/
-			 
-			 if(arg0.getSource() == bas1) {//joueur1.sedeplacer(bas); 
-			 }
-			 
-			 if(arg0.getSource() == bas2) { //joueur2.sedeplacer(bas);
-			 }
-			 if(arg0.getSource() == gauche1) { }
-			 if(arg0.getSource() == gauche2) { }
-			 if(arg0.getSource() == droite1) { }
-			 if(arg0.getSource() == droite2) { }
-			 if(arg0.getSource() == attaquer1) { }
-			 if(arg0.getSource() == attaquer2) { }
-			 if(arg0.getSource() == finirtour1) { 
+	
+			 if(arg0.getSource() == bas1) {
+				 j1.setY(j1.getY()+240);
+				 j1.setPoints_dactions(j1.getPoints_dactions()-2);
+				 ptsactions1.setText("Points d'actions : " + Integer.toString(j1.getPoints_dactions()));				
 				 
 			 }
+				 
+			 if(arg0.getSource() == droite1) {
+				 j1.setX(j1.getX()+240);
+				 j1.setPoints_dactions(j1.getPoints_dactions()-2);
+				 ptsactions1.setText("Points d'actions : " + Integer.toString(j1.getPoints_dactions()));				
+			 }
+	
+			 if(arg0.getSource() == gauche1) {
+				 j1.setX(j1.getX()-240);
+				 j1.setPoints_dactions(j1.getPoints_dactions()-2);
+				 ptsactions1.setText("Points d'actions : " + Integer.toString(j1.getPoints_dactions()));}
+			 
+			}
+			
+			if(j2.getMain()==1 && j2.getPoints_dactions()>0) {
+			
+			 if(arg0.getSource() == bas2)  {
+				 j2.setY(j2.getY()+240);
+				 j2.setPoints_dactions(j2.getPoints_dactions()-2);
+				 ptsactions2.setText("Points d'actions : " + Integer.toString(j2.getPoints_dactions()));				
+				 }
+			 
+			 if(arg0.getSource() == haut2) {
+				 j2.setY(j2.getY()-240);
+				 j2.setPoints_dactions(j2.getPoints_dactions()-2);
+				 ptsactions2.setText("Points d'actions : " + Integer.toString(j2.getPoints_dactions()));			
+				 }
+		
+			 if(arg0.getSource() == gauche2) { 
+				 j2.setX(j2.getX()-240); 
+				 j2.setPoints_dactions(j2.getPoints_dactions()-2);
+				 ptsactions2.setText("Points d'actions : " + Integer.toString(j2.getPoints_dactions()));			
+				 }
+		
+			 if(arg0.getSource() == droite2) { 
+				 j2.setX(j2.getX()+240);
+				 j2.setPoints_dactions(j2.getPoints_dactions()-2);
+				 ptsactions2.setText("Points d'actions : " + Integer.toString(j2.getPoints_dactions()));			
+				 }
+}
+			
+
+			 if(arg0.getSource() == attaquer1) { }
+			 if(arg0.getSource() == attaquer2) { }
+		
+			 
 			 if(arg0.getSource() == finirtour1) {
 				 lab3.setText("Tour n°" + Integer.toString(j2.getTour()) + " - A " + joueur2 + " de jouer"); 
 				 Joueur.passer_tour(j1,j2);
+				 ptsactions1.setText("Points d'actions : " + Integer.toString(j1.getPoints_dactions()));			
+
 			 }
 			 
 			 if(arg0.getSource() == finirtour2) {
 				 lab3.setText("Tour n°" + Integer.toString(j1.getTour()) + " - A " + joueur1 +" de jouer"); 
 				 Joueur.passer_tour(j2,j1);}
-}
+			 	 ptsactions2.setText("Points d'actions : " + Integer.toString(j2.getPoints_dactions()));			
+
+		}
 }
 
 
