@@ -1,5 +1,6 @@
 package projet_info;
 import javax.swing.ImageIcon;
+
 import java.awt.Color;
 import projet_info.Astre;
 //import javax.swing.JFrame;
@@ -8,6 +9,7 @@ import javax.swing.JPanel;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.util.ArrayList;
+import java.util.Random;
 import java.awt.Graphics2D;
 
 @SuppressWarnings("serial")
@@ -74,9 +76,22 @@ public class Scene extends JPanel {
 
 		
 		this.perso1 = new Joueur("", 0, 0);
-		this.perso2 = new Joueur("", 300, 300);
+		this.perso2 = new Joueur("", 2300, 1660);
 		
+		
+		//création automatique des astres
+		tabObjets = new ArrayList<Astre>(); //
+		for(int i =0; i<= 16; i++){
+			Random random = new Random();
+			int nb1;
+			int nb2;
+			nb1 = random.nextInt(9);
+			nb2 = random.nextInt(7);
+			Astre aastre = new Astre("astre" + i, 200,15+ 255*nb1, 7 + 240*nb2, i, i);
+			this.tabObjets.add(aastre);
+		}
 		//création à la main des astres
+		/*
 		astre1 = new Astre("ASTRE1",200,15,7,1,1.0); //
 		astre4 = new Astre("ASTRE4",200,271,7,1,1.0); //
 		astre3 = new Astre("ASTRE3",200,15,247,1,1.0);
@@ -87,7 +102,7 @@ public class Scene extends JPanel {
 		astre7 = new Astre("ASTRE7",200,775,727,1,1.0); //
 		
 		//liste contenant les astres
-		tabObjets = new ArrayList<Astre>(); //
+		
 		this.tabObjets.add(this.astre1); //
 		this.tabObjets.add(this.astre2); //
 		this.tabObjets.add(this.astre3); //
@@ -96,6 +111,7 @@ public class Scene extends JPanel {
 		this.tabObjets.add(this.astre6); //
 		this.tabObjets.add(this.astre7); //
 		this.tabObjets.add(this.astre8); //
+		*/
 		
 		this.setFocusable(true);
 		this.requestFocusInWindow();
@@ -132,6 +148,14 @@ public class Scene extends JPanel {
 		this.xrect1 += this.dxrect1; //
 		this.yrect1 += this.dyrect1; //
 	}
+	
+	public void Deplacmtvaisseau() {
+		perso1.setX(perso1.getX() + dx);
+		perso1.setY(perso1.getY() + dy);
+		perso2.setX(perso2.getX() + dx);
+		perso2.setY(perso2.getY() + dy);
+		
+	}
 
 	@SuppressWarnings("exports")
 	public void création_grille(Graphics g) {       //
@@ -139,9 +163,7 @@ public class Scene extends JPanel {
 		for (int i = 0; i<10; i++ ) {
 			for (int j = 0; j<8; j++) {
 				gg.drawRect(xrect1+(taille_case_x)*i, yrect1+(taille_case_y)*j, taille_case_x, taille_case_y);
-				gg.setColor(Color.RED);
-			}
-		}
+				gg.setColor(Color.RED);}}
 	}
 
 	@SuppressWarnings("exports")
@@ -149,8 +171,8 @@ public class Scene extends JPanel {
 		super.paintComponent(g);
 		Graphics gc = (Graphics2D)g;
 		this.Deplacmtfond();
+		this.Deplacmtvaisseau();
 		
-	
 		//déplacement des astres
 		for(int i=0; i< this.tabObjets.size(); i++) {this.tabObjets.get(i).deplacement();}
 		gc.drawImage(this.ImFond, this.xFond, this.yFond, null);
@@ -167,7 +189,8 @@ public class Scene extends JPanel {
 		int X2 = perso2.getX();
 		int Y2 = perso2.getY();
 
-		gc.drawImage(this.perso1.getImgObj(),X1,Y1,null);  
+		gc.drawImage(this.perso1.getImgObj(),X1,Y1,null); 
+		gc.drawString("Joueur1", X1, Y1);
 		gc.drawImage(this.perso2.getImgObj(),X2,Y2,null);  
 	}
 
