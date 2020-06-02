@@ -209,22 +209,31 @@ public class Fenetre extends JFrame implements ActionListener{
 			 if(arg0.getSource() == attaquer2) { }
 		
 			 
-			 if(arg0.getSource() == finirtour1) {
+			  if(arg0.getSource() == finirtour1) {
 				 lab3.setText("Tour n°" + Integer.toString(j2.getTour()) + " - A " + joueur2 + " de jouer"); 
 				 Joueur.passer_tour(j1,j2);
-				 ptsactions1.setText("Points d'actions : " + Integer.toString(j1.getPoints_dactions()));			
+				 ptsactions1.setText("Points d'actions : " + Integer.toString(j1.getPoints_dactions()));
+				 if (j1.niveau == 1) { 
+					 j1.points_dactions = 10;
+						 }
+				 else if (j1.niveau == 2) { j1.points_dactions = 20; }
+				 else if (j1.niveau == 3) { j1.points_dactions = 30; }
+				 
 
 			 }
 			 
 			 if(arg0.getSource() == finirtour2) {
 				 lab3.setText("Tour n°" + Integer.toString(j1.getTour()) + " - A " + joueur1 +" de jouer"); 
 				 Joueur.passer_tour(j2,j1);}
-			 	 ptsactions2.setText("Points d'actions : " + Integer.toString(j2.getPoints_dactions()));			
+			 	 ptsactions2.setText("Points d'actions : " + Integer.toString(j2.getPoints_dactions()));
+			 	if (j2.niveau == 1) { 
+					 j2.points_dactions = 10;
+						 }
+				 else if (j1.niveau == 2) { j2.points_dactions = 20; }
+				 else if (j1.niveau == 3) { j2.points_dactions = 30; }
 
 		}
 }
-
-
 			 
 			 
 			 
