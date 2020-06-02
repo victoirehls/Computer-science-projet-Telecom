@@ -22,18 +22,26 @@ public abstract class Unite {
 	//*** GETTER ***//
 	@SuppressWarnings("exports")
 	public Image getImgObj() {return imgObj;}
-	public int getX() {return x;}
-	public int getY() {return y;}
-		
-	public void setX(int x) {
-		this.x = x;
+	
+	public ImageIcon getIcoObj() {
+		return icoObj;
 	}
 
-	public void setY(int y) {
-		this.y = y;
+	public void setIcoObj(ImageIcon icoObj) {
+		this.icoObj = icoObj;
 	}
-	
-	
+
+	public void setImgObj(Image imgObj) {
+		this.imgObj = imgObj;
+	}
+
+	public int getX() {return x;}
+	public int getY() {return y;}
+
+	public void setX(int x) {this.x = x;}
+
+	public void setY(int y) {this.y = y;}
+
 	//*** METHODES ***//
 	public void deplacement(){
 		if (Fenetre.scene.getxFond() != 0 || Fenetre.scene.getyFond() != 0 ) {
