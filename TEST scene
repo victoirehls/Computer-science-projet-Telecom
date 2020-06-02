@@ -1,0 +1,185 @@
+package projet_info;
+import javax.swing.ImageIcon;
+import java.awt.Color;
+import projet_info.Astre;
+//import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+import java.awt.Graphics;
+import java.awt.Image;
+import java.util.ArrayList;
+import java.awt.Graphics2D;
+
+@SuppressWarnings("serial")
+public class Scene extends JPanel {
+	
+	//*** CREATION DES VARIABLES ***// mettre toutes les images ici, mettre aussi variables de déplacement des joueurs (xpos1 et 2)
+	private ImageIcon IcoFond;
+	private Image ImFond;
+	private int taille_case_x;  //
+	private int taille_case_y;  //
+	
+	private int xFond; // l'absc de l'image de fond
+	private int yFond;
+	private int dx;
+	private int dy; //deplacement vertical de l écran
+	
+	//variables relatives au tableau
+	private int xrect1; //
+	private int yrect1; //
+	private int dxrect1; //
+	private int dyrect1; //
+	
+	//2 variables pour bouger le joueur 1
+	private int dyjoueur1;
+	private int dxjoueur1;
+	
+
+	public Joueur perso1;
+	public Joueur perso2;
+	
+	public Astre astre1; //
+	public Astre astre2; //
+	public Astre astre3; //
+	public Astre astre4; //
+	public Astre astre5; //
+	public Astre astre6; //
+	public Astre astre7; //
+	public Astre astre8; //
+	
+	private ArrayList<Astre> tabObjets; // tableau qui enregistre tous les astres
+	// normalement, on devrait mettre <Unite>     //
+	
+	//*** LE CONSTRUCTEUR ***//
+	
+	public Scene() {
+		
+		super(); // faire appel au constructeur de la super classe
+		this.xFond = 0; // commence par initialiser les variables position
+		this.yFond = 0;
+		this.taille_case_x = 256; //2560/256=10    //
+		this.taille_case_y = 240;  //1920/240=8    //
+		this.dx = 0;
+		this.dy = 0;
+		
+		this.xrect1 = 0; //
+		this.yrect1 = 0; //
+		this.dxrect1 = 0;
+		this.dyrect1 = 0;
+		
+		this.dyjoueur1 = 0;
+		this.dxjoueur1 = 0;
+		
+		//téléchargement de l'image
+		IcoFond = new ImageIcon(getClass().getResource("fond.jpg"));
+		this.ImFond = this.IcoFond.getImage();
+        
+		//instances des personnages, créés dans Fenetre
+		this.perso1 = Fenetre.j1;
+		this.perso2 = Fenetre.j2;
+		
+		//création à la main des astres
+		astre1 = new Astre("ASTRE1",200,15,7,1,1.0); //
+		astre4 = new Astre("ASTRE4",200,271,7,1,1.0); //
+		astre3 = new Astre("ASTRE3",200,15,247,1,1.0);
+		astre2 = new Astre("ASTRE2",200,1039,247,1,1.0); //
+		astre5 = new Astre("ASTRE5",200,1295,487,1,1.0); //
+		astre8 = new Astre("ASTRE8",200,775,487,1,1.0); //
+		astre6 = new Astre("ASTRE6",200,271,727,1,1.0); //
+		astre7 = new Astre("ASTRE7",200,775,727,1,1.0); //
+		
+		//liste contenant les astres
+		tabObjets = new ArrayList<Astre>(); //
+		this.tabObjets.add(this.astre1); //
+		this.tabObjets.add(this.astre2); //
+		this.tabObjets.add(this.astre3); //
+		this.tabObjets.add(this.astre4); //
+		this.tabObjets.add(this.astre5); //
+		this.tabObjets.add(this.astre6); //
+		this.tabObjets.add(this.astre7); //
+		this.tabObjets.add(this.astre8); //
+		
+		this.setFocusable(true);
+		this.requestFocusInWindow();
+		this.addKeyListener(new Clavier()); //pour écouter le clavier 
+		
+		//creation d une instance du chrono
+		Thread chronoEcran = new Thread(new Chrono());
+		chronoEcran.start();
+		
+	}
+	
+	//*** GETTERS SETTERS ****// Pour les générer: clic droit, source, generate getters
+	
+	public int getDx() {return dx;} // pour accéder à la valeur de dx
+	public void setDx(int dx) {this.dx = dx;} // pour la modifier
+	public int getDy() {return dy;}
+	public void setDy(int dy) {this.dy = dy;}
+	public int getxFond() {return xFond;}
+	public void setxFond(int xFond) {this.xFond = xFond;}
+	public int getyFond() {return yFond;}
+	public void setyFond(int yFond) {this.yFond = yFond;}
+	public void setDxrect1(int dxrect1) {this.dxrect1 = dxrect1;}
+	public void setDyrect1(int dyrect1) {this.dyrect1 = dyrect1;}
+	public int getDyjoueur1() {return dyjoueur1;}
+	public void setDyjoueur1(int dyjoueur1) {this.dyjoueur1 = dyjoueur1;}
+	public int getDxjoueur1() {return dxjoueur1;}
+	public void setDxjoueur1(int dxjoueur1) {this.dxjoueur1 = dxjoueur1;}
+	
+	
+	
+	
+	//*** LES METHODES ***//
+	
+
+	public void Deplacmtfond() {
+		this.xFond += this.dx;
+		this.yFond += this.dy;
+		//on bouge l ecran avec des touches d ordi
+		this.xrect1 += this.dxrect1; //
+		this.yrect1 += this.dyrect1; //
+	}
+	
+	//méthodes permettant le déplacement du joueur 1
+	public void Deplacmtjoueur1Y() {perso1.setY(perso1.getY()+ dyjoueur1);}
+	public void Deplacmtjoueur1X() {perso1.setY(perso1.getY()+ dxjoueur1);}
+	
+	
+	@SuppressWarnings("exports")
+	public void création_grille(Graphics g) {       //
+		Graphics gg = (Graphics2D)g;                //
+		for (int i = 0; i<10; i++ ) {
+			for (int j = 0; j<8; j++) {
+				gg.drawRect(xrect1+(taille_case_x)*i, yrect1+(taille_case_y)*j, taille_case_x, taille_case_y);
+				gg.setColor(Color.RED);
+			}
+		}
+	}
+
+	@SuppressWarnings("exports")
+	public void paintComponent(Graphics g) {  //méthode qui gère la peinture de l'écran
+		super.paintComponent(g);
+		Graphics gc = (Graphics2D)g;
+		this.Deplacmtfond();
+		
+		//Deplacement du joueur1
+		this.Deplacmtjoueur1X();
+		this.Deplacmtjoueur1Y();
+		
+		//déplacement des astres
+		for(int i=0; i< this.tabObjets.size(); i++) {this.tabObjets.get(i).deplacement();}
+		gc.drawImage(this.ImFond, this.xFond, this.yFond, null);
+		
+		// tracé des astres
+		for(int i=0; i<this.tabObjets.size();i++) {
+			gc.drawImage(this.tabObjets.get(i).getImgObj(), this.tabObjets.get(i).getX(),this.tabObjets.get(i).getY(),null);
+		}
+		gc.drawRect(xrect1, yrect1, taille_case_x,taille_case_y); //
+		this.création_grille(gc); //
+		gc.drawImage(this.perso1.getImgObj(),perso1.getX(),perso1.getY(),null);  //
+		gc.drawImage(this.perso2.getImgObj(),perso2.getX(),perso2.getY(),null);  //
+	}
+
+	
+
+}
