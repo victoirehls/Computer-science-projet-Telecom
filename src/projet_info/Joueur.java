@@ -50,7 +50,6 @@ import javax.swing.ImageIcon;
 
 		public int getNiveau() {return niveau;}
 
-
 		public int getTour() {return this.tour;}
 
 		public void setTour(int tour) {this.tour = tour;}
@@ -59,6 +58,7 @@ import javax.swing.ImageIcon;
 		
 		public int getMain() {return this.main;}
 	
+		
 		
 
 		public int getPoints_dactions() {
