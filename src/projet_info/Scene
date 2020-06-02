@@ -18,8 +18,8 @@ public class Scene extends JPanel {
 	//*** CREATION DES VARIABLES ***// mettre toutes les images ici, mettre aussi variables de déplacement des joueurs (xpos1 et 2)
 	private ImageIcon IcoFond;
 	private Image ImFond;
-	private int taille_case_x;  //
-	private int taille_case_y;  //
+	private int taille_case_x;  
+	private int taille_case_y;  
 	
 	private int xFond; // l'absc de l'image de fond
 	private int yFond;
@@ -76,7 +76,8 @@ public class Scene extends JPanel {
 
 		
 		this.perso1 = new Joueur("", 0, 0);
-		this.perso2 = new Joueur("", 2300, 1660);
+		this.perso2 = new Joueur("", 2300, 1600);
+		//2300 1660
 		
 		
 		//création automatique des astres
@@ -190,8 +191,10 @@ public class Scene extends JPanel {
 		int Y2 = perso2.getY();
 
 		gc.drawImage(this.perso1.getImgObj(),X1,Y1,null); 
-		gc.drawString("Joueur1", X1, Y1);
-		gc.drawImage(this.perso2.getImgObj(),X2,Y2,null);  
+		gc.drawString("Joueur1", X1, Y1+20);
+		
+		gc.drawImage(this.perso2.getImgObj(),X2,Y2,null); 
+		gc.drawString("Joueur2", X2+20, Y2+50);
 	}
 
 	
