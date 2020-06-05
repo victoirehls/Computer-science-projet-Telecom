@@ -70,11 +70,13 @@ import javax.swing.ImageIcon;
 		}
 
 		//METHODES
-		public static void passer_tour(Joueur joueurquijoue, Joueur autre) { // Ã  appeler Ã  chaque tour d'un seul joueur
+	public static void passer_tour(Joueur joueurquijoue, Joueur autre) { // Ã  appeler Ã  chaque tour d'un seul joueur
 			joueurquijoue.tour += 1;
 			joueurquijoue.main = 0;
 			autre.main = 1;
-			joueurquijoue.points_dactions += 2;
+			if (joueurquijoue.niveau == 1) { joueurquijoue.points_dactions = 10;}
+			else if (joueurquijoue.niveau == 2) { joueurquijoue.points_dactions = 20;}
+			else if (joueurquijoue.niveau == 3) { joueurquijoue.points_dactions = 30;}
 			
 		}
 		
