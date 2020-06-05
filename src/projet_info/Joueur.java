@@ -16,7 +16,7 @@ import javax.swing.ImageIcon;
 		//double[] coordonnees;
 		int points_dactions;
 		int main;
-		double coordonnees[];
+		
 
 		//private Image imgJoueur;
 		//private ImageIcon icoJoueur;
@@ -32,10 +32,10 @@ import javax.swing.ImageIcon;
 			this.experience = 0;
 			this.tour=1;
 			this.points_dactions = 10;
-			//this.coordonnees[0] = x; //initialisation des coordonnÃ©es de chaque joueur
+			//this.coordonnees[0] = x; //initialisation des coordonnées de chaque joueur
 			//this.coordonnees[1] = y;
 			this.territoires = new String[100]; // on prend un "grand " tableau pour l'instant pour Ã©viter d'utiliser les tableaux exte
-			super.icoObj = new ImageIcon(getClass().getResource("joueur.png")); 
+			super.icoObj = new ImageIcon(getClass().getResource("joueur1.png")); 
 			super.imgObj = this.icoObj.getImage(); 
 		}
 	
@@ -134,9 +134,9 @@ import javax.swing.ImageIcon;
 		
 		public void attaquer(Joueur j1, Joueur j2, Astre a) {
 			if (j1.main == 1) {
-				if (j1.points_dactions >= 7) {
+				if (j1.points_dactions >= 5) {
 					System.out.println("Le joueur" + j1.nom + " attaque l'astre " + a.nom + "de" + j2.nom);
-					if ((j1.points_conquetes >= a.points_conquetes) || (a.x == j1.coordonnees[0]) || (a.y == j1.coordonnees[1])) {
+					if ((j1.points_conquetes >= a.points_conquetes) || (a.getX() == j1.getX()) || (a.getY() == j1.getY())) {
 						conquerir (j1, a); 
 						for(int i =0; i<= j2.territoires.length; i++){ 
 							if (j2.territoires[i] == a.nom) {
