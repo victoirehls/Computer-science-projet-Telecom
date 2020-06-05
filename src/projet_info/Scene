@@ -88,7 +88,7 @@ public class Scene extends JPanel {
 			int nb2;
 			nb1 = random.nextInt(9);
 			nb2 = random.nextInt(7);
-			Astre aastre = new Astre("astre" + i, 200,15+ 80*nb1, 7 + 80*nb2, i, i);
+			Astre aastre = new Astre("astre" + i, nb1*200+100,80*nb1, 80*nb2, 1, i);
 			this.tabObjets.add(aastre);
 		}
 	
@@ -130,6 +130,16 @@ public class Scene extends JPanel {
 		}
 		return Liste;
 	}
+	public static int peut_conquérir_astres(Joueur j) {
+		
+		int res = 0;
+		for(int i=0; i<tabObjets.size();i++) {
+			if(j.getX()== tabObjets.get(i).getX() && j.getY() == tabObjets.get(i).getY()){
+				res = i;
+		
+			}
+	}
+		return res; }
 
 	public void Deplacmtfond() {
 		this.xFond += this.dx;
@@ -173,6 +183,7 @@ public class Scene extends JPanel {
 			int X = tabObjets.get(i).getX();
 			int Y = tabObjets.get(i).getY();
 			gc.drawString(tabObjets.get(i).getNom(), X+20, Y+20);
+			gc.drawString(Integer.toString(tabObjets.get(i).getTaille()), X+30, Y+30);
 		}
 		gc.drawRect(xrect1, yrect1, taille_case_x,taille_case_y); 
 		this.création_grille(gc); 
