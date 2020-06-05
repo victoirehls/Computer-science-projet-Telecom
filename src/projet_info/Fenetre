@@ -68,7 +68,7 @@ public class Fenetre extends JFrame implements ActionListener{
 			//this.setContentPane(scene);
 			
 			//récupération nom joueur1
-			this.joueur1 = FenNomsJoueurs.getJTextField1();
+			this.joueur1 = FenNomJoueurs.getJTextField1();
 			j1 = scene.perso1;
 			j1.setNom(joueur1);
 			j1.main = 1;
@@ -132,7 +132,7 @@ public class Fenetre extends JFrame implements ActionListener{
 			
 			
 			//récupération joueur2 nom
-			this.joueur2 = FenNomsJoueurs.getJTextField2();
+			this.joueur2 = FenNomJoueurs.getJTextField2();
 			j2 = scene.perso2;
 			j2.setNom(joueur2);
 			j2.main = 0;
@@ -291,60 +291,63 @@ public class Fenetre extends JFrame implements ActionListener{
 	
 	  
 		public void actionPerformed(ActionEvent arg0) { 
+			
+			if(j2.getMain()==1 && j2.getPoints_dactions()>0) {
+				
+				 if(arg0.getSource() == bas2)  {
+					 j2.setY(j2.getY()+80);
+					 j2.setPoints_dactions(j2.getPoints_dactions()-2);
+					 ptsactions2.setText("Points d'actions : " + Integer.toString(j2.getPoints_dactions()));				
+					 }
+				 
+				 if(arg0.getSource() == haut2) {
+					 j2.setY(j2.getY()-80);
+					 j2.setPoints_dactions(j2.getPoints_dactions()-2);
+					 ptsactions2.setText("Points d'actions : " + Integer.toString(j2.getPoints_dactions()));			
+					 }
+			
+				 if(arg0.getSource() == gauche2) { 
+					 j2.setX(j2.getX()-80); 
+					 j2.setPoints_dactions(j2.getPoints_dactions()-2);
+					 ptsactions2.setText("Points d'actions : " + Integer.toString(j2.getPoints_dactions()));			
+					 }
+			
+				 if(arg0.getSource() == droite2) { 
+					 j2.setX(j2.getX()+80);
+					 j2.setPoints_dactions(j2.getPoints_dactions()-2);
+					 ptsactions2.setText("Points d'actions : " + Integer.toString(j2.getPoints_dactions()));			
+					 }
+	}
+			
+			
 			if(j1.getMain()==1 && j1.getPoints_dactions()>0) {
 				
 			 if(arg0.getSource() == haut1) {
-				 j1.setY(j1.getY()-73);
+				j1.setY(j1.getY()-80);
 				 j1.setPoints_dactions(j1.getPoints_dactions()-2);
 				 ptsactions1.setText("Points d'actions : " + Integer.toString(j1.getPoints_dactions()));				 
 			 }
 	
 			 if(arg0.getSource() == bas1) {
-				 j1.setY(j1.getY()+73);
+				 j1.setY(j1.getY()+80);
 				 j1.setPoints_dactions(j1.getPoints_dactions()-2);
 				 ptsactions1.setText("Points d'actions : " + Integer.toString(j1.getPoints_dactions()));				
 				 
 			 }
 				 
 			 if(arg0.getSource() == droite1) {
-				 j1.setX(j1.getX()+71);
+				 j1.setX(j1.getX()+80);
 				 j1.setPoints_dactions(j1.getPoints_dactions()-2);
 				 ptsactions1.setText("Points d'actions : " + Integer.toString(j1.getPoints_dactions()));				
 			 }
 	
 			 if(arg0.getSource() == gauche1) {
-				 j1.setX(j1.getX()-71);
+				 j1.setX(j1.getX()-80);
 				 j1.setPoints_dactions(j1.getPoints_dactions()-2);
 				 ptsactions1.setText("Points d'actions : " + Integer.toString(j1.getPoints_dactions()));}
 			 
 			}
 			
-			if(j2.getMain()==1 && j2.getPoints_dactions()>0) {
-			
-			 if(arg0.getSource() == bas2)  {
-				 j2.setY(j2.getY()+73);
-				 j2.setPoints_dactions(j2.getPoints_dactions()-2);
-				 ptsactions2.setText("Points d'actions : " + Integer.toString(j2.getPoints_dactions()));				
-				 }
-			 
-			 if(arg0.getSource() == haut2) {
-				 j2.setY(j2.getY()-73);
-				 j2.setPoints_dactions(j2.getPoints_dactions()-2);
-				 ptsactions2.setText("Points d'actions : " + Integer.toString(j2.getPoints_dactions()));			
-				 }
-		
-			 if(arg0.getSource() == gauche2) { 
-				 j2.setX(j2.getX()-71); 
-				 j2.setPoints_dactions(j2.getPoints_dactions()-2);
-				 ptsactions2.setText("Points d'actions : " + Integer.toString(j2.getPoints_dactions()));			
-				 }
-		
-			 if(arg0.getSource() == droite2) { 
-				 j2.setX(j2.getX()+71);
-				 j2.setPoints_dactions(j2.getPoints_dactions()-2);
-				 ptsactions2.setText("Points d'actions : " + Integer.toString(j2.getPoints_dactions()));			
-				 }
-}
 			
 
 			 if(arg0.getSource() == attaquer1) { }
@@ -409,15 +412,3 @@ public class Fenetre extends JFrame implements ActionListener{
 
 		}
 }
-
-
-			 
-			 
-			 
-			 
-
-			 
-
-			
-				 
-		
