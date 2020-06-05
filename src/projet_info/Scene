@@ -1,202 +1,423 @@
 package projet_info;
-import javax.swing.ImageIcon;
-
+import java.awt.BorderLayout;
 import java.awt.Color;
-import projet_info.Astre;
-//import javax.swing.JFrame;
-import javax.swing.JPanel;
-
-import java.awt.Graphics;
-import java.awt.Image;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Random;
-import java.awt.Graphics2D;
 
-@SuppressWarnings("serial")
-public class Scene extends JPanel {
-	
-	//*** CREATION DES VARIABLES ***// mettre toutes les images ici, mettre aussi variables de déplacement des joueurs (xpos1 et 2)
-	private ImageIcon IcoFond;
-	private Image ImFond;
-	private int taille_case_x;  
-	private int taille_case_y;  
-	
-	private int xFond; // l'absc de l'image de fond
-	private int yFond;
-	private int dx;
-	private int dy; //deplacement vertical de l écran
-	
-	//variables relatives au tableau
-	private int xrect1; //
-	private int yrect1; //
-	private int dxrect1; //
-	private int dyrect1; //
-	
-	//2 variables pour bouger le joueur 1
-	private int dyjoueur1;
-	private int dxjoueur1;
-	
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSplitPane;
+import javax.swing.Spring;
+import javax.swing.SpringLayout; 
 
-	public Joueur perso1;
-	public Joueur perso2;
+public class Fenetre extends JFrame implements ActionListener{
 	
-	public Astre astre1; //
-	public Astre astre2; //
-	public Astre astre3; //
-	public Astre astre4; //
-	public Astre astre5; //
-	public Astre astre6; //
-	public Astre astre7; //
-	public Astre astre8; //
+	//*** VARIABLES ***//
 	
-	private ArrayList<Astre> tabObjets; // tableau qui enregistre tous les astres
-	// normalement, on devrait mettre <Unite>     //
+	private String joueur1;
+	private String joueur2;
+	private JLabel lab1;
+	private JLabel lab2;
+	private JLabel lab3;
+	private JLabel ptsactions1;
+	private JLabel ptsactions2;
 	
-	//*** LE CONSTRUCTEUR ***//
+	static Joueur j1;
+	static Joueur j2;
 	
-	public Scene() {
-		
-		super(); // faire appel au constructeur de la super classe
-		this.xFond = 0; // commence par initialiser les variables position
-		this.yFond = 0;
-		this.taille_case_x = 80; //2560/256=10    //
-		this.taille_case_y = 80;  //1920/240=8    //
-		this.dx = 0;
-		this.dy = 0;
-		
-		this.xrect1 = 0; //
-		this.yrect1 = 0; //
-		this.dxrect1 = 0;
-		this.dyrect1 = 0;
+	private JButton haut1 = new JButton("Haut");
+	private JButton bas1 = new JButton("Bas");
+	private JButton gauche1 = new JButton("Gauche");
+	private JButton droite1 = new JButton("Droite");
+	private JButton attaquer1 = new JButton("ATTAQUER");
+	private JButton finirtour1 = new JButton("Finir son tour");
+	private JButton conquerir1 = new JButton("Conquérir");
 	
-		//téléchargement de l'image
-		IcoFond = new ImageIcon(getClass().getResource("fond.jpg"));
-		this.ImFond = this.IcoFond.getImage();
-        
+	private JButton haut2 = new JButton("Haut");
+	private JButton bas2 = new JButton("Bas");
+	private JButton gauche2 = new JButton("Gauche");
+	private JButton droite2 = new JButton("Droite");
+	private JButton attaquer2 = new JButton("Attaquer");
+	private JButton finirtour2 = new JButton("Finir son tour");
+	JButton conquerir2 = new JButton("Conquérir");
+	
+	public static Scene scene = new Scene();
+	
+	private SpringLayout layout = new SpringLayout();
+	private JPanel panneau = new JPanel(new BorderLayout());
+   
+	
+	//*** CONSTRUCTEUR ***// 
+	public Fenetre(){
+		 
+			super();
+			this.setTitle("Scene principale");
+			this.setSize(1280, 830);
+			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			this.setLocationRelativeTo(null);
+			this.setResizable(false);
+			this.setAlwaysOnTop(true);
+			//this.setContentPane(scene);
+			
+			//récupération nom joueur1
+			this.joueur1 = FenNomsJoueurs.getJTextField1();
+			j1 = scene.perso1;
+			j1.setNom(joueur1);
+			j1.main = 1;
+			
+			//Ecriture du nom du joueur1
+			this.lab1 = new JLabel(joueur1);
+			Font police = new Font("Tahoma", Font.BOLD, 16); 
+			lab1.setFont(police);
+			lab1.setForeground(Color.blue);  
+			//lab1.setHorizontalAlignment(JLabel.CENTER);
+			
+			//affichage points action joueur1
+			this.ptsactions1 = new JLabel("Points d'action : " + Double.toString(j1.getPoints_dactions()));
+			this.ptsactions1.setFont(police);
+			this.ptsactions1.setForeground(Color.orange);  
+			this.ptsactions1.setHorizontalAlignment(JLabel.CENTER);
+			
+			//réglage des polices pour tous les boutons
+			haut1.setBackground(Color.red);
+			haut1.setForeground(Color.black);
+			haut1.setFont(new java.awt.Font("Tahoma",1,16));
+			haut2.setBackground(Color.red);
+			haut2.setForeground(Color.black);
+			haut2.setFont(new java.awt.Font("Tahoma",1,16));
+			gauche1.setBackground(Color.red);
+			gauche1.setForeground(Color.black);
+			gauche1.setFont(new java.awt.Font("Tahoma",1,16));
+			gauche2.setBackground(Color.red);
+			gauche2.setForeground(Color.black);
+			gauche2.setFont(new java.awt.Font("Tahoma",1,16));
+			droite1.setBackground(Color.red);
+			droite1.setForeground(Color.black);
+			droite1.setFont(new java.awt.Font("Tahoma",1,16));
+			droite2.setBackground(Color.red);
+			droite2.setForeground(Color.black);
+			droite2.setFont(new java.awt.Font("Tahoma",1,16));
+			bas1.setBackground(Color.red);
+			bas1.setForeground(Color.black);
+			bas1.setFont(new java.awt.Font("Tahoma",1,16));
+			bas2.setBackground(Color.red);
+			bas2.setForeground(Color.black);
+			bas2.setFont(new java.awt.Font("Tahoma",1,16));
+			attaquer1.setBackground(Color.red);
+			attaquer1.setForeground(Color.black);
+			attaquer1.setFont(new java.awt.Font("Tahoma",1,16));
+			attaquer2.setBackground(Color.red);
+			attaquer2.setForeground(Color.black);
+			attaquer2.setFont(new java.awt.Font("Tahoma",1,16));
+			finirtour1.setBackground(Color.red);
+			finirtour1.setForeground(Color.black);
+			finirtour1.setFont(new java.awt.Font("Tahoma",1,16));
+			finirtour2.setBackground(Color.red);
+			finirtour2.setForeground(Color.black);
+			finirtour2.setFont(new java.awt.Font("Tahoma",1,16));
+			conquerir2.setBackground(Color.red);
+			conquerir2.setForeground(Color.black);
+			conquerir2.setFont(new java.awt.Font("Tahoma",1,16));
+			conquerir1.setBackground(Color.red);
+			conquerir1.setForeground(Color.black);
+			conquerir1.setFont(new java.awt.Font("Tahoma",1,16));
+			
+			
+			//récupération joueur2 nom
+			this.joueur2 = FenNomsJoueurs.getJTextField2();
+			j2 = scene.perso2;
+			j2.setNom(joueur2);
+			j2.main = 0;
+			
+			//affichage points d'action joueur2
+			this.ptsactions2= new JLabel("Points d'action : " + Double.toString(j2.getPoints_dactions()));
+			this.ptsactions2.setFont(police);
+			this.ptsactions2.setForeground(Color.orange);  
+			this.ptsactions2.setHorizontalAlignment(JLabel.CENTER);
+			
+			//affichage nom joueur2
+			this.lab2 = new JLabel(joueur2);
+			lab2.setFont(police);
+			lab2.setForeground(Color.blue);  
+			lab2.setHorizontalAlignment(JLabel.CENTER);
+			
+			
+			////this.tour = j1.getTour();
+			this.lab3 = new JLabel("Tour n°1" + " - A " + joueur1 + " de jouer");
+			
+			Font police1 = new Font("Tahoma", Font.BOLD, 20); 
+			lab3.setFont(police1);  
+			lab3.setForeground(Color.RED);  
+			lab3.setHorizontalAlignment(JLabel.CENTER);
+			lab3.setOpaque(true);
+			lab3.setBackground(Color.BLACK);
+			
+			//Mettre en écoute les boutons
+			haut1.addActionListener(this);
+			haut2.addActionListener(this);
+			bas1.addActionListener(this);
+			bas2.addActionListener(this);
+			gauche1.addActionListener(this);
+			gauche2.addActionListener(this);
+			droite1.addActionListener(this);
+			droite2.addActionListener(this);
+			attaquer1.addActionListener(this);
+			attaquer2.addActionListener(this);
+			finirtour1.addActionListener(this);
+			finirtour2.addActionListener(this);
+			conquerir1.addActionListener(this);
+			conquerir2.addActionListener(this);
+	
+			
+			//Panneau informations joueur1
+			
+			JPanel J1 = new JPanel();
+			J1.setLayout(new BoxLayout(J1, BoxLayout.PAGE_AXIS));
+			J1.add(lab1);
+			JLabel test1 = new JLabel("Points conquêtes : " + Integer.toString(j1.getPoints_conquetes()));
+			test1.setFont(police);
+			test1.setForeground(Color.orange);  
+			test1.setHorizontalAlignment(JLabel.CENTER);
+			J1.add(test1);
+			JLabel test2 = new JLabel("Niveau : " + Integer.toString(j1.getNiveau()));
+			test2.setFont(police);
+			test2.setForeground(Color.orange);  
+			test2.setHorizontalAlignment(JLabel.CENTER);
+			J1.add(test2);
+			JLabel test3 = new JLabel("Expérience : " + Double.toString(j1.getExperience()));
+			test3.setFont(police);
+			test3.setForeground(Color.orange);  
+			test3.setHorizontalAlignment(JLabel.CENTER);
+			J1.add(test3);
+		    J1.add(ptsactions1);
+		    
+		    //J1.add(concquerir1);
+		 
+		    
+			//Panneau informations joueur2
+		    
+		    JPanel J2 = new JPanel();
+			J2.setLayout(new BoxLayout(J2, BoxLayout.PAGE_AXIS));
+			J2.add(lab2);
+			JLabel test4 = new JLabel("Points conquêtes : " + Integer.toString(j1.getPoints_conquetes()));
+			test4.setFont(police);
+			test4.setForeground(Color.orange);  
+			test4.setHorizontalAlignment(JLabel.CENTER);
+			J2.add(test4);
+			JLabel test5 = new JLabel("Niveau2 : " + Integer.toString(j1.getNiveau()));
+			test5.setFont(police);
+			test5.setForeground(Color.orange);  
+			test5.setHorizontalAlignment(JLabel.CENTER);
+			J2.add(test5);
+			JLabel test6 = new JLabel("Expérience2 : " + Double.toString(j1.getExperience()));
+			test6.setFont(police);
+			test6.setForeground(Color.orange);  
+			test6.setHorizontalAlignment(JLabel.CENTER);
+			J2.add(test6);
+		    J2.add(ptsactions2);
+		    
+		    //ajoute le titre + les informations de J1, J2   //!!!!problème ici
+		    
+		    
+	       
+			
+	        //ajouter les différents boutons 
+	        SpringLayout pan = new SpringLayout();
+	        JPanel pan1 = new JPanel(pan);
+	        JPanel pan2 = new JPanel(pan);
+			//setLayout(layout);
+			pan1.add(haut1);
+			pan1.add(bas1);
+			pan1.add(gauche1);
+			pan1.add(droite1);
+			pan1.add(attaquer1);
+			pan1.add(finirtour1);
+			pan1.add(conquerir1);
+			J1.add(pan1);
+			
+			pan2.add(haut2);
+			pan2.add(bas2);
+			pan2.add(gauche2);
+			pan2.add(droite2);		
+			pan2.add(attaquer2);
+			pan2.add(finirtour2);
+			pan2.add(conquerir2);
+			J2.add(pan2);
+			
+			//création et utilisation de ressorts permettant de séparer les boutons
+			Spring ressort = Spring.constant(0, 50, 50); 
+			Spring ressort2 = Spring.constant(0, 1270, 1320);
+			
+			pan.putConstraint(SpringLayout.NORTH, haut1, ressort, SpringLayout.NORTH, getContentPane());
+			pan.putConstraint(SpringLayout.NORTH, bas1, ressort, SpringLayout.SOUTH, haut1);
+			pan.putConstraint(SpringLayout.NORTH, gauche1, ressort, SpringLayout.SOUTH, bas1);
+			pan.putConstraint(SpringLayout.NORTH, droite1, ressort, SpringLayout.SOUTH, gauche1);
+			pan.putConstraint(SpringLayout.NORTH, attaquer1, ressort, SpringLayout.SOUTH, droite1);
+			pan.putConstraint(SpringLayout.NORTH, finirtour1, ressort, SpringLayout.SOUTH, attaquer1);
+			pan.putConstraint(SpringLayout.NORTH, conquerir1, ressort, SpringLayout.SOUTH, finirtour1);
+
+			
+			
+			pan.putConstraint(SpringLayout.NORTH, haut2, ressort, SpringLayout.NORTH, getContentPane());
+			pan.putConstraint(SpringLayout.NORTH, bas2, ressort, SpringLayout.SOUTH, haut2);
+			pan.putConstraint(SpringLayout.NORTH, gauche2, ressort, SpringLayout.SOUTH, bas2);
+			pan.putConstraint(SpringLayout.NORTH, droite2, ressort, SpringLayout.SOUTH, gauche2);
+			pan.putConstraint(SpringLayout.NORTH, attaquer2, ressort, SpringLayout.SOUTH, droite2);
+			pan.putConstraint(SpringLayout.NORTH, finirtour2, ressort, SpringLayout.SOUTH, attaquer2);
+			pan.putConstraint(SpringLayout.NORTH, conquerir2, ressort, SpringLayout.SOUTH, finirtour2);
 
 		
-		this.perso1 = new Joueur("", 0, 0);
-		this.perso2 = new Joueur("", 2300, 1600);
-		//2300 1660
-		
-		
-		//création automatique des astres
-		tabObjets = new ArrayList<Astre>(); //
-		for(int i =0; i<= 16; i++){
-			Random random = new Random();
-			int nb1;
-			int nb2;
-			nb1 = random.nextInt(9);
-			nb2 = random.nextInt(7);
-			Astre aastre = new Astre("astre" + i, 200,15+ 255*nb1, 7 + 240*nb2, i, i);
-			this.tabObjets.add(aastre);
-		}
-		//création à la main des astres
-		/*
-		astre1 = new Astre("ASTRE1",200,15,7,1,1.0); //
-		astre4 = new Astre("ASTRE4",200,271,7,1,1.0); //
-		astre3 = new Astre("ASTRE3",200,15,247,1,1.0);
-		astre2 = new Astre("ASTRE2",200,1039,247,1,1.0); //
-		astre5 = new Astre("ASTRE5",200,1295,487,1,1.0); //
-		astre8 = new Astre("ASTRE8",200,775,487,1,1.0); //
-		astre6 = new Astre("ASTRE6",200,271,727,1,1.0); //
-		astre7 = new Astre("ASTRE7",200,775,727,1,1.0); //
-		
-		//liste contenant les astres
-		
-		this.tabObjets.add(this.astre1); //
-		this.tabObjets.add(this.astre2); //
-		this.tabObjets.add(this.astre3); //
-		this.tabObjets.add(this.astre4); //
-		this.tabObjets.add(this.astre5); //
-		this.tabObjets.add(this.astre6); //
-		this.tabObjets.add(this.astre7); //
-		this.tabObjets.add(this.astre8); //
-		*/
-		
-		this.setFocusable(true);
-		this.requestFocusInWindow();
-		this.addKeyListener(new Clavier()); //pour écouter le clavier 
-		
-		//creation d une instance du chrono
-		Thread chronoEcran = new Thread(new Chrono());
-		chronoEcran.start();
-		
-	}
+			this.setLayout(new BorderLayout());
+		    
+	        add(lab3, BorderLayout.NORTH);
+	        add(J1, BorderLayout.WEST);
+	        add(J2, BorderLayout.EAST);
+	        add(scene, BorderLayout.CENTER);
+	       
+	        
+			//affichage général
+			setDefaultCloseOperation(EXIT_ON_CLOSE);
+			this.setVisible(true);
+			
+	} 
 	
-	//*** GETTERS SETTERS ****// Pour les générer: clic droit, source, generate getters
+	  
+		public void actionPerformed(ActionEvent arg0) { 
+			if(j1.getMain()==1 && j1.getPoints_dactions()>0) {
+				
+			 if(arg0.getSource() == haut1) {
+				 j1.setY(j1.getY()-73);
+				 j1.setPoints_dactions(j1.getPoints_dactions()-2);
+				 ptsactions1.setText("Points d'actions : " + Integer.toString(j1.getPoints_dactions()));				 
+			 }
 	
-	public int getDx() {return dx;} // pour accéder à la valeur de dx
-	public void setDx(int dx) {this.dx = dx;} // pour la modifier
-	public int getDy() {return dy;}
-	public void setDy(int dy) {this.dy = dy;}
-	public int getxFond() {return xFond;}
-	public void setxFond(int xFond) {this.xFond = xFond;}
-	public int getyFond() {return yFond;}
-	public void setyFond(int yFond) {this.yFond = yFond;}
-	public void setDxrect1(int dxrect1) {this.dxrect1 = dxrect1;}
-	public void setDyrect1(int dyrect1) {this.dyrect1 = dyrect1;}
-
+			 if(arg0.getSource() == bas1) {
+				 j1.setY(j1.getY()+73);
+				 j1.setPoints_dactions(j1.getPoints_dactions()-2);
+				 ptsactions1.setText("Points d'actions : " + Integer.toString(j1.getPoints_dactions()));				
+				 
+			 }
+				 
+			 if(arg0.getSource() == droite1) {
+				 j1.setX(j1.getX()+71);
+				 j1.setPoints_dactions(j1.getPoints_dactions()-2);
+				 ptsactions1.setText("Points d'actions : " + Integer.toString(j1.getPoints_dactions()));				
+			 }
 	
-	
-	//*** LES METHODES ***//
-	
-
-	public void Deplacmtfond() {
-		this.xFond += this.dx;
-		this.yFond += this.dy;
-		//on bouge l ecran avec des touches d ordi
-		this.xrect1 += this.dxrect1; //
-		this.yrect1 += this.dyrect1; //
-	}
-	
-	public void Deplacmtvaisseau() {
-		perso1.setX(perso1.getX() + dx);
-		perso1.setY(perso1.getY() + dy);
-		perso2.setX(perso2.getX() + dx);
-		perso2.setY(perso2.getY() + dy);
+			 if(arg0.getSource() == gauche1) {
+				 j1.setX(j1.getX()-71);
+				 j1.setPoints_dactions(j1.getPoints_dactions()-2);
+				 ptsactions1.setText("Points d'actions : " + Integer.toString(j1.getPoints_dactions()));}
+			 
+			}
+			
+			if(j2.getMain()==1 && j2.getPoints_dactions()>0) {
+			
+			 if(arg0.getSource() == bas2)  {
+				 j2.setY(j2.getY()+73);
+				 j2.setPoints_dactions(j2.getPoints_dactions()-2);
+				 ptsactions2.setText("Points d'actions : " + Integer.toString(j2.getPoints_dactions()));				
+				 }
+			 
+			 if(arg0.getSource() == haut2) {
+				 j2.setY(j2.getY()-73);
+				 j2.setPoints_dactions(j2.getPoints_dactions()-2);
+				 ptsactions2.setText("Points d'actions : " + Integer.toString(j2.getPoints_dactions()));			
+				 }
 		
-	}
-
-	@SuppressWarnings("exports")
-	public void création_grille(Graphics g) {       //
-		Graphics gg = (Graphics2D)g;                //
-		for (int i = 0; i<13; i++ ) {
-			for (int j = 0; j<9; j++) {
-				gg.drawRect(xrect1+(taille_case_x)*i, yrect1+(taille_case_y)*j, taille_case_x, taille_case_y);
-				gg.setColor(Color.RED);}}
-	}
-
-	@SuppressWarnings("exports")
-	public void paintComponent(Graphics g) {  //méthode qui gère la peinture de l'écran
-		super.paintComponent(g);
-		Graphics gc = (Graphics2D)g;
-		this.Deplacmtfond();
-		this.Deplacmtvaisseau();
+			 if(arg0.getSource() == gauche2) { 
+				 j2.setX(j2.getX()-71); 
+				 j2.setPoints_dactions(j2.getPoints_dactions()-2);
+				 ptsactions2.setText("Points d'actions : " + Integer.toString(j2.getPoints_dactions()));			
+				 }
 		
-		//déplacement des astres
-		for(int i=0; i< this.tabObjets.size(); i++) {this.tabObjets.get(i).deplacement();}
-		gc.drawImage(this.ImFond, this.xFond, this.yFond, null);
-		
-		// tracé des astres
-		for(int i=0; i<this.tabObjets.size();i++) {
-			gc.drawImage(this.tabObjets.get(i).getImgObj(), this.tabObjets.get(i).getX(),this.tabObjets.get(i).getY(),null);
-		}
-		gc.drawRect(xrect1, yrect1, taille_case_x,taille_case_y); 
-		this.création_grille(gc); 
-		
-		int X1 = perso1.getX();
-		int Y1 = perso1.getY();
-		int X2 = perso2.getX();
-		int Y2 = perso2.getY();
-
-		gc.drawImage(this.perso1.getImgObj(),X1,Y1,null); 
-		gc.drawString("Joueur1", X1, Y1+20);
-		
-		gc.drawImage(this.perso2.getImgObj(),X2,Y2,null); 
-		gc.drawString("Joueur2", X2+20, Y2+50);
-	}
-
-	
-
+			 if(arg0.getSource() == droite2) { 
+				 j2.setX(j2.getX()+71);
+				 j2.setPoints_dactions(j2.getPoints_dactions()-2);
+				 ptsactions2.setText("Points d'actions : " + Integer.toString(j2.getPoints_dactions()));			
+				 }
 }
+			
+
+			 if(arg0.getSource() == attaquer1) { }
+			 if(arg0.getSource() == attaquer2) { }
+		
+			 
+			 if(arg0.getSource() == finirtour1) {
+				 lab3.setText("Tour n°" + Integer.toString(j2.getTour()) + " - A " + joueur2 + " de jouer"); 
+				 Joueur.passer_tour(j1,j2);
+				 
+				 if (j1.niveau == 1) { 
+					 j1.points_dactions = 10;
+						 }
+				 else if (j1.niveau == 2) { j1.points_dactions = 20; }
+				 else if (j1.niveau == 3) { j1.points_dactions = 30; }
+				 ptsactions1.setText("Points d'actions : " + Integer.toString(j1.getPoints_dactions()));
+
+			 }
+			 
+			 if(arg0.getSource() == finirtour2) {
+				 lab3.setText("Tour n°" + Integer.toString(j1.getTour()) + " - A " + joueur1 +" de jouer"); 
+				 Joueur.passer_tour(j2,j1);}
+			 	 
+			 	if (j2.niveau == 1) { 
+					 j2.points_dactions = 10;
+						 }
+				 else if (j2.niveau == 2) { j2.points_dactions = 20; }
+				 else if (j2.niveau == 3) { j2.points_dactions = 30; }
+			 	ptsactions2.setText("Points d'actions : " + Integer.toString(j2.getPoints_dactions()));
+			 	
+			 	if(arg0.getSource() == conquerir1) {
+					 ArrayList<Astre> liste = Scene.peut_conquérir_astres(j1);
+					 JPanel container = new JPanel();
+					 JLabel label = new JLabel("Choisissez l'astre que vous souhaitez conquérir");
+					 this.setBackground(Color.white);
+					 this.setLayout(new BorderLayout());
+					 this.add(panneau, BorderLayout.CENTER);
+					 JPanel south2 = new JPanel();
+				
+					 for(int i = 0; i<liste.size(); i++) {
+						 JButton bouton = new JButton(liste.get(i).nom);
+						 bouton.addActionListener(this);
+						 south2.add(bouton);}
+					
+					 container.add(south2, BorderLayout.SOUTH);
+					 Font police3 = new Font("Tahoma", Font.BOLD, 16);
+					 label.setFont(police3);
+					 label.setForeground(Color.blue);
+					 label.setHorizontalAlignment(JLabel.CENTER);
+					 container.add(label, BorderLayout.NORTH);
+					 this.setContentPane(container);
+					 this.setVisible(true);
+					 
+					 //ici il faut faire de nouveau un actionPerformed, 
+					 // en fonction du bouton qui est appuyé, il faut faire appel à Joueur.conquerir
+					 // puis effacer l'écran secondaire (au bout d'un temps d'attente), 
+					 //puis déplacer le vaisseau en fixant ses coordonnées sur celles 
+					 // de l'étoile conquise
+					 //en +: on peut changer la couleur de l'image de l'astre??	 
+					 
+				}
+
+		}
+}
+
+
+			 
+			 
+			 
+			 
+
+			 
+
+			
+				 
+		
