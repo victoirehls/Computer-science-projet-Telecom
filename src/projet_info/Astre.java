@@ -6,7 +6,8 @@ public class Astre extends Unite {
 // DEFINITION DES CHAMPS
 	String nom; 
 	int taille;
-	double x,y;
+	int x;
+	int y;
 	int points_conquetes;
 	boolean conquis; //statut de l'astre dÃ©terminant si le territoire est conquis
 	int proportion_conquete; //facteur proportionnel qui donne le nombre de points_conquÃªtes en fonction de sa taille
@@ -18,7 +19,7 @@ public class Astre extends Unite {
 	//private ImageIcon icoAstre;
 
 //CONSTRUCTEUR
-	public Astre(String nom, int taille, double x, double y, int proportion, double taux) {
+	public Astre(String nom, int taille, int x, int y, int proportion, double taux) {
 		super(x,y,30,30); //faut mettre une fonction pour mettre la taille à jour
 		this.nom = nom;
 		this.proportion_conquete = proportion;
@@ -26,13 +27,15 @@ public class Astre extends Unite {
 		this.conquis = false;
 		this.taux_croissance = taux;
 		this.population_max = 1000*this.taille; //1000 arbitraire
-		super.icoObj = new ImageIcon(getClass().getResource("/images/étoile.jpg")); //
+		super.icoObj = new ImageIcon(getClass().getResource("soleil.png")); //
 		super.imgObj = this.icoObj.getImage(); //
 	}
 
 	
 //GETTER
 	//public Image getImgAstre() {return imgAstre;}
+	
+	
 		
 	
 //METHODES
@@ -46,6 +49,16 @@ public class Astre extends Unite {
 		else{
 			a.population = a.population_max;}
 		}
+
+
+	public String getNom() {
+		return nom;
+	}
+
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
 	
 	/*public String[] displayastre(Astre a ){
 		String tab[] = new String[7];
