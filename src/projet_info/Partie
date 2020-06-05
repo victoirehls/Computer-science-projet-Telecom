@@ -6,11 +6,7 @@ public class Partie {
 		Joueur j1 = new Joueur("joueurA", 0, 0);
 		Joueur j2 = new Joueur("joueurB", 0, 49);
 		
-		System.out.println("Début de la partie");
-		Astre tab[]= new Astre[50];
-		for(int i =0; i<= 50; i++){
-			tab[i] = new Astre("astre" + i, 10+ i, 10 + i, (10 + i)*2, i, i);}
-			
+	
 		Random rand = new Random();
 		int n = rand.nextInt(2) +1;
 		System.out.println("Le joueur" + n + "commence");
@@ -25,8 +21,8 @@ public class Partie {
 	
 	public static int getTaille() {
 		int taille_totale = 0;
-		for(int i =0; i<= 50; i++){
-			taille_totale = taille_totale + 10 + i;
+		for(int i =0; i<= Scene.tabObjets.size(); i++){
+			taille_totale = taille_totale + Scene.tabObjets.get(i).getTaille();
 				}
 		return taille_totale;	
 	}
