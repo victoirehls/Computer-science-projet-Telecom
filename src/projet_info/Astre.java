@@ -22,6 +22,7 @@ public class Astre extends Unite {
 	public Astre(String nom, int taille, int x, int y, int proportion, double taux) {
 		super(x,y,30,30); //faut mettre une fonction pour mettre la taille à jour
 		this.nom = nom;
+		this.taille = taille;
 		this.proportion_conquete = proportion;
 		this.points_conquetes = taille *proportion;
 		this.conquis = false;
@@ -55,10 +56,25 @@ public class Astre extends Unite {
 		return nom;
 	}
 
+	public int getTaille() {
+		return taille;
+	}
+
 
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
+
+
+	public int getPoints_conquetes() {
+		return points_conquetes;
+	}
+
+
+	public void setPoints_conquetes(int points_conquetes) {
+		this.points_conquetes = points_conquetes;
+	}
+	
 	
 	/*public String[] displayastre(Astre a ){
 		String tab[] = new String[7];
