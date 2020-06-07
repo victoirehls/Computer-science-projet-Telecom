@@ -29,6 +29,7 @@ public class Fenetre extends JFrame implements ActionListener{
 	private JLabel lab3;
 	private JLabel ptsactions1;
 	private JLabel ptsactions2;
+	private JLabel conq1;
 	
 	static Joueur j1;
 	static Joueur j2;
@@ -104,6 +105,12 @@ public class Fenetre extends JFrame implements ActionListener{
 			this.exp1.setFont(police);
 			this.exp1.setForeground(Color.orange);  
 			this.exp1.setHorizontalAlignment(JLabel.CENTER);
+			
+			//affichage astres conquis joueur1
+			this.conq1 = new JLabel("Territoires conquis : aucun");
+			this.conq1.setFont(police);
+			this.conq1.setForeground(Color.orange);  
+			this.conq1.setHorizontalAlignment(JLabel.CENTER);
 			
 			//réglage des polices pour tous les boutons
 			haut1.setBackground(Color.red);
@@ -206,61 +213,49 @@ public class Fenetre extends JFrame implements ActionListener{
 			finirtour2.addActionListener(this);
 			conquerir1.addActionListener(this);
 			conquerir2.addActionListener(this);
+			
 	
 			
 			//Panneau informations joueur1
 			
-			JPanel J1 = new JPanel();
 			J1.setLayout(new BoxLayout(J1, BoxLayout.PAGE_AXIS));
 			J1.add(lab1);
-			JLabel test1 = new JLabel("Points conquêtes : " + Integer.toString(j1.getPoints_conquetes()));
-			test1.setFont(police);
-			test1.setForeground(Color.orange);  
-			test1.setHorizontalAlignment(JLabel.CENTER);
-			J1.add(test1);
+			J1.add(exp1);
+			J1.add(ptsconq1);
+			J1.add(conq1);
 			JLabel test2 = new JLabel("Niveau : " + Integer.toString(j1.getNiveau()));
 			test2.setFont(police);
 			test2.setForeground(Color.orange);  
 			test2.setHorizontalAlignment(JLabel.CENTER);
 			J1.add(test2);
-			JLabel test3 = new JLabel("Expérience : " + Double.toString(j1.getExperience()));
-			test3.setFont(police);
-			test3.setForeground(Color.orange);  
-			test3.setHorizontalAlignment(JLabel.CENTER);
-			J1.add(test3);
 		    J1.add(ptsactions1);
+		    //J1.add(concquerir1);
 		    
 		    //J1.add(concquerir1);
 		 
 		    
 			//Panneau informations joueur2
 		    
+		      
+			//Panneau informations joueur2
+		    
 		    JPanel J2 = new JPanel();
 			J2.setLayout(new BoxLayout(J2, BoxLayout.PAGE_AXIS));
 			J2.add(lab2);
-			JLabel test4 = new JLabel("Points conquêtes : " + Integer.toString(j1.getPoints_conquetes()));
-			test4.setFont(police);
-			test4.setForeground(Color.orange);  
-			test4.setHorizontalAlignment(JLabel.CENTER);
-			J2.add(test4);
+			J2.add(exp2);
+			J2.add(ptsconq2);
 			JLabel test5 = new JLabel("Niveau2 : " + Integer.toString(j1.getNiveau()));
 			test5.setFont(police);
 			test5.setForeground(Color.orange);  
 			test5.setHorizontalAlignment(JLabel.CENTER);
 			J2.add(test5);
-			JLabel test6 = new JLabel("Expérience2 : " + Double.toString(j1.getExperience()));
-			test6.setFont(police);
-			test6.setForeground(Color.orange);  
-			test6.setHorizontalAlignment(JLabel.CENTER);
-			J2.add(test6);
 		    J2.add(ptsactions2);
 		    
-		    //ajoute le titre + les informations de J1, J2   //!!!!problème ici
-		    
-		    
+	
+		       
 	       
 			
-	             //ajouter les différents boutons 
+	                    //ajouter les différents boutons 
 	      
 			//setLayout(layout);
 			pan1.add(haut1);
@@ -429,9 +424,16 @@ public class Fenetre extends JFrame implements ActionListener{
 			 		j1.setY(j1.getY());
 			 		int i = Scene.peut_conquérir_astres(j1);
 			 		j1.conquerir(Scene.tabObjets.get(i));
+							
 			 		ptsactions1.setText("Points d'actions : " + Integer.toString(j1.getPoints_dactions()));
 			 		ptsconq1.setText("Points conquêtes : " + Integer.toString(j1.getPoints_conquetes()));
 			 		exp1.setText("Expérience : " + Double.toString(j1.getExperience()));
+			 		
+			 		String territoires = "";
+			 		for(int i1=0; i1<= j1.territoires.size(); i1++) {
+			 			territoires += j1.territoires.get(i1).getNom();
+			 			conq1.setText("Territoires conquis : " + territoires );
+			 		}
 				 	}
 							
 
