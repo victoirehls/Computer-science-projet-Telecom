@@ -76,6 +76,14 @@ public class Joueur extends Unite{
 		public void setExperience(double experience) {
 			this.experience = experience;
 		}
+	
+		public ArrayList<Astre> getTerritoires() {
+			return territoires;
+		}
+
+		public void setTerritoires(ArrayList<Astre> territoires) {
+			this.territoires = territoires;
+		}
 
 		//METHODES
 	public static void passer_tour(Joueur joueurquijoue, Joueur autre) { // Ã  appeler Ã  chaque tour d'un seul joueur
@@ -127,7 +135,8 @@ public class Joueur extends Unite{
 						this.experience += a.getTaille();
 						this.points_dactions -= 1;
 						this.territoires.add(a); //ca marche pas avec les lignes d'après
-						
+						a.setConquis(true);
+					
 						/*int m = compter_territoires (j);
 						a.tour_conquete = j.tour;
 						j.territoires[m] = (a.nom);
@@ -148,26 +157,26 @@ public class Joueur extends Unite{
 			
 		}
 		
-		public void attaquer(Joueur j1, Joueur j2, Astre a) {
-			if (j1.main == 1) {
-				if (j1.points_dactions >= 5) {
-					System.out.println("Le joueur" + j1.nom + " attaque l'astre " + a.nom + "de" + j2.nom);
-					if ((j1.points_conquetes >= a.points_conquetes) || (a.getX() == j1.getX()) || (a.getY() == j1.getY())) {
-						j1.conquerir(a);
+		public void attaquer(Joueur j2, Astre a) {
+			if (this.main == 1) {
+				if (this.points_dactions >= 5) {
+					System.out.println("Le joueur" + this.nom + " attaque l'astre " + a.nom + "de" + j2.nom);
+					if ((this.points_conquetes >= a.points_conquetes) && (a.getX() == this.getX()) && (a.getY() == this.getY())) {
+						this.conquerir(a);
 						j2.territoires.remove(a); // remplace les deux lignes qui suivent
 						//for(int i =0; i<= j2.territoires.size(); i++){ 
 							//if (j2.territoires.get(i) == a) { 
 								
 					}
-							System.out.println("Le joueur" + j1.nom + " a conquit l'astre " + a.nom + "de" + j2.nom);
+							System.out.println("Le joueur" + this.nom + " a conquit l'astre " + a.nom + "de" + j2.nom);
 			
 						}
-						j1.points_dactions -= 7;
+						this.points_dactions -= 7;
 					}
 				
 			
 					else {
-						System.out.println("Le joueur" + j1.nom + " n'a pas assez de points conquêtes pour conquérir l'astre " + a.nom + "de" + j2.nom + " en plus il est moche ");
+						System.out.println("Le joueur" + this.nom + " n'a pas assez de points conquêtes pour conquérir l'astre " + a.nom + "de" + j2.nom + " en plus il est moche ");
 				
 			}}
 				//else {System.out.println("Vous n'avez pas assez de points d'actions"); }}
