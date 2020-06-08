@@ -49,7 +49,7 @@ public class Scene extends JPanel {
 	public Astre astre7; //
 	public Astre astre8; //
 	
-	private static ArrayList<Astre> tabObjets; // tableau qui enregistre tous les astres
+	static ArrayList<Astre> tabObjets; // tableau qui enregistre tous les astres
 	// normalement, on devrait mettre <Unite>     //
 	
 	//*** LE CONSTRUCTEUR ***//
@@ -76,19 +76,21 @@ public class Scene extends JPanel {
 
 		
 		this.perso1 = new Joueur("", 0, 0);
-		this.perso2 = new Joueur("", 854, 584); // 700,584 pour Otman
+		this.perso2 = new Joueur("", 700, 584); // 852, 584 c'est la config de victoire
 		
 		
 		//création automatique des astres
 		tabObjets = new ArrayList<Astre>(); //
-		for(int i =0; i<= 16; i++){
+		for(int i =0; i<= 25; i++){
 			Random random = new Random();
 			int nb1;
 			int nb2;
 			nb1 = random.nextInt(9);
 			nb2 = random.nextInt(7);
-			Astre aastre = new Astre("astre" + i, nb1*200+100,80*nb1, 80*nb2, 1, i);
-			this.tabObjets.add(aastre);
+			if((nb1 != 0 || nb2 != 0)&&(nb1 != 700 || nb2 != 584)) {
+				Astre aastre = new Astre("astre" + i, nb1*100+100,71*nb1, 73*nb2, 1);
+				this.tabObjets.add(aastre);
+			}
 		}
 	
 		
@@ -192,11 +194,14 @@ public class Scene extends JPanel {
 		this.Deplacmtvaisseau();
 		
 		//déplacement des astres
+		for(int i=0; i< this.tabObjets.size(); i++) {this.tabObjets.get(i).deplacement();}
+		gc.drawImage(this.ImFond, this.xFond, this.yFond, null);
+		
 		// tracé des astres
 		for(int i=0; i<this.tabObjets.size();i++) {
 			gc.drawImage(this.tabObjets.get(i).getImgObj(), this.tabObjets.get(i).getX(),this.tabObjets.get(i).getY(),null);
 			int X = tabObjets.get(i).getX();
-			int Y = tabObjets.get(i).getY();
+			int Y = tabObjets.get(i).getY();			
 			gc.setColor(Color.WHITE); /////////////////
 			gc.drawString(tabObjets.get(i).getNom(), X+15, Y+30);
 			gc.drawString(Integer.toString( tabObjets.get(i).getTaille()), X+20, Y+40);
