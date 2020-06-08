@@ -76,7 +76,7 @@ public class Scene extends JPanel {
 
 		
 		this.perso1 = new Joueur("", 0, 0);
-		this.perso2 = new Joueur("", 795, 640);
+		this.perso2 = new Joueur("", 800, 640);
 		
 		
 		
@@ -119,27 +119,46 @@ public class Scene extends JPanel {
 	
 	
 	//*** LES METHODES ***//
-	public static ArrayList<Astre> peut_conquérir_astres(Joueur j) {
-		ArrayList<Astre> Liste = new ArrayList<Astre>();
-		for(Astre a: tabObjets) {
-			if (Math.abs(a.getX() - j.getX())<300 && Math.abs(a.getY() -j.getY())<300) {
-				Liste.add(a);
-			}
-		for(Astre b: Liste) {
-			System.out.println("Le joueur peut conquérir l astre " + b.nom);}	
-		}
-		return Liste;
-	}
-	public static int peut_conquérir_astres(Joueur j) {
-		
-		int res = 0;
+	public static Astre peut_conquérir_astres(Joueur j) {	
+		Astre res = null;
 		for(int i=0; i<tabObjets.size();i++) {
-			if(j.getX()== tabObjets.get(i).getX() && j.getY() == tabObjets.get(i).getY()){
-				res = i;
+			if(j.getX()== tabObjets.get(i).getX() && j.getY() == tabObjets.get(i).getY() && tabObjets.get(i).isConquis() == false){
+				res = tabObjets.get(i);
 		
 			}
 	}
 		return res; }
+	
+	public static Astre peut_attaquer(Joueur j1, Joueur j2) {
+		Astre res = null;
+		Astre astre_attaque = null;
+		
+		//on regarde si le joueur1 est sur un astre
+		for(int i=0; i<tabObjets.size();i++) {
+			if(j1.getX()== tabObjets.get(i).getX() && j1.getY() == tabObjets.get(i).getY() ) {
+				astre_attaque = tabObjets.get(i);
+			}
+		}
+		//on regarde si cet astre est dans les territoires du joueur2
+		for(int i1=0; i1<j2.getTerritoires().size(); i1++) {
+			if(j2.getTerritoires().get(i1) == astre_attaque) {
+				res = astre_attaque;
+			}
+		}
+		
+			return res ;
+		}
+	
+	
+	public static int getTaille() {
+		int taille_totale = 0;
+		for(int i =0; i<= Scene.tabObjets.size(); i++){
+			taille_totale = taille_totale + Scene.tabObjets.get(i).getTaille();
+				}
+		return taille_totale;	
+	}
+
+	
 
 	public void Deplacmtfond() {
 		this.xFond += this.dx;
