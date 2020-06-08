@@ -1,6 +1,7 @@
 package projet_info;
 
 import java.awt.Image;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
@@ -35,7 +36,7 @@ public class Joueur extends Unite{
 			//this.coordonnees[0] = x; //initialisation des coordonnées de chaque joueur
 			//this.coordonnees[1] = y;
 			//this.territoires = new String[100]; // on prend un "grand " tableau pour l'instant pour Ã©viter d'utiliser les tableaux exte
-			super.icoObj = new ImageIcon(getClass().getResource("joueur1.png")); 
+			super.icoObj = new ImageIcon(getClass().getResource("joueur.png")); 
 			super.imgObj = this.icoObj.getImage(); 
 			this.territoires = new ArrayList<Astre>();
 		}
@@ -86,10 +87,18 @@ public class Joueur extends Unite{
 		}
 
 		//METHODES
+		public static int getTaille() {
+			int taille_totale = 0;
+			for(int i =0; i<= Scene.tabObjets.size(); i++){
+				taille_totale = taille_totale + Scene.tabObjets.get(i).getTaille();
+					}
+			return taille_totale;	
+		}
 	public static void passer_tour(Joueur joueurquijoue, Joueur autre) { // Ã  appeler Ã  chaque tour d'un seul joueur
 			joueurquijoue.tour += 1;
 			joueurquijoue.main = 0;
 			autre.main = 1;
+			joueurquijoue.points_conquetes += joueurquijoue.getTaille()*100;
 			if (joueurquijoue.niveau == 1) { joueurquijoue.points_dactions = 10;}
 			else if (joueurquijoue.niveau == 2) { joueurquijoue.points_dactions = 20;}
 			else if (joueurquijoue.niveau == 3) { joueurquijoue.points_dactions = 30;}
