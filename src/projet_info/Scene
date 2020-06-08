@@ -76,7 +76,7 @@ public class Scene extends JPanel {
 
 		
 		this.perso1 = new Joueur("", 0, 0);
-		this.perso2 = new Joueur("", 852, 584);
+		this.perso2 = new Joueur("", 854, 584); // 700,584 pour Otman
 		
 		
 		//création automatique des astres
