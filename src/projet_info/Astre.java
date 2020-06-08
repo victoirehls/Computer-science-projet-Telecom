@@ -74,6 +74,14 @@ public class Astre extends Unite {
 	public void setPoints_conquetes(int points_conquetes) {
 		this.points_conquetes = points_conquetes;
 	}
+		public boolean isConquis() {
+		return conquis;
+	}
+
+
+	public void setConquis(boolean conquis) {
+		this.conquis = conquis;
+	}
 	
 	
 	/*public String[] displayastre(Astre a ){
