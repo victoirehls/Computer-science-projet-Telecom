@@ -11,7 +11,7 @@ public class Joueur extends Unite{
 		int points_conquetes;
 		double experience; //en pourcentage
 		int niveau; // entier compris entre 1 et 3
-		public ArrayList<Astre> territoires;// on mettra un tableau extensible par la suite
+		public ArrayList<Astre> territoires;// tableau extensible qui stocke les astres conquis par le joueur
 		int tour; //compte le nombre de tours de la partie
 		//double[] coordonnees;
 		int points_dactions;
@@ -24,7 +24,7 @@ public class Joueur extends Unite{
 
 		
 	//CONSTRUCTEUR
-		public Joueur(String nom, int x, int y) {
+		public Joueur(String nom, int x, int y) { //public Joueur(String nom, int x, int y, super.icoObj 
 			super(x,y,30,30);
 			this.nom = nom;
 			this.points_conquetes = 0; //on initialise tout Ã  0 pour l'instant
