@@ -59,8 +59,8 @@ public class Scene extends JPanel {
 		super(); // faire appel au constructeur de la super classe
 		this.xFond = 0; // commence par initialiser les variables position
 		this.yFond = 0;
-		this.taille_case_x = 80; //2560/256=10    //
-		this.taille_case_y = 80;  //1920/240=8    //
+		this.taille_case_x = 71; //2560/256=10    //
+		this.taille_case_y = 73;  //1920/240=8    //
 		this.dx = 0;
 		this.dy = 0;
 		
@@ -76,8 +76,7 @@ public class Scene extends JPanel {
 
 		
 		this.perso1 = new Joueur("", 0, 0);
-		this.perso2 = new Joueur("", 800, 640);
-		
+		this.perso2 = new Joueur("", 852, 584);
 		
 		
 		//création automatique des astres
