@@ -52,6 +52,9 @@ public class Scene extends JPanel {
 	static ArrayList<Astre> tabObjets; // tableau qui enregistre tous les astres
 	// normalement, on devrait mettre <Unite>     //
 	
+	public ImageIcon icoObj2;
+	public Image imgObj2;
+	
 	//*** LE CONSTRUCTEUR ***//
 	
 	public Scene() {
@@ -59,13 +62,13 @@ public class Scene extends JPanel {
 		super(); // faire appel au constructeur de la super classe
 		this.xFond = 0; // commence par initialiser les variables position
 		this.yFond = 0;
-		this.taille_case_x = 71; //2560/256=10    //
-		this.taille_case_y = 73;  //1920/240=8    //
+		this.taille_case_x = 77; //2560/256=10    //
+		this.taille_case_y = 77;  //1920/240=8    //
 		this.dx = 0;
 		this.dy = 0;
 		
-		this.xrect1 = 0; //
-		this.yrect1 = 0; //
+		this.xrect1 = 4; //
+		this.yrect1 = 4; //
 		this.dxrect1 = 0;
 		this.dyrect1 = 0;
 	
@@ -75,22 +78,27 @@ public class Scene extends JPanel {
         
 
 		
-		this.perso1 = new Joueur("", 0, 0);
-		this.perso2 = new Joueur("", 700, 584); // 852, 584 c'est la config de victoire
+		this.perso1 = new Joueur("", 0, 0,1);
+		this.perso2 = new Joueur("", 308, 308,2);
+		
+		icoObj2 = new ImageIcon(getClass().getResource("joueur2.png"));
+		imgObj2 = this.icoObj2.getImage();
+		
+		perso2.setIcoObj(this.icoObj2);
+		perso2.setImgObj(this.imgObj2);
 		
 		
 		//création automatique des astres
 		tabObjets = new ArrayList<Astre>(); //
-		for(int i =0; i<= 25; i++){
+		for(int i =0; i<= 16; i++){
 			Random random = new Random();
 			int nb1;
 			int nb2;
 			nb1 = random.nextInt(9);
 			nb2 = random.nextInt(7);
-			if((nb1 != 0 || nb2 != 0)&&(nb1 != 700 || nb2 != 584)) {
-				Astre aastre = new Astre("astre" + i, nb1*100+100,71*nb1, 73*nb2, 1);
-				this.tabObjets.add(aastre);
-			}
+			Astre aastre = new Astre("astre" + i, nb1*190+100,5+taille_case_x*nb1, 5+taille_case_y*nb2, 1, i, i);
+			this.tabObjets.add(aastre);
+			
 		}
 	
 		
@@ -123,7 +131,7 @@ public class Scene extends JPanel {
 	public static Astre peut_conquérir_astres(Joueur j) {	
 		Astre res = null;
 		for(int i=0; i<tabObjets.size();i++) {
-			if(j.getX()== tabObjets.get(i).getX() && j.getY() == tabObjets.get(i).getY() && tabObjets.get(i).isConquis() == false){
+			if(Math.abs(j.getX()- tabObjets.get(i).getX())<=30 && Math.abs(j.getY()- tabObjets.get(i).getY())<=30 && tabObjets.get(i).isConquis() == false){
 				res = tabObjets.get(i);
 		
 			}
@@ -136,7 +144,7 @@ public class Scene extends JPanel {
 		
 		//on regarde si le joueur1 est sur un astre
 		for(int i=0; i<tabObjets.size();i++) {
-			if(j1.getX()== tabObjets.get(i).getX() && j1.getY() == tabObjets.get(i).getY() ) {
+			if(Math.abs(j1.getX() - tabObjets.get(i).getX())<30 && Math.abs(j1.getY() - tabObjets.get(i).getY())<30 ) {
 				astre_attaque = tabObjets.get(i);
 			}
 		}
@@ -176,6 +184,7 @@ public class Scene extends JPanel {
 		perso2.setY(perso2.getY() + dy);
 		
 	}
+	
 
 	@SuppressWarnings("exports")
 	public void création_grille(Graphics g) {       //
@@ -192,7 +201,6 @@ public class Scene extends JPanel {
 		Graphics gc = (Graphics2D)g;
 		this.Deplacmtfond();
 		this.Deplacmtvaisseau();
-		
 		//déplacement des astres
 		for(int i=0; i< this.tabObjets.size(); i++) {this.tabObjets.get(i).deplacement();}
 		gc.drawImage(this.ImFond, this.xFond, this.yFond, null);
@@ -201,10 +209,9 @@ public class Scene extends JPanel {
 		for(int i=0; i<this.tabObjets.size();i++) {
 			gc.drawImage(this.tabObjets.get(i).getImgObj(), this.tabObjets.get(i).getX(),this.tabObjets.get(i).getY(),null);
 			int X = tabObjets.get(i).getX();
-			int Y = tabObjets.get(i).getY();			
-			gc.setColor(Color.WHITE); /////////////////
-			gc.drawString(tabObjets.get(i).getNom(), X+15, Y+30);
-			gc.drawString(Integer.toString( tabObjets.get(i).getTaille()), X+20, Y+40);
+			int Y = tabObjets.get(i).getY();
+			gc.drawString(tabObjets.get(i).getNom(), X+20, Y+20);
+			gc.drawString(Integer.toString(tabObjets.get(i).getTaille()), X+30, Y+30);
 		}
 		gc.drawRect(xrect1, yrect1, taille_case_x,taille_case_y); 
 		this.création_grille(gc); 
