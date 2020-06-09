@@ -1,29 +1,39 @@
 package projet_info;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.File;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.Spring;
-import javax.swing.SpringLayout; 
+import javax.swing.SpringLayout;
+
+import javafx.scene.image.Image; 
 
 public class Fenetre extends JFrame implements ActionListener{
 	
 	//*** VARIABLES ***//
 	
-	private String joueur1;
-	private String joueur2;
+	private static String joueur1;
+	private static String joueur2;
 	private JLabel lab1;
 	private JLabel lab2;
 	private JLabel lab3;
@@ -65,9 +75,15 @@ public class Fenetre extends JFrame implements ActionListener{
     JPanel pan1 = new JPanel(pan);
     Spring ressort = Spring.constant(0, 50, 50); 
     Spring ressort2 = Spring.constant(0, 1270, 1320);
+	private Component drawImage;
 
 	
 	public static Scene scene = new Scene();
+	
+	private ImageIcon icoObj1;
+	private java.awt.Image imgObj1;
+	private ImageIcon icoObj2;
+	private java.awt.Image imgObj2;
 	
 	
 	
@@ -268,9 +284,7 @@ public class Fenetre extends JFrame implements ActionListener{
 			J2.add(test5);
 		    J2.add(ptsactions2);
 		    
-		    //ajoute le titre + les informations de J1, J2   //!!!!problème ici
-		   
-			
+		    
 	        //ajouter les différents boutons 
 	      
 			//setLayout(layout);
@@ -329,6 +343,7 @@ public class Fenetre extends JFrame implements ActionListener{
 	        
 			//affichage général
 			setDefaultCloseOperation(EXIT_ON_CLOSE);
+			
 			this.setVisible(true);
 			
 	}
@@ -339,7 +354,7 @@ public class Fenetre extends JFrame implements ActionListener{
 			if(j1.getMain()==1 && j1.getPoints_dactions()>0) {
 				
 			 if(arg0.getSource() == haut1) {
-				 j1.setY(j1.getY()-73);
+				 j1.setY(j1.getY()-77);
 				 j1.setPoints_dactions(j1.getPoints_dactions()-2);
 				 ptsactions1.setText("Points d'actions : " + Integer.toString(j1.getPoints_dactions()));	
 				 if(Scene.peut_conquérir_astres(j1)!= null) {
@@ -356,7 +371,7 @@ public class Fenetre extends JFrame implements ActionListener{
 			 }
 	
 			 if(arg0.getSource() == bas1) {
-				 j1.setY(j1.getY()+73);
+				 j1.setY(j1.getY()+77);
 				 j1.setPoints_dactions(j1.getPoints_dactions()-2);
 				 ptsactions1.setText("Points d'actions : " + Integer.toString(j1.getPoints_dactions()));				
 				 if(Scene.peut_conquérir_astres(j1)!= null) 
@@ -375,7 +390,7 @@ public class Fenetre extends JFrame implements ActionListener{
 			 }
 				 
 			 if(arg0.getSource() == droite1) {
-				 j1.setX(j1.getX()+71);
+				 j1.setX(j1.getX()+77);
 				 j1.setPoints_dactions(j1.getPoints_dactions()-2);
 				 ptsactions1.setText("Points d'actions : " + Integer.toString(j1.getPoints_dactions()));
 				 if(Scene.peut_conquérir_astres(j1)!= null) 
@@ -392,7 +407,7 @@ public class Fenetre extends JFrame implements ActionListener{
 				 }			 }
 	
 			 if(arg0.getSource() == gauche1) {
-				 j1.setX(j1.getX()-71);
+				 j1.setX(j1.getX()-77);
 				 j1.setPoints_dactions(j1.getPoints_dactions()-2);
 				 ptsactions1.setText("Points d'actions : " + Integer.toString(j1.getPoints_dactions()));}
 			 if(Scene.peut_conquérir_astres(j1)!= null) 
@@ -412,7 +427,7 @@ public class Fenetre extends JFrame implements ActionListener{
 			if(j2.getMain()==1 && j2.getPoints_dactions()>0) {
 			
 			 if(arg0.getSource() == bas2)  {
-				 j2.setY(j2.getY()+73);
+				 j2.setY(j2.getY()+77);
 				 j2.setPoints_dactions(j2.getPoints_dactions()-2);
 				 ptsactions2.setText("Points d'actions : " + Integer.toString(j2.getPoints_dactions()));
 				 if(Scene.peut_conquérir_astres(j2)!= null) {
@@ -429,7 +444,7 @@ public class Fenetre extends JFrame implements ActionListener{
 				 }				 }
 			 
 			 if(arg0.getSource() == haut2) {
-				 j2.setY(j2.getY()-73);
+				 j2.setY(j2.getY()-77);
 				 j2.setPoints_dactions(j2.getPoints_dactions()-2);
 				 ptsactions2.setText("Points d'actions : " + Integer.toString(j2.getPoints_dactions()));
 				 if(Scene.peut_conquérir_astres(j2)!= null) {
@@ -446,7 +461,7 @@ public class Fenetre extends JFrame implements ActionListener{
 				 }					 }
 		
 			 if(arg0.getSource() == gauche2) { 
-				 j2.setX(j2.getX()-71); 
+				 j2.setX(j2.getX()-77); 
 				 j2.setPoints_dactions(j2.getPoints_dactions()-2);
 				 ptsactions2.setText("Points d'actions : " + Integer.toString(j2.getPoints_dactions()));
 				 if(Scene.peut_conquérir_astres(j2)!= null) {
@@ -464,7 +479,6 @@ public class Fenetre extends JFrame implements ActionListener{
 				 
 		
 			 if(arg0.getSource() == droite2) { 
-				 j2.setX(j2.getX()+71);
 				 j2.setPoints_dactions(j2.getPoints_dactions()-2);
 				 ptsactions2.setText("Points d'actions : " + Integer.toString(j2.getPoints_dactions()));
 				 if(Scene.peut_conquérir_astres(j2)!= null) {
@@ -516,8 +530,8 @@ public class Fenetre extends JFrame implements ActionListener{
 			 		j1.setX(j1.getX());
 			 		j1.setY(j1.getY());
 			 		Astre a = Scene.peut_conquérir_astres(j1);
-			 		j1.conquerir(a);
-							
+			 		j1.conquerir(a,j1);
+			 		
 			 		ptsactions1.setText("Points d'actions : " + Integer.toString(j1.getPoints_dactions()));
 			 		ptsconq1.setText("Points conquêtes : " + Integer.toString(j1.getPoints_conquetes()));
 			 		exp1.setText("Expérience : " + Double.toString(j1.getExperience()));
@@ -527,14 +541,14 @@ public class Fenetre extends JFrame implements ActionListener{
 			 			territoires += j1.territoires.get(i1).getNom();
 			 			conq1.setText("Territoires conquis : " + territoires );
 			 		}
-			 		
 				 	}
+			 	
 			 	if(arg0.getSource() == conquerir2) {
 			 		conquerir2.setEnabled(false);
 			 		j2.setX(j2.getX());
 			 		j2.setY(j2.getY());
 			 		Astre a = Scene.peut_conquérir_astres(j1);
-			 		j2.conquerir(a);
+			 		j2.conquerir(a,j2);
 							
 			 		ptsactions2.setText("Points d'actions : " + Integer.toString(j2.getPoints_dactions()));
 			 		ptsconq2.setText("Points conquêtes : " + Integer.toString(j2.getPoints_conquetes()));
@@ -545,7 +559,6 @@ public class Fenetre extends JFrame implements ActionListener{
 			 			territoires += j2.territoires.get(i1).getNom();
 			 			conq2.setText("Territoires conquis : " + territoires );
 			 		}
-			 		
 				 	}
 			 	
 
@@ -556,22 +569,13 @@ public class Fenetre extends JFrame implements ActionListener{
 					
 				 }
 				 if(arg0.getSource() == attaquer2) { }
-			
-			
 							
 
 		}
-}
+		//*** GETTER SETTER ***//
 
 
-
-			 
-			 
-			 
-			 
-
-			 
-
-			
-				 
+		public static String getJoueur1() {return joueur1;}
+		public static String getJoueur2() {return joueur2;}
 		
+}
