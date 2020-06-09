@@ -96,10 +96,18 @@ public class Joueur extends Unite{
 		
 
 		//METHODES
+	public static int getTaille() {
+			int taille_totale = 0;
+			for(int i =0; i<= Scene.tabObjets.size(); i++){
+				taille_totale = taille_totale + Scene.tabObjets.get(i).getTaille();
+					}
+			return taille_totale;	}
+		
 	public static void passer_tour(Joueur joueurquijoue, Joueur autre) { // Ã  appeler Ã  chaque tour d'un seul joueur
 			joueurquijoue.tour += 1;
 			joueurquijoue.main = 0;
 			autre.main = 1;
+			joueurquijoue.points_conquetes += joueurquijoue.getTaille()*100;
 			if (joueurquijoue.niveau == 1) { joueurquijoue.points_dactions = 10;}
 			else if (joueurquijoue.niveau == 2) { joueurquijoue.points_dactions = 20;}
 			else if (joueurquijoue.niveau == 3) { joueurquijoue.points_dactions = 30;}
@@ -175,7 +183,7 @@ public class Joueur extends Unite{
 		
 		public void attaquer(Joueur j, Astre a) {
 			if (this.main == 1) {
-				if (this.points_dactions >= 5) {
+				if (this.points_dactions >= 15) {
 					System.out.println("Le joueur" + this.nom + " attaque l'astre " + a.nom + "de" + j.nom);
 					if ((this.points_conquetes >= a.points_conquetes) && (a.getX() == this.getX()) && (a.getY() == this.getY())) {
 						this.conquerir(a,j);
@@ -187,7 +195,7 @@ public class Joueur extends Unite{
 							System.out.println("Le joueur" + this.nom + " a conquit l'astre " + a.nom + "de" + j.nom);
 			
 						}
-						this.points_dactions -= 7;
+						this.points_dactions -= 15;
 					}
 				
 			
@@ -209,13 +217,13 @@ public class Joueur extends Unite{
 					System.out.println("Vous n'avez pas assez de points conquêtes pour réaliser cette action ");
 					}
 			
-				else if(j.points_conquetes > 50000) { //50 000 arbitraire
+				else if((j.points_conquetes > 50000) &&(j.niveau==1)) { //50 000 arbitraire
 					j.niveau = 2;
 					j.points_dactions = 20;
 					j.points_conquetes -= 50000;
 			}
 			
-				else if(j.points_conquetes > 100000){ //100 000 arbitraire
+				else if((j.points_conquetes > 100000) && (j.niveau==2)){ //100 000 arbitraire
 					j.niveau = 3;
 					j.points_dactions = 30;
 					j.points_conquetes -= 100000;
