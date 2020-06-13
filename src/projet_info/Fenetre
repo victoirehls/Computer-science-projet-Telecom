@@ -1,5 +1,6 @@
 package projet_info;
 import java.awt.BorderLayout;
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -26,6 +27,7 @@ import javax.swing.JSplitPane;
 import javax.swing.Spring;
 import javax.swing.SpringLayout;
 
+import audio.Audio;
 import javafx.scene.image.Image; 
 
 public class Fenetre extends JFrame implements ActionListener{
@@ -43,31 +45,31 @@ public class Fenetre extends JFrame implements ActionListener{
 	private JLabel ptsconq1;
 	private JLabel exp2;
 	private JLabel ptsconq2;
-	private JLabel conq1;
-	private JLabel conq2;
+	//private JLabel conq1;
+	//private JLabel conq2;
 	
 	static Joueur j1;
 	static Joueur j2;
 	
 	
 	//Boutons du joueur1
-	private JButton haut1 = new JButton("Haut");
-	private JButton bas1 = new JButton("Bas");
-	private JButton gauche1 = new JButton("Gauche");
-	private JButton droite1 = new JButton("Droite");
-	private JButton attaquer1 = new JButton("Attaquer");
-	private JButton finirtour1 = new JButton("Finir son tour");
-	private JButton conquerir1 = new JButton("Conquérir");
+	private static JButton haut1 = new JButton("Haut");
+	private static JButton bas1 = new JButton("Bas");
+	private static JButton gauche1 = new JButton("Gauche");
+	private static JButton droite1 = new JButton("Droite");
+	private static JButton attaquer1 = new JButton("Attaquer");
+	private static JButton finirtour1 = new JButton("Finir son tour");
+	private static JButton conquerir1 = new JButton("Conquérir");
 
 	
 	//Boutons du joueur2
-	private JButton haut2 = new JButton("Haut");
-	private JButton bas2 = new JButton("Bas");
-	private JButton gauche2 = new JButton("Gauche");
-	private JButton droite2 = new JButton("Droite");
-	private JButton attaquer2 = new JButton("Attaquer");
-	private JButton finirtour2 = new JButton("Finir son tour");
-	private JButton conquerir2 = new JButton("Conquérir");
+	private static JButton haut2 = new JButton("Haut");
+	private static JButton bas2 = new JButton("Bas");
+	private static JButton gauche2 = new JButton("Gauche");
+	private static JButton droite2 = new JButton("Droite");
+	private static JButton attaquer2 = new JButton("Attaquer");
+	private static JButton finirtour2 = new JButton("Finir son tour");
+	private static JButton conquerir2 = new JButton("Conquérir");
 	
 	JPanel J1 = new JPanel();
 	SpringLayout pan = new SpringLayout();
@@ -79,6 +81,7 @@ public class Fenetre extends JFrame implements ActionListener{
 
 	
 	public static Scene scene = new Scene();
+	public static Font policeFin;
 	
 	private ImageIcon icoObj1;
 	private java.awt.Image imgObj1;
@@ -100,11 +103,20 @@ public class Fenetre extends JFrame implements ActionListener{
 			this.setAlwaysOnTop(true);
 			//this.setContentPane(scene);
 			
+			icoObj1 = new ImageIcon(getClass().getResource("soleil4.png")); //
+			imgObj1 = this.icoObj1.getImage(); //
+			icoObj2 = new ImageIcon(getClass().getResource("soleil5.png")); //
+			imgObj2 = this.icoObj2.getImage(); //
+			
 			//récupération nom joueur1
 			this.joueur1 = FenNomsJoueurs.getJTextField1();
 			j1 = scene.perso1;
 			j1.setNom(joueur1);
 			j1.main = 1;
+			
+			////
+			Font policeFin = new Font("Arial", Font.BOLD,50);
+			
 			
 			
 			//Ecriture du nom du joueur1
@@ -133,10 +145,10 @@ public class Fenetre extends JFrame implements ActionListener{
 			this.exp1.setHorizontalAlignment(JLabel.CENTER);
 			
 			//affichage astres conquis joueur1
-			this.conq1 = new JLabel("Territoire conquis : aucun");
-			this.conq1.setFont(police);
-			this.conq1.setForeground(Color.orange);  
-			this.conq1.setHorizontalAlignment(JLabel.CENTER);
+			//this.conq1 = new JLabel("Territoire conquis : aucun");
+			//this.conq1.setFont(police);
+			//this.conq1.setForeground(Color.orange);  
+			//this.conq1.setHorizontalAlignment(JLabel.CENTER);
 			
 			
 			
@@ -213,10 +225,10 @@ public class Fenetre extends JFrame implements ActionListener{
 			this.exp2.setHorizontalAlignment(JLabel.CENTER);
 			
 			//affichage astres conquis joueur1
-			this.conq2 = new JLabel("Territoire conquis : aucun");
-			this.conq2.setFont(police);
-			this.conq2.setForeground(Color.orange);  
-			this.conq2.setHorizontalAlignment(JLabel.CENTER);
+			//this.conq2 = new JLabel("Territoire conquis : aucun");
+			//this.conq2.setFont(police);
+			//this.conq2.setForeground(Color.orange);  
+			//this.conq2.setHorizontalAlignment(JLabel.CENTER);
 			
 			
 			//affichage nom joueur2
@@ -260,7 +272,7 @@ public class Fenetre extends JFrame implements ActionListener{
 			J1.add(lab1);
 			J1.add(exp1);
 			J1.add(ptsconq1);
-			J1.add(conq1);
+			//J1.add(conq1);
 			JLabel test2 = new JLabel("Niveau : " + Integer.toString(j1.getNiveau()));
 			test2.setFont(police);
 			test2.setForeground(Color.orange);  
@@ -276,7 +288,7 @@ public class Fenetre extends JFrame implements ActionListener{
 			J2.add(lab2);
 			J2.add(exp2);
 			J2.add(ptsconq2);
-			J2.add(conq2);
+			//J2.add(conq2);
 			JLabel test5 = new JLabel("Niveau : " + Integer.toString(j2.getNiveau()));
 			test5.setFont(police);
 			test5.setForeground(Color.orange);  
@@ -350,232 +362,244 @@ public class Fenetre extends JFrame implements ActionListener{
 	
 	  
 		@SuppressWarnings("deprecation")
-		public void actionPerformed(ActionEvent arg0) { 
+	public void actionPerformed(ActionEvent arg0) {
 			if(j1.getMain()==1 && j1.getPoints_dactions()>0) {
+				if(arg0.getSource() == haut1) {
+					j1.setY(j1.getY()-77);
+					j1.setPoints_dactions(j1.getPoints_dactions()-2);
+					ptsactions1.setText("Points d'actions : " + Integer.toString(j1.getPoints_dactions()));	
+					if(Scene.peut_conquérir_astres(j1)!= null) 
+						conquerir1.setEnabled(true); 
+					else 
+						conquerir1.setEnabled(false);
+					if(Scene.peut_attaquer(j1, j2)!= null) 
+						attaquer1.setEnabled(true);
+					else 
+						attaquer1.setEnabled(false);
+				 	Audio.playSound("deplacement2.wav");
+				}
 				
-			 if(arg0.getSource() == haut1) {
-				 j1.setY(j1.getY()-77);
-				 j1.setPoints_dactions(j1.getPoints_dactions()-2);
-				 ptsactions1.setText("Points d'actions : " + Integer.toString(j1.getPoints_dactions()));	
-				 if(Scene.peut_conquérir_astres(j1)!= null) {
-					 conquerir1.setEnabled(true); }
-				 else {
-					 conquerir1.setEnabled(false);
-				 }
-				 
-				if(Scene.peut_attaquer(j1, j2)!= null) 
-					 attaquer1.setEnabled(true);
-				 else {
-					 attaquer1.setEnabled(false);
-				 }				 
-			 }
-	
-			 if(arg0.getSource() == bas1) {
-				 j1.setY(j1.getY()+77);
-				 j1.setPoints_dactions(j1.getPoints_dactions()-2);
-				 ptsactions1.setText("Points d'actions : " + Integer.toString(j1.getPoints_dactions()));				
-				 if(Scene.peut_conquérir_astres(j1)!= null) 
+				if(arg0.getSource() == bas1) {
+					j1.setY(j1.getY()+77);
+					j1.setPoints_dactions(j1.getPoints_dactions()-2);
+					ptsactions1.setText("Points d'actions : " + Integer.toString(j1.getPoints_dactions()));				
+					if(Scene.peut_conquérir_astres(j1)!= null) 
 						 conquerir1.setEnabled(true);
-					 
-					 else {
+					else
 						 conquerir1.setEnabled(false);
-					 }
-				 if(Scene.peut_attaquer(j1, j2)!= null) {
-					 attaquer1.setEnabled(true);
-				 }
-				 else {
-					 attaquer1.setEnabled(false);
-				 }
-
-			 }
+					if(Scene.peut_attaquer(j1, j2)!= null) 
+						attaquer1.setEnabled(true);
+					else
+						attaquer1.setEnabled(false);
+					Audio.playSound("deplacement2.wav");
+				}
 				 
-			 if(arg0.getSource() == droite1) {
-				 j1.setX(j1.getX()+77);
-				 j1.setPoints_dactions(j1.getPoints_dactions()-2);
-				 ptsactions1.setText("Points d'actions : " + Integer.toString(j1.getPoints_dactions()));
-				 if(Scene.peut_conquérir_astres(j1)!= null) 
+				if(arg0.getSource() == droite1) {
+					j1.setX(j1.getX()+77);
+					j1.setPoints_dactions(j1.getPoints_dactions()-2);
+					ptsactions1.setText("Points d'actions : " + Integer.toString(j1.getPoints_dactions()));
+					if(Scene.peut_conquérir_astres(j1)!= null) 
 						 conquerir1.setEnabled(true);
-					 
-					 else {
-						 conquerir1.setEnabled(false);
-					 }
-				 if(Scene.peut_attaquer(j1, j2)!= null) {
-					 attaquer1.setEnabled(true);
-				 }
-				 else {
-					 attaquer1.setEnabled(false);
-				 }			 }
-	
-			 if(arg0.getSource() == gauche1) {
-				 j1.setX(j1.getX()-77);
-				 j1.setPoints_dactions(j1.getPoints_dactions()-2);
-				 ptsactions1.setText("Points d'actions : " + Integer.toString(j1.getPoints_dactions()));}
-			 if(Scene.peut_conquérir_astres(j1)!= null) 
-					 conquerir1.setEnabled(true);
-				 
-				 else {
-					 conquerir1.setEnabled(false);
-				 }
-			 if(Scene.peut_attaquer(j1, j2)!= null) {
-				 attaquer1.setEnabled(true);
-			 }
-			 else {
-				 attaquer1.setEnabled(false);
-			 }
-			}
+					else 
+						conquerir1.setEnabled(false);
+					if(Scene.peut_attaquer(j1, j2)!= null) 
+						attaquer1.setEnabled(true);
+					else
+						attaquer1.setEnabled(false);
+					Audio.playSound("deplacement2.wav");
+				}
+				
+				if(arg0.getSource() == gauche1) {
+					j1.setX(j1.getX()-77);
+					j1.setPoints_dactions(j1.getPoints_dactions()-2);
+					ptsactions1.setText("Points d'actions : " + Integer.toString(j1.getPoints_dactions()));
+			 	 	if(Scene.peut_conquérir_astres(j1)!= null) 
+			 	 		conquerir1.setEnabled(true);
+				 	else 
+				 		conquerir1.setEnabled(false);
+			 	 	if(Scene.peut_attaquer(j1, j2)!= null) 
+			 	 		attaquer1.setEnabled(true);
+			 	 	else
+			 	 		attaquer1.setEnabled(false);
+			 	 	Audio.playSound("deplacement2.wav");
+				}
 			
-			if(j2.getMain()==1 && j2.getPoints_dactions()>0) {
-			
-			 if(arg0.getSource() == bas2)  {
-				 j2.setY(j2.getY()+77);
-				 j2.setPoints_dactions(j2.getPoints_dactions()-2);
-				 ptsactions2.setText("Points d'actions : " + Integer.toString(j2.getPoints_dactions()));
-				 if(Scene.peut_conquérir_astres(j2)!= null) {
-					 conquerir2.setEnabled(true);
-				 }
-				 else {
-					 conquerir2.setEnabled(false);
-				 }
-				 if(Scene.peut_attaquer(j2, j1)!= null) {
-					 attaquer2.setEnabled(true);
-				 }
-				 else {
-					 attaquer2.setEnabled(false);
-				 }				 }
-			 
-			 if(arg0.getSource() == haut2) {
-				 j2.setY(j2.getY()-77);
-				 j2.setPoints_dactions(j2.getPoints_dactions()-2);
-				 ptsactions2.setText("Points d'actions : " + Integer.toString(j2.getPoints_dactions()));
-				 if(Scene.peut_conquérir_astres(j2)!= null) {
-					 conquerir2.setEnabled(true);
-				 }
-				 else {
-					 conquerir2.setEnabled(false);
-				 }
-				 if(Scene.peut_attaquer(j2, j1)!= null) {
-					 attaquer2.setEnabled(true);
-				 }
-				 else {
-					 attaquer2.setEnabled(false);
-				 }					 }
-		
-			 if(arg0.getSource() == gauche2) { 
-				 j2.setX(j2.getX()-77); 
-				 j2.setPoints_dactions(j2.getPoints_dactions()-2);
-				 ptsactions2.setText("Points d'actions : " + Integer.toString(j2.getPoints_dactions()));
-				 if(Scene.peut_conquérir_astres(j2)!= null) {
-					 conquerir2.setEnabled(true);
-				 }
-				 else {
-					 conquerir2.setEnabled(false);
-				 }
-				 if(Scene.peut_attaquer(j2, j1)!= null) {
-					 attaquer2.setEnabled(true);
-				 }
-				 else {
-					 attaquer2.setEnabled(false);
-				 }					 }
-				 
-		
-			 if(arg0.getSource() == droite2) { 
-				 j2.setPoints_dactions(j2.getPoints_dactions()-2);
-				 ptsactions2.setText("Points d'actions : " + Integer.toString(j2.getPoints_dactions()));
-				 if(Scene.peut_conquérir_astres(j2)!= null) {
-					 conquerir2.setEnabled(true);
-				 }
-				 else {
-					 conquerir2.setEnabled(false);
-				 }
-				 if(Scene.peut_attaquer(j2, j1)!= null) {
-					 attaquer2.setEnabled(true);
-				 }
-				 else {
-					 attaquer2.setEnabled(false);
-				 }					 }
-				 
-}
-			
-
-			 
-			 if(arg0.getSource() == finirtour1) {
-				 lab3.setText("Tour n°" + Integer.toString(j2.getTour()) + " - A " + joueur2 + " de jouer"); 
-				 Joueur.passer_tour(j1,j2);
-				 
-				 if (j1.niveau == 1) { 
-					 j1.points_dactions = 10;
-						 }
-				 else if (j1.niveau == 2) { j1.points_dactions = 20; }
-				 else if (j1.niveau == 3) { j1.points_dactions = 30; }
-				 ptsactions1.setText("Points d'actions : " + Integer.toString(j1.getPoints_dactions()));
-				 conquerir1.setEnabled(false);
-
-			 }
-			 
-			 if(arg0.getSource() == finirtour2) {
-				 lab3.setText("Tour n°" + Integer.toString(j1.getTour()) + " - A " + joueur1 +" de jouer"); 
-				 Joueur.passer_tour(j2,j1);
-			 	 
-			 	if (j2.niveau == 1) { 
-					 j2.points_dactions = 10;
-						 }
-				 else if (j2.niveau == 2) { j2.points_dactions = 20; }
-				 else if (j2.niveau == 3) { j2.points_dactions = 30; }
-			 	ptsactions2.setText("Points d'actions : " + Integer.toString(j2.getPoints_dactions()));
-			 	 if(Scene.peut_conquérir_astres(j1)!=null) {conquerir1.setEnabled(true);}
-		}
-		
-			 	if(arg0.getSource() == conquerir1) {
+				if(arg0.getSource() == finirtour1) {
+					lab3.setText("Tour n°" + Integer.toString(j2.getTour()) + " - A " + joueur2 + " de jouer"); 
+					Joueur.passer_tour(j1,j2);
+				 	if (j1.niveau == 1) 
+				 		j1.points_dactions = 10;
+				 	else if (j1.niveau == 2) { j1.points_dactions = 20; }
+				 	else if (j1.niveau == 3) { j1.points_dactions = 30; }
+				 	ptsactions1.setText("Points d'actions : " + Integer.toString(j1.getPoints_dactions()));
+				 	conquerir1.setEnabled(false);
+				 	Audio.playSound("passetour.wav");
+				}
+				
+				if(arg0.getSource() == conquerir1) {
 			 		conquerir1.setEnabled(false);
 			 		j1.setX(j1.getX());
 			 		j1.setY(j1.getY());
 			 		Astre a = Scene.peut_conquérir_astres(j1);
 			 		j1.conquerir(a,j1);
-			 		
+
+			 		a.setIcoObj(icoObj1);
+					a.setImgObj(imgObj1);
+					
 			 		ptsactions1.setText("Points d'actions : " + Integer.toString(j1.getPoints_dactions()));
 			 		ptsconq1.setText("Points conquêtes : " + Integer.toString(j1.getPoints_conquetes()));
 			 		exp1.setText("Expérience : " + Double.toString(j1.getExperience()));
-			 		
-			 		String territoires = "";
-			 		for(int i1=0; i1<= j1.territoires.size(); i1++) {
-			 			territoires += j1.territoires.get(i1).getNom();
-			 			conq1.setText("Territoires conquis : " + territoires );
-			 		}
-				 	}
-			 	
+			 		if(Scene.getPartiegagnee() == false)
+			 			Audio.playSound("victoire.wav");
+				}
+				
+				if(arg0.getSource() == attaquer1) {
+					 Astre astre_attaque = Scene.peut_attaquer(j1, j2);
+					 j1.attaquer(j2, astre_attaque);
+					 Audio.playSound("battle2.wav");
+					 astre_attaque.setIcoObj(icoObj1);
+					 astre_attaque.setImgObj(imgObj1);	 
+				}
+			}
+			
+			if(j2.getMain()==1 && j2.getPoints_dactions()>0) {
+				if(arg0.getSource() == bas2)  {
+					j2.setY(j2.getY()+77);
+					j2.setPoints_dactions(j2.getPoints_dactions()-2);
+					ptsactions2.setText("Points d'actions : " + Integer.toString(j2.getPoints_dactions()));
+					if(Scene.peut_conquérir_astres(j2)!= null) 
+						conquerir2.setEnabled(true);
+					else
+						conquerir2.setEnabled(false);
+					if(Scene.peut_attaquer(j2, j1)!= null) 
+						attaquer2.setEnabled(true);
+					else
+						attaquer2.setEnabled(false);		
+					Audio.playSound("deplacement2.wav");
+				}
+				
+				if(arg0.getSource() == haut2) {
+					j2.setY(j2.getY()-77);
+					j2.setPoints_dactions(j2.getPoints_dactions()-2);
+					ptsactions2.setText("Points d'actions : " + Integer.toString(j2.getPoints_dactions()));
+					if(Scene.peut_conquérir_astres(j2)!= null)
+						conquerir2.setEnabled(true);
+					else
+						conquerir2.setEnabled(false);
+					if(Scene.peut_attaquer(j2, j1)!= null) 
+						attaquer2.setEnabled(true);
+					else 
+					 	attaquer2.setEnabled(false);			
+					Audio.playSound("deplacement2.wav");
+				}
+		
+				if(arg0.getSource() == gauche2) {
+					j2.setX(j2.getX()-77); 
+					j2.setPoints_dactions(j2.getPoints_dactions()-2);
+					ptsactions2.setText("Points d'actions : " + Integer.toString(j2.getPoints_dactions()));
+					if(Scene.peut_conquérir_astres(j2)!= null) 
+						conquerir2.setEnabled(true);
+					else
+						conquerir2.setEnabled(false);
+					if(Scene.peut_attaquer(j2, j1)!= null) 
+						attaquer2.setEnabled(true);
+					else
+						attaquer2.setEnabled(false);		
+					Audio.playSound("deplacement2.wav");
+				}
+				
+				if(arg0.getSource() == droite2) { 
+					j2.setX(j2.getX()+77);   ////
+					j2.setPoints_dactions(j2.getPoints_dactions()-2);
+					ptsactions2.setText("Points d'actions : " + Integer.toString(j2.getPoints_dactions()));
+					if(Scene.peut_conquérir_astres(j2)!= null) 
+						conquerir2.setEnabled(true);
+					else 
+						conquerir2.setEnabled(false);
+					if(Scene.peut_attaquer(j2, j1)!= null) 
+						attaquer2.setEnabled(true);
+					else
+						attaquer2.setEnabled(false);			
+					Audio.playSound("deplacement2.wav");
+				}
+			 
+				if(arg0.getSource() == finirtour2) {
+					lab3.setText("Tour n°" + Integer.toString(j1.getTour()) + " - A " + joueur1 +" de jouer"); 
+					Joueur.passer_tour(j2,j1);
+					if (j2.niveau == 1) 
+						j2.points_dactions = 10;
+					else if (j2.niveau == 2) { j2.points_dactions = 20; }
+					else if (j2.niveau == 3) { j2.points_dactions = 30; }
+					ptsactions2.setText("Points d'actions : " + Integer.toString(j2.getPoints_dactions()));
+					if(Scene.peut_conquérir_astres(j1)!=null) {conquerir1.setEnabled(true);}
+					Audio.playSound("passetour.wav");
+				}
+				
 			 	if(arg0.getSource() == conquerir2) {
 			 		conquerir2.setEnabled(false);
 			 		j2.setX(j2.getX());
 			 		j2.setY(j2.getY());
-			 		Astre a = Scene.peut_conquérir_astres(j1);
+			 		Astre a = Scene.peut_conquérir_astres(j2);
 			 		j2.conquerir(a,j2);
-							
+					
+			 		a.setIcoObj(icoObj2);
+					a.setImgObj(imgObj2);
+					
 			 		ptsactions2.setText("Points d'actions : " + Integer.toString(j2.getPoints_dactions()));
 			 		ptsconq2.setText("Points conquêtes : " + Integer.toString(j2.getPoints_conquetes()));
 			 		exp2.setText("Expérience : " + Double.toString(j2.getExperience()));
-			 		
-			 		String territoires = "";
-			 		for(int i1=0; i1<= j2.territoires.size(); i1++) {
-			 			territoires += j2.territoires.get(i1).getNom();
-			 			conq2.setText("Territoires conquis : " + territoires );
-			 		}
-				 	}
-			 	
+			 		Audio.playSound("victoire.wav");	
+				}
 
-				 if(arg0.getSource() == attaquer1) {
-					 Astre astre_attaque = Scene.peut_attaquer(j1, j2);
-					 j1.attaquer(j2, astre_attaque);
-					 
+			 	if(arg0.getSource() == attaquer2) {
+					Astre astre_attaque = Scene.peut_attaquer(j2, j1);
+					j2.attaquer(j1, astre_attaque);
+					Audio.playSound("battle2.wav");
+					astre_attaque.setIcoObj(icoObj2);
+					astre_attaque.setImgObj(imgObj2);
+			    }
+			}
+	}
+		
+	
+	public static void fermer_boutons() {
+		conquerir1.setEnabled(false);
+		gauche1.setEnabled(false);
+		droite1.setEnabled(false);			
+		bas1.setEnabled(false);
+		finirtour1.setEnabled(false);
+		attaquer1.setEnabled(false);		
+		haut1.setEnabled(false);
+		conquerir2.setEnabled(false);
+		gauche2.setEnabled(false);			
+		droite2.setEnabled(false);
+		bas2.setEnabled(false);
+		finirtour2.setEnabled(false);
+		attaquer2.setEnabled(false);
+		haut2.setEnabled(false);}
+				
 					
-				 }
-				 if(arg0.getSource() == attaquer2) { }
-							
-
-		}
+				
+				
 		//*** GETTER SETTER ***//
 
 
 		public static String getJoueur1() {return joueur1;}
 		public static String getJoueur2() {return joueur2;}
+		public static Font getPoliceFin() {return policeFin;}
+		public static void setPoliceFin(Font policeFin) {Fenetre.policeFin = policeFin;}
 		
 }
+
+
+
+			 
+			 
+			 
+			 
+
+			 
+
+			
+				 
+		
