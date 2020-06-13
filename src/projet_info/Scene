@@ -1,10 +1,15 @@
 package projet_info;
 import javax.swing.ImageIcon;
 
+
 import java.awt.Color;
+import java.awt.Font;
+
 import projet_info.Astre;
 //import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import audio.Audio;
 
 import java.awt.Graphics;
 import java.awt.Image;
@@ -36,72 +41,70 @@ public class Scene extends JPanel {
 	private int dyjoueur1;
 	private int dxjoueur1;
 	
-
+	//2 joueurs créés
 	public Joueur perso1;
 	public Joueur perso2;
 	
-	public Astre astre1; //
-	public Astre astre2; //
-	public Astre astre3; //
-	public Astre astre4; //
-	public Astre astre5; //
-	public Astre astre6; //
-	public Astre astre7; //
-	public Astre astre8; //
+	public Astre astre1; 
+	public Astre astre2; 
+	public Astre astre3; 
+	public Astre astre4;
+	public Astre astre5;
+	public Astre astre6; 
+	public Astre astre7; 
+	public Astre astre8; 
 	
 	static ArrayList<Astre> tabObjets; // tableau qui enregistre tous les astres
-	// normalement, on devrait mettre <Unite>     //
 	
+	//image utilisée pour changer l'image du joueur2
 	public ImageIcon icoObj2;
 	public Image imgObj2;
 	
-	//*** LE CONSTRUCTEUR ***//
+	private String gagnant;
+	static Boolean partiegagnee;
 	
+	//*** LE CONSTRUCTEUR ***//
 	public Scene() {
 		
 		super(); // faire appel au constructeur de la super classe
 		this.xFond = 0; // commence par initialiser les variables position
 		this.yFond = 0;
-		this.taille_case_x = 77; //2560/256=10    //
-		this.taille_case_y = 77;  //1920/240=8    //
+		this.taille_case_x = 77; 
+		this.taille_case_y = 77; 
 		this.dx = 0;
 		this.dy = 0;
 		
-		this.xrect1 = 4; //
-		this.yrect1 = 4; //
+		this.xrect1 = 4; 
+		this.yrect1 = 4; 
 		this.dxrect1 = 0;
 		this.dyrect1 = 0;
 	
-		//téléchargement de l'image
+		//téléchargement de l'image de fond
 		IcoFond = new ImageIcon(getClass().getResource("fond.png"));
 		this.ImFond = this.IcoFond.getImage();
-        
-
 		
-		this.perso1 = new Joueur("", 0, 0,1);
-		this.perso2 = new Joueur("", 308, 308,2);
+		//on initialise les joueurs 
+		this.perso1 = new Joueur("", 0, 0);
+		this.perso2 = new Joueur("", 308, 308);
 		
+		//changement de l'image du joueur 2 pour les différencier
 		icoObj2 = new ImageIcon(getClass().getResource("joueur2.png"));
 		imgObj2 = this.icoObj2.getImage();
-		
 		perso2.setIcoObj(this.icoObj2);
 		perso2.setImgObj(this.imgObj2);
 		
 		
 		//création automatique des astres
 		tabObjets = new ArrayList<Astre>(); //
-		for(int i =0; i<= 16; i++){
+		for(int i =0; i<= 28; i++){
 			Random random = new Random();
 			int nb1;
 			int nb2;
 			nb1 = random.nextInt(9);
 			nb2 = random.nextInt(7);
-			Astre aastre = new Astre("astre" + i, nb1*190+100,5+taille_case_x*nb1, 5+taille_case_y*nb2, 1, i, i);
-			this.tabObjets.add(aastre);
-			
-		}
+			Astre aastre = new Astre("astre" + i, nb1*190+100,5+taille_case_x*nb1, 5+taille_case_y*nb2, 1, i);
+			this.tabObjets.add(aastre);}
 	
-		
 		this.setFocusable(true);
 		this.requestFocusInWindow();
 		this.addKeyListener(new Clavier()); //pour écouter le clavier 
@@ -110,9 +113,11 @@ public class Scene extends JPanel {
 		Thread chronoEcran = new Thread(new Chrono());
 		chronoEcran.start();
 		
+		this.gagnant = "";	
+		this.partiegagnee = false;
 	}
 	
-	//*** GETTERS SETTERS ****// Pour les générer: clic droit, source, generate getters
+	//*** GETTERS SETTERS ****// 
 	
 	public int getDx() {return dx;} // pour accéder à la valeur de dx
 	public void setDx(int dx) {this.dx = dx;} // pour la modifier
@@ -126,15 +131,14 @@ public class Scene extends JPanel {
 	public void setDyrect1(int dyrect1) {this.dyrect1 = dyrect1;}
 
 	
-	
+	public static Boolean getPartiegagnee() {return partiegagnee;}
+
 	//*** LES METHODES ***//
 	public static Astre peut_conquérir_astres(Joueur j) {	
 		Astre res = null;
 		for(int i=0; i<tabObjets.size();i++) {
 			if(Math.abs(j.getX()- tabObjets.get(i).getX())<=30 && Math.abs(j.getY()- tabObjets.get(i).getY())<=30 && tabObjets.get(i).isConquis() == false){
-				res = tabObjets.get(i);
-		
-			}
+				res = tabObjets.get(i);}
 	}
 		return res; }
 	
@@ -194,6 +198,28 @@ public class Scene extends JPanel {
 				gg.drawRect(xrect1+(taille_case_x)*i, yrect1+(taille_case_y)*j, taille_case_x, taille_case_y);
 				gg.setColor(Color.WHITE);}}
 	}
+	////
+	private boolean partieGagnee() {
+		if(this.perso1.territoires_conquis >= tabObjets.size()*0.1) {
+			this.gagnant = "Joueur 1";
+			this.partiegagnee = true;
+			return true;}
+		else if(this.perso2.territoires_conquis >= tabObjets.size()*0.1) {
+			this.gagnant = "Joueur 2";
+			this.partiegagnee = true;
+			return true;}
+		else
+			return false;
+	}
+	
+	private boolean finDePartie() {
+		if(this.partieGagnee() == true){
+			Fenetre.fermer_boutons();
+			Audio.playSound("gagne3.wav");
+			return true;}
+		
+		else {return false;}
+	}
 
 	@SuppressWarnings("exports")
 	public void paintComponent(Graphics g) {  //méthode qui gère la peinture de l'écran
@@ -210,11 +236,8 @@ public class Scene extends JPanel {
 			gc.drawImage(this.tabObjets.get(i).getImgObj(), this.tabObjets.get(i).getX(),this.tabObjets.get(i).getY(),null);
 			int X = tabObjets.get(i).getX();
 			int Y = tabObjets.get(i).getY();
-			gc.setColor(Color.WHITE); /////////////////
 			gc.drawString(tabObjets.get(i).getNom(), X+20, Y+20);
 			gc.drawString(Integer.toString(tabObjets.get(i).getTaille()), X+30, Y+30);
-			///gc.drawString(tabObjets.get(i).getNom(), X+15, Y+30); config otman
-			///gc.drawString(Integer.toString( tabObjets.get(i).getTaille()), X+20, Y+40);
 		}
 		gc.drawRect(xrect1, yrect1, taille_case_x,taille_case_y); 
 		this.création_grille(gc); 
@@ -229,7 +252,14 @@ public class Scene extends JPanel {
 		
 		gc.drawImage(this.perso2.getImgObj(),X2,Y2,null); 
 		gc.drawString("Joueur2", X2+20, Y2+20);
+		
+		//fin de partie  ////
+		if(this.finDePartie() == true)
+			gc.setFont(Fenetre.policeFin); //problème ici: pas de changement de police..
+			if(this.partieGagnee() == true)
+				gc.drawString("Le " + this.gagnant + " a gagné, bravo à lui!! ", 100, 100);
 	}
+	
 
 	
 
