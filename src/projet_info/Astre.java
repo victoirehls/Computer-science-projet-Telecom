@@ -16,7 +16,7 @@ public class Astre extends Unite {
 	double taux_croissance; //taux de croissance de population
 	double population;
 	int population_max;
-	
+	int date;
 	
 
 	//*** CONSTRUCTEUR ***//
@@ -28,20 +28,27 @@ public class Astre extends Unite {
 		this.points_conquetes = taille *proportion;
 		this.conquis = false;
 		this.taux_croissance = taux;
-		this.population_max = 1000*this.taille; //1000 arbitraire
+		this.population_max = 10*this.taille; //1000 arbitraire
 		super.icoObj = new ImageIcon(getClass().getResource("soleil3.png")); 
 		super.imgObj = this.icoObj.getImage(); 
+		this.date = 0;
 	}
 
 
 	//*** METHODES ***//
 	
-	public void population(Astre a, Joueur j) { //appelÃ©e quand un joueur conquiert un astre
+	//méthode permettant d'augmenter la population d'un astre conquis
+	public static void population(Astre a, Joueur j) { 
 		a.population = 1;  //initialisation
 		if(a.population <= a.population_max) {
-			a.population = j.tour*a.taille*a.taux_croissance;}
+			a.population = a.taille*a.taux_croissance;}
 		else{
 			a.population = a.population_max;}
+	}
+	
+	//méthode incrémentant la date de conquête d'un astre
+	public static void ajout_date_astre(Astre a) {
+		a.date += 1;
 	}
 	
 	public boolean isConquis() {return conquis;}
