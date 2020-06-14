@@ -20,7 +20,7 @@ import java.awt.Graphics2D;
 @SuppressWarnings("serial")
 public class Scene extends JPanel {
 	
-	//*** CREATION DES VARIABLES ***// mettre toutes les images ici, mettre aussi variables de déplacement des joueurs (xpos1 et 2)
+	//*** CREATION DES VARIABLES ***// 
 	private ImageIcon IcoFond;
 	private Image ImFond;
 	private int taille_case_x;  
@@ -45,16 +45,8 @@ public class Scene extends JPanel {
 	public Joueur perso1;
 	public Joueur perso2;
 	
-	public Astre astre1; 
-	public Astre astre2; 
-	public Astre astre3; 
-	public Astre astre4;
-	public Astre astre5;
-	public Astre astre6; 
-	public Astre astre7; 
-	public Astre astre8; 
-	
-	static ArrayList<Astre> tabObjets; // tableau qui enregistre tous les astres
+	//tableau contenant les astres
+	static ArrayList<Astre> tabObjets;
 	
 	//image utilisée pour changer l'image du joueur2
 	public ImageIcon icoObj2;
@@ -62,6 +54,7 @@ public class Scene extends JPanel {
 	
 	private String gagnant;
 	static Boolean partiegagnee;
+	private boolean ok;
 	
 	//*** LE CONSTRUCTEUR ***//
 	public Scene() {
@@ -95,14 +88,16 @@ public class Scene extends JPanel {
 		
 		
 		//création automatique des astres
-		tabObjets = new ArrayList<Astre>(); //
+		tabObjets = new ArrayList<Astre>(); 
 		for(int i =0; i<= 28; i++){
 			Random random = new Random();
 			int nb1;
 			int nb2;
+			int nb3;
 			nb1 = random.nextInt(9);
 			nb2 = random.nextInt(7);
-			Astre aastre = new Astre("astre" + i, nb1*190+100,5+taille_case_x*nb1, 5+taille_case_y*nb2, 1, i);
+			nb3 = random.nextInt((3000-450)+1)+ 450;
+			Astre aastre = new Astre("astre" + i, nb3, 5+taille_case_x*nb1, 5+taille_case_y*nb2, 1, i*0.05);
 			this.tabObjets.add(aastre);}
 	
 		this.setFocusable(true);
@@ -115,6 +110,7 @@ public class Scene extends JPanel {
 		
 		this.gagnant = "";	
 		this.partiegagnee = false;
+		this.ok = true;
 	}
 	
 	//*** GETTERS SETTERS ****// 
@@ -129,40 +125,38 @@ public class Scene extends JPanel {
 	public void setyFond(int yFond) {this.yFond = yFond;}
 	public void setDxrect1(int dxrect1) {this.dxrect1 = dxrect1;}
 	public void setDyrect1(int dyrect1) {this.dyrect1 = dyrect1;}
-
-	
 	public static Boolean getPartiegagnee() {return partiegagnee;}
 
 	//*** LES METHODES ***//
+	
+	//méthode retournant l'astre pouvant être conquis par un joueur 
 	public static Astre peut_conquérir_astres(Joueur j) {	
 		Astre res = null;
 		for(int i=0; i<tabObjets.size();i++) {
-			if(Math.abs(j.getX()- tabObjets.get(i).getX())<=30 && Math.abs(j.getY()- tabObjets.get(i).getY())<=30 && tabObjets.get(i).isConquis() == false){
-				res = tabObjets.get(i);}
+			Astre a = tabObjets.get(i);
+			if(Math.abs(j.getX()- a.getX())<=30 && Math.abs(j.getY()- a.getY())<=30 && a.conquis == false && a.points_conquetes <= j.points_conquetes){
+				res = a;}
 	}
 		return res; }
 	
+	//méthode retournant l'astre pouvant être attaqué 
 	public static Astre peut_attaquer(Joueur j1, Joueur j2) {
 		Astre res = null;
 		Astre astre_attaque = null;
 		
 		//on regarde si le joueur1 est sur un astre
 		for(int i=0; i<tabObjets.size();i++) {
-			if(Math.abs(j1.getX() - tabObjets.get(i).getX())<30 && Math.abs(j1.getY() - tabObjets.get(i).getY())<30 ) {
-				astre_attaque = tabObjets.get(i);
-			}
-		}
+			if(Math.abs(j1.getX() - tabObjets.get(i).getX())<30 && Math.abs(j1.getY() - tabObjets.get(i).getY())<30 ) 
+				astre_attaque = tabObjets.get(i);}
+		
 		//on regarde si cet astre est dans les territoires du joueur2
 		for(int i1=0; i1<j2.getTerritoires().size(); i1++) {
-			if(j2.getTerritoires().get(i1) == astre_attaque) {
-				res = astre_attaque;
-			}
-		}
-		
-			return res ;
+			if(j2.getTerritoires().get(i1) == astre_attaque) 
+				res = astre_attaque;}
+		return res ;
 		}
 	
-	
+	//méthode donnant la taille totale de toutes les étoiles du jeu
 	public static int getTaille() {
 		int taille_totale = 0;
 		for(int i =0; i<= Scene.tabObjets.size(); i++){
@@ -171,65 +165,72 @@ public class Scene extends JPanel {
 		return taille_totale;	
 	}
 
-	
-
-	public void Deplacmtfond() {
+	//*** TRANSLATION *** méthode servant initialement à bouger l'image de fond 
+	/*public void Deplacmtfond() {
 		this.xFond += this.dx;
 		this.yFond += this.dy;
-		//on bouge l ecran avec des touches d ordi
-		this.xrect1 += this.dxrect1; //
-		this.yrect1 += this.dyrect1; //
-	}
+		this.xrect1 += this.dxrect1; 
+		this.yrect1 += this.dyrect1; 
+	} */
 	
-	public void Deplacmtvaisseau() {
+	//*** TRANSLATION *** méthode servant initialement à bouger les vaisseaux
+	/*public void Deplacmtvaisseau() {
 		perso1.setX(perso1.getX() + dx);
 		perso1.setY(perso1.getY() + dy);
 		perso2.setX(perso2.getX() + dx);
-		perso2.setY(perso2.getY() + dy);
-		
-	}
+		perso2.setY(perso2.getY() + dy);	
+	} */
 	
-
+	
 	@SuppressWarnings("exports")
-	public void création_grille(Graphics g) {       //
-		Graphics gg = (Graphics2D)g;                //
+	public void création_grille(Graphics g) {       
+		Graphics gg = (Graphics2D)g;                
 		for (int i = 0; i<11; i++ ) {
 			for (int j = 0; j<9; j++) {
 				gg.drawRect(xrect1+(taille_case_x)*i, yrect1+(taille_case_y)*j, taille_case_x, taille_case_y);
 				gg.setColor(Color.WHITE);}}
 	}
-	////
-	private boolean partieGagnee() {
+
+	
+	private boolean partieGagnee() {   //problème: pas de son entendu??
 		if(this.perso1.territoires_conquis >= tabObjets.size()*0.1) {
+			//if(this.ok == true) {
+			//	Audio.playSound("gagne3");
+			//	this.ok = false;
+			//}
 			this.gagnant = "Joueur 1";
-			this.partiegagnee = true;
 			return true;}
 		else if(this.perso2.territoires_conquis >= tabObjets.size()*0.1) {
+			//if(this.ok == true) {
+			//	Audio.playSound("gagne3");
+			//	this.ok = false;
+			//}
 			this.gagnant = "Joueur 2";
-			this.partiegagnee = true;
 			return true;}
 		else
 			return false;
 	}
 	
+	
 	private boolean finDePartie() {
 		if(this.partieGagnee() == true){
 			Fenetre.fermer_boutons();
-			Audio.playSound("gagne3.wav");
 			return true;}
 		
 		else {return false;}
 	}
 
+	//méthode gérant la peinture de l'écran
 	@SuppressWarnings("exports")
-	public void paintComponent(Graphics g) {  //méthode qui gère la peinture de l'écran
+	public void paintComponent(Graphics g) { 
 		super.paintComponent(g);
 		Graphics gc = (Graphics2D)g;
-		this.Deplacmtfond();
-		this.Deplacmtvaisseau();
-		//déplacement des astres
-		for(int i=0; i< this.tabObjets.size(); i++) {this.tabObjets.get(i).deplacement();}
-		gc.drawImage(this.ImFond, this.xFond, this.yFond, null);
+		
+		//*** TRANSLATION *** this.Deplacmtfond();
+		//*** TRANSLATION *** this.Deplacmtvaisseau();
+		//*** TRANSLATION *** déplacement des astres
+		/*for(int i=0; i< this.tabObjets.size(); i++) {this.tabObjets.get(i).deplacement();} */
+		gc.drawImage(this.ImFond, this.xFond, this.yFond, null); 
 		
 		// tracé des astres
 		for(int i=0; i<this.tabObjets.size();i++) {
@@ -239,28 +240,27 @@ public class Scene extends JPanel {
 			gc.drawString(tabObjets.get(i).getNom(), X+20, Y+20);
 			gc.drawString(Integer.toString(tabObjets.get(i).getTaille()), X+30, Y+30);
 		}
+		
+		//tracé de la grille
 		gc.drawRect(xrect1, yrect1, taille_case_x,taille_case_y); 
 		this.création_grille(gc); 
 		
+		// déplacement des coordonnées des perso
 		int X1 = perso1.getX();
 		int Y1 = perso1.getY();
 		int X2 = perso2.getX();
 		int Y2 = perso2.getY();
-
+		
+		//déplacement des images des perso
 		gc.drawImage(this.perso1.getImgObj(),X1,Y1,null); 
 		gc.drawString("Joueur1", X1, Y1+20);
-		
 		gc.drawImage(this.perso2.getImgObj(),X2,Y2,null); 
 		gc.drawString("Joueur2", X2+20, Y2+20);
 		
-		//fin de partie  ////
+		//fin de partie  
 		if(this.finDePartie() == true)
 			gc.setFont(Fenetre.policeFin); //problème ici: pas de changement de police..
 			if(this.partieGagnee() == true)
 				gc.drawString("Le " + this.gagnant + " a gagné, bravo à lui!! ", 100, 100);
 	}
-	
-
-	
-
 }
