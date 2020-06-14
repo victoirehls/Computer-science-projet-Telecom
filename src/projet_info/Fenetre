@@ -45,8 +45,8 @@ public class Fenetre extends JFrame implements ActionListener{
 	private JLabel ptsconq1;
 	private JLabel exp2;
 	private JLabel ptsconq2;
-	//private JLabel conq1;
-	//private JLabel conq2;
+	private JLabel niveau2;
+	private JLabel niveau1;
 	
 	static Joueur j1;
 	static Joueur j2;
@@ -83,6 +83,7 @@ public class Fenetre extends JFrame implements ActionListener{
 	public static Scene scene = new Scene();
 	public static Font policeFin;
 	
+	//images d'astres
 	private ImageIcon icoObj1;
 	private java.awt.Image imgObj1;
 	private ImageIcon icoObj2;
@@ -101,8 +102,8 @@ public class Fenetre extends JFrame implements ActionListener{
 			this.setLocationRelativeTo(null);
 			this.setResizable(false);
 			this.setAlwaysOnTop(true);
-			//this.setContentPane(scene);
 			
+			//initialisation des images d'astres conquis
 			icoObj1 = new ImageIcon(getClass().getResource("soleil4.png")); //
 			imgObj1 = this.icoObj1.getImage(); //
 			icoObj2 = new ImageIcon(getClass().getResource("soleil5.png")); //
@@ -114,10 +115,7 @@ public class Fenetre extends JFrame implements ActionListener{
 			j1.setNom(joueur1);
 			j1.main = 1;
 			
-			////
 			Font policeFin = new Font("Arial", Font.BOLD,50);
-			
-			
 			
 			//Ecriture du nom du joueur1
 			this.lab1 = new JLabel(joueur1);
@@ -143,15 +141,6 @@ public class Fenetre extends JFrame implements ActionListener{
 			this.exp1.setFont(police);
 			this.exp1.setForeground(Color.orange);  
 			this.exp1.setHorizontalAlignment(JLabel.CENTER);
-			
-			//affichage astres conquis joueur1
-			//this.conq1 = new JLabel("Territoire conquis : aucun");
-			//this.conq1.setFont(police);
-			//this.conq1.setForeground(Color.orange);  
-			//this.conq1.setHorizontalAlignment(JLabel.CENTER);
-			
-			
-			
 			
 			//réglage des polices pour tous les boutons
 			haut1.setBackground(Color.red);
@@ -197,22 +186,19 @@ public class Fenetre extends JFrame implements ActionListener{
 			conquerir1.setForeground(Color.black);
 			conquerir1.setFont(new java.awt.Font("Tahoma",1,16));
 			
-			
 			//récupération joueur2 nom
 			this.joueur2 = FenNomsJoueurs.getJTextField2();
 			j2 = scene.perso2;
 			j2.setNom(joueur2);
 			j2.main = 0;
-			
-
-			
+		
 			//affichage points d'action joueur2
 			this.ptsactions2= new JLabel("Points d'action : " + Double.toString(j2.getPoints_dactions()));
 			this.ptsactions2.setFont(police);
 			this.ptsactions2.setForeground(Color.orange);  
 			this.ptsactions2.setHorizontalAlignment(JLabel.CENTER);
 			
-			//affichage points conquetes joueur2
+			//affichage points conquete joueur2
 			this.ptsconq2 = new JLabel("Points conquêtes : " + Double.toString(j2.getPoints_conquetes()));
 			this.ptsconq2.setFont(police);
 			this.ptsconq2.setForeground(Color.orange);  
@@ -224,21 +210,12 @@ public class Fenetre extends JFrame implements ActionListener{
 			this.exp2.setForeground(Color.orange);  
 			this.exp2.setHorizontalAlignment(JLabel.CENTER);
 			
-			//affichage astres conquis joueur1
-			//this.conq2 = new JLabel("Territoire conquis : aucun");
-			//this.conq2.setFont(police);
-			//this.conq2.setForeground(Color.orange);  
-			//this.conq2.setHorizontalAlignment(JLabel.CENTER);
-			
-			
 			//affichage nom joueur2
 			this.lab2 = new JLabel(joueur2);
 			lab2.setFont(police);
 			lab2.setForeground(Color.blue);  
 			lab2.setHorizontalAlignment(JLabel.CENTER);
 			
-			
-			////this.tour = j1.getTour();
 			this.lab3 = new JLabel("Tour n°1" + " - A " + joueur1 + " de jouer");
 			
 			Font police1 = new Font("Tahoma", Font.BOLD, 20); 
@@ -266,40 +243,33 @@ public class Fenetre extends JFrame implements ActionListener{
 
 			
 			//Panneau informations joueur1
-			
-			
 			J1.setLayout(new BoxLayout(J1, BoxLayout.PAGE_AXIS));
 			J1.add(lab1);
 			J1.add(exp1);
 			J1.add(ptsconq1);
-			//J1.add(conq1);
-			JLabel test2 = new JLabel("Niveau : " + Integer.toString(j1.getNiveau()));
-			test2.setFont(police);
-			test2.setForeground(Color.orange);  
-			test2.setHorizontalAlignment(JLabel.CENTER);
-			J1.add(test2);
+			this.niveau1 = new JLabel("Niveau : " + Integer.toString(j1.getNiveau()));
+			niveau1.setFont(police);
+			niveau1.setForeground(Color.orange);  
+			niveau1.setHorizontalAlignment(JLabel.CENTER);
+			J1.add(niveau1);
 		    J1.add(ptsactions1);
 
 		    
 			//Panneau informations joueur2
-		    
 		    JPanel J2 = new JPanel();
 			J2.setLayout(new BoxLayout(J2, BoxLayout.PAGE_AXIS));
 			J2.add(lab2);
 			J2.add(exp2);
 			J2.add(ptsconq2);
-			//J2.add(conq2);
-			JLabel test5 = new JLabel("Niveau : " + Integer.toString(j2.getNiveau()));
-			test5.setFont(police);
-			test5.setForeground(Color.orange);  
-			test5.setHorizontalAlignment(JLabel.CENTER);
-			J2.add(test5);
+			this.niveau2 = new JLabel("Niveau : " + Integer.toString(j2.getNiveau()));
+			niveau2.setFont(police);
+			niveau2.setForeground(Color.orange);  
+			niveau2.setHorizontalAlignment(JLabel.CENTER);
+			J2.add(niveau2);
 		    J2.add(ptsactions2);
 		    
 		    
 	        //ajouter les différents boutons 
-	      
-			//setLayout(layout);
 			pan1.add(haut1);
 			pan1.add(bas1);
 			pan1.add(gauche1);
@@ -310,7 +280,6 @@ public class Fenetre extends JFrame implements ActionListener{
 			J1.add(pan1);
 			conquerir1.setEnabled(false);
 			attaquer1.setEnabled(false);
-			
 			pan2.add(haut2);
 			pan2.add(bas2);
 			pan2.add(gauche2);
@@ -323,8 +292,6 @@ public class Fenetre extends JFrame implements ActionListener{
 			attaquer2.setEnabled(false);
 			
 			//création et utilisation de ressorts permettant de séparer les boutons
-			
-			
 			pan.putConstraint(SpringLayout.NORTH, haut1, ressort, SpringLayout.NORTH, getContentPane());
 			pan.putConstraint(SpringLayout.NORTH, bas1, ressort, SpringLayout.SOUTH, haut1);
 			pan.putConstraint(SpringLayout.NORTH, gauche1, ressort, SpringLayout.SOUTH, bas1);
@@ -332,7 +299,6 @@ public class Fenetre extends JFrame implements ActionListener{
 			pan.putConstraint(SpringLayout.NORTH, attaquer1, ressort, SpringLayout.SOUTH, droite1);
 			pan.putConstraint(SpringLayout.NORTH, conquerir1, ressort, SpringLayout.SOUTH, attaquer1);
 			pan.putConstraint(SpringLayout.NORTH, finirtour1, ressort, SpringLayout.SOUTH, conquerir1);
-			
 			
 			pan.putConstraint(SpringLayout.NORTH, haut2, ressort, SpringLayout.NORTH, getContentPane());
 			pan.putConstraint(SpringLayout.NORTH, bas2, ressort, SpringLayout.SOUTH, haut2);
@@ -342,7 +308,6 @@ public class Fenetre extends JFrame implements ActionListener{
 			pan.putConstraint(SpringLayout.NORTH, conquerir2, ressort, SpringLayout.SOUTH, attaquer2);
 			pan.putConstraint(SpringLayout.NORTH, finirtour2, ressort, SpringLayout.SOUTH, conquerir2);
 
-		
 			this.setLayout(new BorderLayout());
 		    
 	        add(lab3, BorderLayout.NORTH);
@@ -352,91 +317,81 @@ public class Fenetre extends JFrame implements ActionListener{
 	       
 	        if(Scene.peut_conquérir_astres(j1)!= null) {conquerir1.setEnabled(true);}
 	        
-	        
 			//affichage général
 			setDefaultCloseOperation(EXIT_ON_CLOSE);
-			
-			this.setVisible(true);
-			
+			this.setVisible(true);	
 	}
 	
-	  
+	//*** METHODES ***//  
+	//ceci est la méthode de suivi des actions des boutons
 		@SuppressWarnings("deprecation")
 	public void actionPerformed(ActionEvent arg0) {
-			if(j1.getMain()==1 && j1.getPoints_dactions()>0) {
-				if(arg0.getSource() == haut1) {
+			if(j1.getMain()==1 && j1.getPoints_dactions()>=0) {
+				if(arg0.getSource() == haut1 && j1.getPoints_dactions()>=2) {
 					j1.setY(j1.getY()-77);
 					j1.setPoints_dactions(j1.getPoints_dactions()-2);
 					ptsactions1.setText("Points d'actions : " + Integer.toString(j1.getPoints_dactions()));	
 					if(Scene.peut_conquérir_astres(j1)!= null) 
 						conquerir1.setEnabled(true); 
-					else 
-						conquerir1.setEnabled(false);
 					if(Scene.peut_attaquer(j1, j2)!= null) 
 						attaquer1.setEnabled(true);
-					else 
-						attaquer1.setEnabled(false);
 				 	Audio.playSound("deplacement2.wav");
 				}
 				
-				if(arg0.getSource() == bas1) {
+				if(arg0.getSource() == bas1 && j1.getPoints_dactions()>=2) {
 					j1.setY(j1.getY()+77);
 					j1.setPoints_dactions(j1.getPoints_dactions()-2);
 					ptsactions1.setText("Points d'actions : " + Integer.toString(j1.getPoints_dactions()));				
 					if(Scene.peut_conquérir_astres(j1)!= null) 
 						 conquerir1.setEnabled(true);
-					else
-						 conquerir1.setEnabled(false);
 					if(Scene.peut_attaquer(j1, j2)!= null) 
 						attaquer1.setEnabled(true);
-					else
-						attaquer1.setEnabled(false);
 					Audio.playSound("deplacement2.wav");
 				}
 				 
-				if(arg0.getSource() == droite1) {
+				if(arg0.getSource() == droite1 && j1.getPoints_dactions()>=2) {
 					j1.setX(j1.getX()+77);
 					j1.setPoints_dactions(j1.getPoints_dactions()-2);
 					ptsactions1.setText("Points d'actions : " + Integer.toString(j1.getPoints_dactions()));
 					if(Scene.peut_conquérir_astres(j1)!= null) 
 						 conquerir1.setEnabled(true);
-					else 
-						conquerir1.setEnabled(false);
 					if(Scene.peut_attaquer(j1, j2)!= null) 
 						attaquer1.setEnabled(true);
-					else
-						attaquer1.setEnabled(false);
 					Audio.playSound("deplacement2.wav");
 				}
 				
-				if(arg0.getSource() == gauche1) {
+				if(arg0.getSource() == gauche1 && j1.getPoints_dactions()>=2) {
 					j1.setX(j1.getX()-77);
 					j1.setPoints_dactions(j1.getPoints_dactions()-2);
 					ptsactions1.setText("Points d'actions : " + Integer.toString(j1.getPoints_dactions()));
 			 	 	if(Scene.peut_conquérir_astres(j1)!= null) 
 			 	 		conquerir1.setEnabled(true);
-				 	else 
-				 		conquerir1.setEnabled(false);
 			 	 	if(Scene.peut_attaquer(j1, j2)!= null) 
 			 	 		attaquer1.setEnabled(true);
-			 	 	else
-			 	 		attaquer1.setEnabled(false);
 			 	 	Audio.playSound("deplacement2.wav");
 				}
 			
 				if(arg0.getSource() == finirtour1) {
 					lab3.setText("Tour n°" + Integer.toString(j2.getTour()) + " - A " + joueur2 + " de jouer"); 
 					Joueur.passer_tour(j1,j2);
-				 	if (j1.niveau == 1) 
-				 		j1.points_dactions = 10;
-				 	else if (j1.niveau == 2) { j1.points_dactions = 20; }
-				 	else if (j1.niveau == 3) { j1.points_dactions = 30; }
 				 	ptsactions1.setText("Points d'actions : " + Integer.toString(j1.getPoints_dactions()));
-				 	conquerir1.setEnabled(false);
+				 	ptsconq1.setText("Points conquêtes : " + Integer.toString(j1.getPoints_conquetes()));
+				 	exp1.setText("Expérience : " + Double.toString(j1.getExperience()));
+				 	niveau1.setText("Niveau : " + Integer.toString(j1.getNiveau()));
+				 	finirtour1.setEnabled(false);
+				 	finirtour2.setEnabled(true);
+				 	haut1.setEnabled(false);
+				 	haut2.setEnabled(true);
+				 	bas1.setEnabled(false);
+				 	bas2.setEnabled(true);
+				 	gauche1.setEnabled(false);
+				 	gauche2.setEnabled(true);
+				 	droite1.setEnabled(false);
+				 	droite2.setEnabled(true);
 				 	Audio.playSound("passetour.wav");
 				}
 				
-				if(arg0.getSource() == conquerir1) {
+				if(arg0.getSource() == conquerir1 && j1.getPoints_dactions()>=1) {
 			 		conquerir1.setEnabled(false);
 			 		j1.setX(j1.getX());
 			 		j1.setY(j1.getY());
@@ -449,93 +404,90 @@ public class Fenetre extends JFrame implements ActionListener{
 			 		ptsactions1.setText("Points d'actions : " + Integer.toString(j1.getPoints_dactions()));
 			 		ptsconq1.setText("Points conquêtes : " + Integer.toString(j1.getPoints_conquetes()));
 			 		exp1.setText("Expérience : " + Double.toString(j1.getExperience()));
-			 		if(Scene.getPartiegagnee() == false)
-			 			Audio.playSound("victoire.wav");
+			 		Audio.playSound("victoire.wav");
 				}
 				
-				if(arg0.getSource() == attaquer1) {
+				if(arg0.getSource() == attaquer1 && j1.getPoints_dactions()>=2) {
 					 Astre astre_attaque = Scene.peut_attaquer(j1, j2);
-					 j1.attaquer(j2, astre_attaque);
-					 Audio.playSound("battle2.wav");
-					 astre_attaque.setIcoObj(icoObj1);
-					 astre_attaque.setImgObj(imgObj1);	 
+					 if(astre_attaque != null)
+						attaquer1.setEnabled(false);
+						j1.attaquer(j1, j2, astre_attaque);
+					 	Audio.playSound("battle2.wav");
+					 	astre_attaque.setIcoObj(icoObj1);
+					 	astre_attaque.setImgObj(imgObj1);	 
+					 	ptsactions1.setText("Points d'actions : " + Integer.toString(j1.getPoints_dactions()));
+					 	ptsconq1.setText("Points conquêtes : " + Integer.toString(j1.getPoints_conquetes()));
+					 	exp1.setText("Expérience : " + Double.toString(j1.getExperience()));
 				}
+			
 			}
 			
-			if(j2.getMain()==1 && j2.getPoints_dactions()>0) {
-				if(arg0.getSource() == bas2)  {
+			if(j2.getMain()==1 && j2.getPoints_dactions()>=0) {
+				if(arg0.getSource() == bas2  && j2.getPoints_dactions()>=2)  {
 					j2.setY(j2.getY()+77);
 					j2.setPoints_dactions(j2.getPoints_dactions()-2);
 					ptsactions2.setText("Points d'actions : " + Integer.toString(j2.getPoints_dactions()));
 					if(Scene.peut_conquérir_astres(j2)!= null) 
 						conquerir2.setEnabled(true);
-					else
-						conquerir2.setEnabled(false);
 					if(Scene.peut_attaquer(j2, j1)!= null) 
-						attaquer2.setEnabled(true);
-					else
-						attaquer2.setEnabled(false);		
+						attaquer2.setEnabled(true);		
 					Audio.playSound("deplacement2.wav");
 				}
 				
-				if(arg0.getSource() == haut2) {
+				if(arg0.getSource() == haut2  && j2.getPoints_dactions()>=2) {
 					j2.setY(j2.getY()-77);
 					j2.setPoints_dactions(j2.getPoints_dactions()-2);
 					ptsactions2.setText("Points d'actions : " + Integer.toString(j2.getPoints_dactions()));
 					if(Scene.peut_conquérir_astres(j2)!= null)
 						conquerir2.setEnabled(true);
-					else
-						conquerir2.setEnabled(false);
 					if(Scene.peut_attaquer(j2, j1)!= null) 
-						attaquer2.setEnabled(true);
-					else 
-					 	attaquer2.setEnabled(false);			
+						attaquer2.setEnabled(true);			
 					Audio.playSound("deplacement2.wav");
 				}
 		
-				if(arg0.getSource() == gauche2) {
+				if(arg0.getSource() == gauche2 && j2.getPoints_dactions()>=2) {
 					j2.setX(j2.getX()-77); 
 					j2.setPoints_dactions(j2.getPoints_dactions()-2);
 					ptsactions2.setText("Points d'actions : " + Integer.toString(j2.getPoints_dactions()));
 					if(Scene.peut_conquérir_astres(j2)!= null) 
 						conquerir2.setEnabled(true);
-					else
-						conquerir2.setEnabled(false);
 					if(Scene.peut_attaquer(j2, j1)!= null) 
-						attaquer2.setEnabled(true);
-					else
-						attaquer2.setEnabled(false);		
+						attaquer2.setEnabled(true);		
 					Audio.playSound("deplacement2.wav");
 				}
 				
-				if(arg0.getSource() == droite2) { 
-					j2.setX(j2.getX()+77);   ////
+				if(arg0.getSource() == droite2 && j2.getPoints_dactions()>=2) { 
+					j2.setX(j2.getX()+77); 
 					j2.setPoints_dactions(j2.getPoints_dactions()-2);
 					ptsactions2.setText("Points d'actions : " + Integer.toString(j2.getPoints_dactions()));
 					if(Scene.peut_conquérir_astres(j2)!= null) 
 						conquerir2.setEnabled(true);
-					else 
-						conquerir2.setEnabled(false);
 					if(Scene.peut_attaquer(j2, j1)!= null) 
-						attaquer2.setEnabled(true);
-					else
-						attaquer2.setEnabled(false);			
+						attaquer2.setEnabled(true);			
 					Audio.playSound("deplacement2.wav");
 				}
 			 
 				if(arg0.getSource() == finirtour2) {
 					lab3.setText("Tour n°" + Integer.toString(j1.getTour()) + " - A " + joueur1 +" de jouer"); 
 					Joueur.passer_tour(j2,j1);
-					if (j2.niveau == 1) 
-						j2.points_dactions = 10;
-					else if (j2.niveau == 2) { j2.points_dactions = 20; }
-					else if (j2.niveau == 3) { j2.points_dactions = 30; }
 					ptsactions2.setText("Points d'actions : " + Integer.toString(j2.getPoints_dactions()));
-					if(Scene.peut_conquérir_astres(j1)!=null) {conquerir1.setEnabled(true);}
-					Audio.playSound("passetour.wav");
+					ptsconq2.setText("Points conquêtes : " + Integer.toString(j2.getPoints_conquetes()));
+					exp2.setText("Expérience : " + Double.toString(j2.getExperience()));
+					niveau2.setText("Niveau : " + Integer.toString(j2.getNiveau()));
+					finirtour2.setEnabled(false);
+				 	finirtour1.setEnabled(true);
+				 	haut2.setEnabled(false);
+				 	haut1.setEnabled(true);
+				 	bas2.setEnabled(false);
+				 	bas1.setEnabled(true);
+				 	gauche2.setEnabled(false);
+				 	gauche1.setEnabled(true);
+				 	droite2.setEnabled(false);
+				 	droite1.setEnabled(true);
+				 	Audio.playSound("passetour.wav");
 				}
 				
-			 	if(arg0.getSource() == conquerir2) {
+			 	if(arg0.getSource() == conquerir2 && j2.getPoints_dactions()>=1) {
 			 		conquerir2.setEnabled(false);
 			 		j2.setX(j2.getX());
 			 		j2.setY(j2.getY());
@@ -551,12 +503,17 @@ public class Fenetre extends JFrame implements ActionListener{
 			 		Audio.playSound("victoire.wav");	
 				}
 
-			 	if(arg0.getSource() == attaquer2) {
+			 	if(arg0.getSource() == attaquer2 && j2.getPoints_dactions()>=2) {
 					Astre astre_attaque = Scene.peut_attaquer(j2, j1);
-					j2.attaquer(j1, astre_attaque);
-					Audio.playSound("battle2.wav");
-					astre_attaque.setIcoObj(icoObj2);
-					astre_attaque.setImgObj(imgObj2);
+					if(astre_attaque != null)
+						attaquer2.setEnabled(false);
+						j2.attaquer(j2, j1, astre_attaque);
+						Audio.playSound("battle2.wav");
+						astre_attaque.setIcoObj(icoObj2);
+						astre_attaque.setImgObj(imgObj2);
+						ptsactions2.setText("Points d'actions : " + Integer.toString(j2.getPoints_dactions()));
+						ptsconq2.setText("Points conquêtes : " + Integer.toString(j2.getPoints_conquetes()));
+						exp2.setText("Expérience : " + Double.toString(j2.getExperience()));
 			    }
 			}
 	}
