@@ -18,6 +18,7 @@ public class Joueur extends Unite{
 		int points_dactions;
 		int main;
 		int territoires_conquis; 
+		static int valNum;
 
 		//*** CONSTRUCTEUR ***//
 		public Joueur(String nom, int x, int y) {
@@ -27,11 +28,12 @@ public class Joueur extends Unite{
 			this.niveau = 1;
 			this.experience = 0;
 			this.tour=1;
-			this.points_dactions = 10;
+			this.points_dactions = 6;
 			super.icoObj = new ImageIcon(getClass().getResource("joueur3.png")); 
 			super.imgObj = this.icoObj.getImage(); 
 			this.territoires = new ArrayList<Astre>();
 			this.territoires_conquis = 0;	
+			this.valNum = 0;
 		}
 	
 		//*** GETTERS ET SETTERS ***//
@@ -54,15 +56,53 @@ public class Joueur extends Unite{
 		
 
 		//*** METHODES ***//
-		public static void passer_tour(Joueur joueurquijoue, Joueur autre) { // Ã  appeler Ã  chaque tour d'un seul joueur
+		public static void passer_tour(Joueur joueurquijoue, Joueur autre) { 
 			joueurquijoue.tour += 1;
 			joueurquijoue.main = 0;
 			autre.main = 1;
-			if (joueurquijoue.niveau == 1) { joueurquijoue.points_dactions = 10;}
-			else if (joueurquijoue.niveau == 2) { joueurquijoue.points_dactions = 20;}
-			else if (joueurquijoue.niveau == 3) { joueurquijoue.points_dactions = 30;}
-			
+			if (joueurquijoue.niveau == 1) { joueurquijoue.points_dactions = 6;}
+			else if (joueurquijoue.niveau == 2) { joueurquijoue.points_dactions = 10;}
+			else if (joueurquijoue.niveau == 3) { joueurquijoue.points_dactions = 15;}
+			incremente_dates(autre);
+			incremente_exp(autre);
+			autre.points_conquetes += points_conqu_en_plus(autre);	
+			autre.experience += exp_en_plus(autre);
+			if (peut_evoluer(joueurquijoue) == true)
+				evolution(joueurquijoue);
 		}
+	
+		public static int points_conqu_en_plus(Joueur j) {
+			int ptsCplus = 0;
+			for(int i =0; i< j.territoires.size(); i++) {
+				Astre a = j.territoires.get(i);
+				ptsCplus += a.date*0.3*a.points_conquetes;
+			}
+			return ptsCplus;
+		}
+		
+		public static int exp_en_plus(Joueur j) {
+			int expplus = 0;
+			for(int i =0; i< j.territoires.size(); i++) {
+				Astre a = j.territoires.get(i);
+				expplus += a.population;
+			}
+			return expplus;
+		}
+		
+		public static void incremente_dates(Joueur j) {
+			for(int i=0; i<j.territoires.size(); i++) {
+				Astre a = j.territoires.get(i);
+				Astre.ajout_date_astre(a);
+			}
+		}
+		
+		public static void incremente_exp(Joueur j) {
+			for(int i=0; i<j.territoires.size(); i++) {
+				Astre a = j.territoires.get(i);
+				Astre.population(a,j);
+			}
+		}
+		
 		
 		public void points(Joueur j, Astre a) {
 			j.points_conquetes = j.points_conquetes - a.points_conquetes;
@@ -74,8 +114,6 @@ public class Joueur extends Unite{
 		public void conquerir(Astre a, Joueur j) {
 			if (this.main == 1) {
 				if (this.points_dactions >= 0) {
-					//if (j.points_conquetes >= a.points_conquetes)
-						
 						this.points_conquetes -= a.getPoints_conquetes();
 						this.experience += a.getTaille();
 						this.points_dactions -= 1;
@@ -87,43 +125,38 @@ public class Joueur extends Unite{
 			}
 		}
 		
-		public void attaquer(Joueur j, Astre a) {
-				if (this.main == 1) {
-					if (this.points_dactions >= 5) {
-						System.out.println("Le joueur" + this.nom + " attaque l'astre " + a.nom + "de" + j.nom);
-						if ((this.points_conquetes >= a.points_conquetes) && (a.getX() == this.getX()) && (a.getY() == this.getY())) {
-							this.conquerir(a,j);
-							j.territoires.remove(a); 		
-						}
-								System.out.println("Le joueur" + this.nom + " a conquit l'astre " + a.nom + "de" + j.nom);
-				
-							}
-							this.points_dactions -= 7;
-						}
-					
-				
-						else {
-							System.out.println("Le joueur" + this.nom + " n'a pas assez de points conquêtes pour conquérir l'astre " + a.nom + "de" + j.nom + " en plus il est moche ");}
-					
-		}
-				
+		public void attaquer(Joueur j1, Joueur j2, Astre a) {
+				if (j1.main == 1 && j1.points_dactions >= 2) {
+					System.out.println("Le joueur" + j1.nom + " attaque l'astre " + a.nom + "de" + j2.nom);
+					if ((j1.points_conquetes >= a.points_conquetes) && (Math.abs(a.getX() - j1.getX())< 30) && (Math.abs(a.getY() - j1.getY())< 30)) 
+						j1.conquerir(a,j2);
+						j2.territoires.remove(a); 
+						j1.points_dactions -= 1;
+						j1.experience += a.getTaille();
+						j2.territoires_conquis -= 1;
+					System.out.println("Le joueur" + j1.nom + " a conquit l'astre " + a.nom + "de" + j2.nom);}	
+					else
+						System.out.println("Le joueur" + j1.nom + " n'a pas assez de points conquêtes pour conquérir l'astre " + a.nom + "de" + j2.nom);
+		}	
 		
-		public void evoluer(Joueur j) { //correspond au changement de niveau
-			if (j.main == 1) {
-				if (j.points_conquetes < 50000) { 
-					System.out.println("Vous n'avez pas assez de points conquêtes pour réaliser cette action ");
-					}
-				else if(j.points_conquetes > 50000) { //50 000 arbitraire
-					j.niveau = 2;
-					j.points_dactions = 20;
-					j.points_conquetes -= 50000;
-				}
-				else if(j.points_conquetes > 100000){ //100 000 arbitraire
-					j.niveau = 3;
-					j.points_dactions = 30;
-					j.points_conquetes -= 100000;
-				}
-			else {System.out.println("Ce n'est pas encore votre tour");}
+		public static boolean peut_evoluer(Joueur j) {
+			if(j.experience > 5000 && valNum == 0 && j.experience <10000) {
+				valNum = 1;
+				return true;}
+			else if(valNum == 5 && j.experience >10000) {
+				valNum = 2;
+				return true;}
+			else {return false;}
 		}
-	}
+		
+		public static void evolution(Joueur j) { //correspond au changement de niveau 1
+			if(valNum == 1 && j.experience>5000)
+					j.niveau = 2;
+					j.points_conquetes -= 1000;
+					valNum = 5;
+			if(valNum == 2 && j.experience>10000)
+					j.niveau = 3;
+					j.points_conquetes -= 2000;	
+					valNum = 6;		
+		}
 }
