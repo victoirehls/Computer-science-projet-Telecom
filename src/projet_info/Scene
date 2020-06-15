@@ -237,8 +237,9 @@ public class Scene extends JPanel {
 			gc.drawImage(this.tabObjets.get(i).getImgObj(), this.tabObjets.get(i).getX(),this.tabObjets.get(i).getY(),null);
 			int X = tabObjets.get(i).getX();
 			int Y = tabObjets.get(i).getY();
-			gc.drawString(tabObjets.get(i).getNom(), X+20, Y+20);
-			gc.drawString(Integer.toString(tabObjets.get(i).getTaille()), X+30, Y+30);
+			gc.setColor(Color.WHITE);
+			gc.drawString(tabObjets.get(i).getNom(), X+15, Y+30);
+			gc.drawString(Integer.toString( tabObjets.get(i).getTaille()), X+20, Y+40);
 		}
 		
 		//tracé de la grille
